@@ -73,8 +73,8 @@ namespace DnD_Dungeon_Builder
             CenterPictureBox(gridPb, GridDrawArea);
             CenterPictureBox(isometricPb, IsometricDrawArea);
 
-            this.originX = frameSize.Width / 2 - map.Columns * tileSize / 2;
-            this.originY = frameSize.Height / 2;
+            originX = isometricPanel.Width / 2 - map.Columns * tileSize / 2;
+            originY = isometricPanel.Height / 2;
         }
 
         private void CenterPictureBox(PictureBox picBox, Bitmap picImage)
