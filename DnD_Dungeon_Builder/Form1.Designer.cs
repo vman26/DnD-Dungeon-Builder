@@ -55,6 +55,7 @@
             this.gridPb.Size = new System.Drawing.Size(100, 100);
             this.gridPb.TabIndex = 0;
             this.gridPb.TabStop = false;
+            this.gridPb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridPb_MouseDown);
             // 
             // isometricPanel
             // 
