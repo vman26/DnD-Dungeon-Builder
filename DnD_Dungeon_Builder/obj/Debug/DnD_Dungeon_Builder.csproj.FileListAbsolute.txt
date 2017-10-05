@@ -8,3 +8,12 @@ C:\Users\qmvel\source\repos\DnD_Dungeon_Builder\DnD_Dungeon_Builder\bin\Debug\Dn
 C:\Users\qmvel\source\repos\DnD_Dungeon_Builder\DnD_Dungeon_Builder\bin\Debug\DnD_Dungeon_Builder.pdb
 C:\Users\qmvel\source\repos\DnD_Dungeon_Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.exe
 C:\Users\qmvel\source\repos\DnD_Dungeon_Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.pdb
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\bin\Debug\DnD_Dungeon_Builder.exe.config
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.exe
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.pdb
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\bin\Debug\DnD_Dungeon_Builder.exe
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\bin\Debug\DnD_Dungeon_Builder.pdb
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.csprojResolveAssemblyReference.cache
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.Form1.resources
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.Properties.Resources.resources
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.csproj.GenerateResource.Cache
