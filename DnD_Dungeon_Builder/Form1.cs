@@ -12,9 +12,7 @@ namespace DnD_Dungeon_Builder
 {
     public partial class Form1 : Form
     {
-        int tileSize = 64;
-        int originX = 0;
-        int originY = 0;
+        int tileSize = 40;
 
         Map<int> map;
 
@@ -46,9 +44,6 @@ namespace DnD_Dungeon_Builder
         {
             resizeGridPanels();
             redrawTiles();
-
-            CenterPictureBox(gridPb, GridDrawArea);
-            CenterPictureBox(isometricPb, IsometricDrawArea);
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -61,15 +56,11 @@ namespace DnD_Dungeon_Builder
         {
             Size frameSize = ClientRectangle.Size; // Get size of frame without borders
 
-            gridPanel.Location = new Point(0, 0); // First panel
+            gridPanel.Location = new Point(0, 0);
             gridPanel.Size = new Size(frameSize.Width / 2, frameSize.Height);
             
-            isometricPanel.Location = new Point(frameSize.Width / 2, 0); // First panel
+            isometricPanel.Location = new Point(frameSize.Width / 2, 0);
             isometricPanel.Size = new Size(frameSize.Width / 2, frameSize.Height);
-
-            //originX = isometricPanel.Width / 2 - map.Columns * tileSize / 2;
-            originX = isometricPanel.Width;
-            originY = isometricPanel.Height / 2;
         }
 
         private void CenterPictureBox(PictureBox picBox, Bitmap picImage)
@@ -87,15 +78,13 @@ namespace DnD_Dungeon_Builder
 
         private void redrawTiles(int selectedTileX = -1, int selectedTileY = -1)
         {
-            resizeGridPanels();
-
             Draw.ClearDrawing(ref GridDrawArea);
             Draw.ClearDrawing(ref IsometricDrawArea);
 
             Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
             CenterPictureBox(gridPb, GridDrawArea);
 
-            Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, new Point(originX, originY), ref IsometricDrawArea, selectedTileX, selectedTileY);
+            Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, selectedTileX, selectedTileY);
             CenterPictureBox(isometricPb, IsometricDrawArea);
         }
 

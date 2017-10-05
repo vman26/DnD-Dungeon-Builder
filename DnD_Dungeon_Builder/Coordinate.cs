@@ -16,13 +16,13 @@ namespace DnD_Dungeon_Builder
         {
             return isoY + (localX + localY) * isoH;
         }
-        //static public int ScreenToIsoX(globalX, globalY)
-        //{
-        //    return ((globalX - IsoX) / IsoW + (globalY - IsoY) / IsoH) / 2;
-        //}
-        //static public int ScreenToIsoY(globalX, globalY)
-        //{
-        //    return ((globalY - IsoY) / IsoH - (globalX - IsoX) / IsoW) / 2;
-        //}
+        static public int ScreenToIsoX(int globalX, int globalY, int isoX, int isoW, int isoY, int isoH)
+        {
+            return ((globalX - isoX) / isoW + (globalY - isoY) / isoH) / 2;
+        }
+        static public int ScreenToIsoY(int globalX, int globalY, int isoX, int isoW, int isoY, int isoH)
+        {
+            return ((globalY - isoY) / isoH - (globalX - isoX) / isoW) / 2;
+        }
     }
 }

@@ -33,16 +33,16 @@ namespace DnD_Dungeon_Builder
             g.Dispose();
         }
 
-        static public void DrawIsometricTiles(int xTiles, int yTiles, int tileSize, Point origin, ref Bitmap bitmap, int selectedTileX = -1, int selectedTileY = -1)
+        static public void DrawIsometricTiles(int xTiles, int yTiles, int tileSize, ref Bitmap bitmap, int selectedTileX = -1, int selectedTileY = -1)
         {
-            bitmap = new Bitmap(tileSize * xTiles + 1, tileSize * yTiles + 1);
+            bitmap = new Bitmap(tileSize * xTiles * 2, tileSize * yTiles);
             Graphics g = Graphics.FromImage(bitmap);
 
             var IsoW = tileSize; // cell width
             var IsoH = tileSize / 2; // cell height
-            var IsoX = origin.X / 2;
-            var IsoY = 20;
-
+            var IsoX = bitmap.Width / 2;
+            var IsoY = 0;
+            
             for (var y = 0; y < yTiles; y++)
             {
                 for (var x = 0; x < xTiles; x++)
@@ -71,43 +71,7 @@ namespace DnD_Dungeon_Builder
                 g.DrawLine(pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
                 g.DrawLine(pen, rx + IsoW, ry + IsoH, rx, ry);
             }
-
-
-
-
-            //        int tileColumnOffset = tileSize;
-            //int tileRowOffset = tileSize / 2;
-
-            //for (var Xi = 0; Xi < xTiles; Xi++)
-            //{
-            //    for (var Yi = 0; Yi < yTiles; Yi++)
-            //    {
-            //        var offX = Xi * tileColumnOffset / 2 + Yi * tileColumnOffset / 2 + origin.X;
-            //        var offY = Yi * tileRowOffset / 2 - Xi * tileRowOffset / 2 + origin.Y;
-
-            //        Pen pen = new Pen(Color.Black);
-
-            //        g.DrawLine(pen, offX, offY + tileRowOffset / 2, offX + tileColumnOffset / 2, offY);
-            //        g.DrawLine(pen, offX + tileColumnOffset / 2, offY, offX + tileColumnOffset, offY + tileRowOffset / 2);
-            //        g.DrawLine(pen, offX + tileColumnOffset, offY + tileRowOffset / 2, offX + tileColumnOffset / 2, offY + tileRowOffset);
-            //        g.DrawLine(pen, offX + tileColumnOffset / 2, offY + tileRowOffset, offX, offY + tileRowOffset / 2);
-            //    }
-            //}
-
-            //if (selectedTileX >= 0 && selectedTileY >= 0)
-            //{
-            //    var offX = selectedTileX * tileColumnOffset / 2 + selectedTileY * tileColumnOffset / 2 + origin.X;
-            //    var offY = selectedTileY * tileRowOffset / 2 - selectedTileX * tileRowOffset / 2 + origin.Y;
-
-            //    Pen pen = new Pen(Color.Red);
-
-            //    g.DrawLine(pen, offX, offY + tileRowOffset / 2, offX + tileColumnOffset / 2, offY);
-            //    g.DrawLine(pen, offX + tileColumnOffset / 2, offY, offX + tileColumnOffset, offY + tileRowOffset / 2);
-            //    g.DrawLine(pen, offX + tileColumnOffset, offY + tileRowOffset / 2, offX + tileColumnOffset / 2, offY + tileRowOffset);
-            //    g.DrawLine(pen, offX + tileColumnOffset / 2, offY + tileRowOffset, offX, offY + tileRowOffset / 2);
-            //}
-
-
+            
             g.Dispose();
         }
 
