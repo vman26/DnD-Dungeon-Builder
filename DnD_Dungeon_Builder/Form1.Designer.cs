@@ -55,6 +55,7 @@
             this.gridPb.Size = new System.Drawing.Size(100, 100);
             this.gridPb.TabIndex = 0;
             this.gridPb.TabStop = false;
+            this.gridPb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridPb_MouseDown);
             // 
             // isometricPanel
             // 
@@ -68,6 +69,7 @@
             // isometricPb
             // 
             this.isometricPb.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.isometricPb.BackColor = System.Drawing.SystemColors.Control;
             this.isometricPb.Location = new System.Drawing.Point(278, 262);
             this.isometricPb.Name = "isometricPb";
             this.isometricPb.Size = new System.Drawing.Size(100, 100);

@@ -12,9 +12,8 @@ namespace DnD_Dungeon_Builder
 {
     public partial class Form1 : Form
     {
-        int tileSize = 64;
-        int originX = 0;
-        int originY = 0;
+        int tileSize = 40;
+
         Map<int> map;
 
         Bitmap GridDrawArea;
@@ -44,37 +43,24 @@ namespace DnD_Dungeon_Builder
         private void Form1_Load(object sender, EventArgs e)
         {
             resizeGridPanels();
-
-            ClearDrawing(GridDrawArea);
-            ClearDrawing(IsometricDrawArea);
-
-            DrawGridTiles(map.Columns, map.Rows);
-            CenterPictureBox(gridPb, GridDrawArea);
-
-            DrawIsometricTiles(map.Columns, map.Rows);
-            CenterPictureBox(isometricPb, IsometricDrawArea);
+            redrawTiles();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             resizeGridPanels();
+            redrawTiles();
         }
 
         void resizeGridPanels()
         {
             Size frameSize = ClientRectangle.Size; // Get size of frame without borders
 
-            gridPanel.Location = new Point(0, 0); // First panel
+            gridPanel.Location = new Point(0, 0);
             gridPanel.Size = new Size(frameSize.Width / 2, frameSize.Height);
             
-            isometricPanel.Location = new Point(frameSize.Width / 2, 0); // First panel
+            isometricPanel.Location = new Point(frameSize.Width / 2, 0);
             isometricPanel.Size = new Size(frameSize.Width / 2, frameSize.Height);
-
-            CenterPictureBox(gridPb, GridDrawArea);
-            CenterPictureBox(isometricPb, IsometricDrawArea);
-
-            originX = isometricPanel.Width / 2 - map.Columns * tileSize / 2;
-            originY = isometricPanel.Height / 2;
         }
 
         private void CenterPictureBox(PictureBox picBox, Bitmap picImage)
@@ -90,53 +76,22 @@ namespace DnD_Dungeon_Builder
             picBox.Anchor = (AnchorStyles.Left | AnchorStyles.Top);
         }
 
-        void DrawGridTiles(int xTiles, int yTiles)
+        private void redrawTiles(int selectedTileX = -1, int selectedTileY = -1)
         {
-            GridDrawArea = new Bitmap(tileSize * xTiles + 1, tileSize * yTiles + 1);
-            Graphics g = Graphics.FromImage(GridDrawArea);
+            Draw.ClearDrawing(ref GridDrawArea);
+            Draw.ClearDrawing(ref IsometricDrawArea);
 
-            for (int Xi = 0; Xi < xTiles; Xi++)
-            {
-                for (var Yi = 0; Yi < yTiles; Yi++)
-                {
-                    // Draw tile outline
-                    Pen pen = new Pen(Color.Black);
-                    g.DrawRectangle(pen, Xi * tileSize, Yi * tileSize, tileSize, tileSize);
-                }
-            }
-            g.Dispose();
+            Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
+            CenterPictureBox(gridPb, GridDrawArea);
+
+            Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, selectedTileX, selectedTileY);
+            CenterPictureBox(isometricPb, IsometricDrawArea);
         }
 
-        void DrawIsometricTiles(int xTiles, int yTiles)
+        private void gridPb_MouseDown(object sender, MouseEventArgs e)
         {
-            IsometricDrawArea = new Bitmap(tileSize * xTiles + 1, tileSize * yTiles + 1);
-            Graphics g = Graphics.FromImage(IsometricDrawArea);
-
-            int tileColumnOffset = tileSize;
-            int tileRowOffset = tileSize / 2;
-
-            for (var Xi = 0; Xi < xTiles; Xi++)
-            {
-                for (var Yi = 0; Yi < yTiles; Yi++)
-                {
-                    var offX = Xi * tileColumnOffset / 2 + Yi * tileColumnOffset / 2 + originX;
-                    var offY = Yi * tileRowOffset / 2 - Xi * tileRowOffset / 2 + originY;
-                    
-                    Pen pen = new Pen(Color.Black);
-                    g.DrawLine(pen, offX, offY + tileRowOffset / 2, offX + tileColumnOffset / 2, offY);
-                    g.DrawLine(pen, offX + tileColumnOffset / 2, offY, offX + tileColumnOffset, offY + tileRowOffset / 2);
-                    g.DrawLine(pen, offX + tileColumnOffset, offY + tileRowOffset / 2, offX + tileColumnOffset / 2, offY + tileRowOffset);
-                    g.DrawLine(pen, offX + tileColumnOffset / 2, offY + tileRowOffset, offX, offY + tileRowOffset / 2);
-                }
-            }
-            g.Dispose();
-        }
-
-        void ClearDrawing(Bitmap bitmap)
-        {
-            Graphics g = Graphics.FromImage(bitmap);
-            g.Clear(Color.White);
-            g.Dispose();
+            Point selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
+            redrawTiles(selectedTile.X, selectedTile.Y);
         }
     }
 }
