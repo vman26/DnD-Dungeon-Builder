@@ -43,14 +43,12 @@ namespace DnD_Dungeon_Builder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            resizePanels();
-            redrawTiles();
+            refreshScreen();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            resizePanels();
-            redrawTiles();
+            refreshScreen();
         }
 
         void resizePanels()
@@ -115,17 +113,37 @@ namespace DnD_Dungeon_Builder
         private void btnNewMap_Click(object sender, EventArgs e)
         {
             map = new Map<int>((int)nupXtiles.Value, (int)nupYtiles.Value, "Test map");
-
-            resizePanels();
-            redrawTiles();
+            refreshScreen();
         }
 
         private void nupTileSize_ValueChanged(object sender, EventArgs e)
         {
             tileSize = (int)nupTileSize.Value;
+            refreshScreen();
+        }
 
+        private void btnClearMap_Click(object sender, EventArgs e)
+        {
+            map?.ClearMap();
+            refreshScreen();
+        }
+
+        private void refreshScreen()
+        {
             resizePanels();
             redrawTiles();
+        }
+
+        private void btnAddColumn_Click(object sender, EventArgs e)
+        {
+            map?.AddColumn();
+            refreshScreen();
+        }
+
+        private void btnAddRow_Click(object sender, EventArgs e)
+        {
+            map?.AddRow();
+            refreshScreen();
         }
     }
 }

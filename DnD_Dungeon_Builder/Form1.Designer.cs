@@ -39,6 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nupYtiles = new System.Windows.Forms.NumericUpDown();
             this.nupXtiles = new System.Windows.Forms.NumericUpDown();
+            this.btnClearMap = new System.Windows.Forms.Button();
+            this.btnAddColumn = new System.Windows.Forms.Button();
+            this.btnAddRow = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -92,6 +95,9 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.btnAddRow);
+            this.controlPanel.Controls.Add(this.btnAddColumn);
+            this.controlPanel.Controls.Add(this.btnClearMap);
             this.controlPanel.Controls.Add(this.label2);
             this.controlPanel.Controls.Add(this.nupTileSize);
             this.controlPanel.Controls.Add(this.btnNewMap);
@@ -106,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(309, 9);
+            this.label2.Location = new System.Drawing.Point(284, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 5;
@@ -114,14 +120,14 @@
             // 
             // nupTileSize
             // 
-            this.nupTileSize.Location = new System.Drawing.Point(363, 7);
+            this.nupTileSize.Location = new System.Drawing.Point(338, 7);
             this.nupTileSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.nupTileSize.Name = "nupTileSize";
-            this.nupTileSize.Size = new System.Drawing.Size(120, 20);
+            this.nupTileSize.Size = new System.Drawing.Size(147, 20);
             this.nupTileSize.TabIndex = 4;
             this.nupTileSize.Value = new decimal(new int[] {
             40,
@@ -183,6 +189,37 @@
             0,
             0});
             // 
+            // btnClearMap
+            // 
+            this.btnClearMap.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnClearMap.Location = new System.Drawing.Point(1093, 0);
+            this.btnClearMap.Name = "btnClearMap";
+            this.btnClearMap.Size = new System.Drawing.Size(171, 75);
+            this.btnClearMap.TabIndex = 6;
+            this.btnClearMap.Text = "Clear map";
+            this.btnClearMap.UseVisualStyleBackColor = true;
+            this.btnClearMap.Click += new System.EventHandler(this.btnClearMap_Click);
+            // 
+            // btnAddColumn
+            // 
+            this.btnAddColumn.Location = new System.Drawing.Point(287, 33);
+            this.btnAddColumn.Name = "btnAddColumn";
+            this.btnAddColumn.Size = new System.Drawing.Size(96, 36);
+            this.btnAddColumn.TabIndex = 7;
+            this.btnAddColumn.Text = "Add column";
+            this.btnAddColumn.UseVisualStyleBackColor = true;
+            this.btnAddColumn.Click += new System.EventHandler(this.btnAddColumn_Click);
+            // 
+            // btnAddRow
+            // 
+            this.btnAddRow.Location = new System.Drawing.Point(389, 33);
+            this.btnAddRow.Name = "btnAddRow";
+            this.btnAddRow.Size = new System.Drawing.Size(96, 36);
+            this.btnAddRow.TabIndex = 8;
+            this.btnAddRow.Text = "Add Row";
+            this.btnAddRow.UseVisualStyleBackColor = true;
+            this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +258,9 @@
         private System.Windows.Forms.Button btnNewMap;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown nupTileSize;
+        private System.Windows.Forms.Button btnClearMap;
+        private System.Windows.Forms.Button btnAddRow;
+        private System.Windows.Forms.Button btnAddColumn;
     }
 }
 

@@ -78,7 +78,7 @@ namespace DnD_Dungeon_Builder
         static public void ClearDrawing(ref Bitmap bitmap)
         {
             Graphics g = Graphics.FromImage(bitmap);
-            g.Clear(Color.White);
+            g.Clear(Color.Transparent);
             g.Dispose();
         }
     }
