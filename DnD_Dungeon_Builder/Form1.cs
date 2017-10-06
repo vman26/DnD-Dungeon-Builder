@@ -136,14 +136,22 @@ namespace DnD_Dungeon_Builder
 
         private void btnAddColumn_Click(object sender, EventArgs e)
         {
-            map?.AddColumn();
-            refreshScreen();
+            if (map != null)
+            {
+                map.AddColumn();
+                nupXtiles.Value++;
+                refreshScreen();
+            }
         }
 
         private void btnAddRow_Click(object sender, EventArgs e)
         {
-            map?.AddRow();
-            refreshScreen();
+            if (map != null)
+            {
+                map.AddRow();
+                nupYtiles.Value++;
+                refreshScreen();
+            }
         }
     }
 }

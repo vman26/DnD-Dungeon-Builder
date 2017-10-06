@@ -35,7 +35,14 @@ namespace DnD_Dungeon_Builder
 
         static public void DrawIsometricTiles(int xTiles, int yTiles, int tileSize, ref Bitmap bitmap, int selectedTileX = -1, int selectedTileY = -1)
         {
-            bitmap = new Bitmap(tileSize * xTiles * 2, tileSize * yTiles);
+            //bitmap = new Bitmap(tileSize * xTiles * 2, tileSize * yTiles);
+            Size bitmapSize = new Size(tileSize * xTiles * 2, tileSize * yTiles);
+
+            if (yTiles - xTiles > 0) bitmapSize.Width += ((yTiles - xTiles) * tileSize * 2);
+            if (xTiles - yTiles > 0) bitmapSize.Height += ((xTiles - yTiles) * tileSize);
+
+            //bitmap = new Bitmap(tileSize * xTiles * 2, tileSize * yTiles);
+            bitmap = new Bitmap(bitmapSize.Width, bitmapSize.Height);
             Graphics g = Graphics.FromImage(bitmap);
 
             var IsoW = tileSize; // cell width
@@ -49,6 +56,8 @@ namespace DnD_Dungeon_Builder
                 {
                     var rx = Coordinate.IsoToScreenX(x, y, IsoX, IsoW);
                     var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
+                    
+                    if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
 
                     Pen pen = new Pen(Color.Black);
 
