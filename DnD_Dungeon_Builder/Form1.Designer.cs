@@ -33,15 +33,15 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.btnAddRow = new System.Windows.Forms.Button();
+            this.btnAddColumn = new System.Windows.Forms.Button();
+            this.btnClearMap = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nupYtiles = new System.Windows.Forms.NumericUpDown();
             this.nupXtiles = new System.Windows.Forms.NumericUpDown();
-            this.btnClearMap = new System.Windows.Forms.Button();
-            this.btnAddColumn = new System.Windows.Forms.Button();
-            this.btnAddRow = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -89,7 +89,6 @@
             this.isometricPb.Size = new System.Drawing.Size(100, 100);
             this.isometricPb.TabIndex = 1;
             this.isometricPb.TabStop = false;
-            this.isometricPb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.isometricPb_MouseDown);
             // 
             // controlPanel
             // 
@@ -108,6 +107,37 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // btnAddRow
+            // 
+            this.btnAddRow.Location = new System.Drawing.Point(389, 33);
+            this.btnAddRow.Name = "btnAddRow";
+            this.btnAddRow.Size = new System.Drawing.Size(96, 36);
+            this.btnAddRow.TabIndex = 8;
+            this.btnAddRow.Text = "Add Row";
+            this.btnAddRow.UseVisualStyleBackColor = true;
+            this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
+            // 
+            // btnAddColumn
+            // 
+            this.btnAddColumn.Location = new System.Drawing.Point(287, 33);
+            this.btnAddColumn.Name = "btnAddColumn";
+            this.btnAddColumn.Size = new System.Drawing.Size(96, 36);
+            this.btnAddColumn.TabIndex = 7;
+            this.btnAddColumn.Text = "Add column";
+            this.btnAddColumn.UseVisualStyleBackColor = true;
+            this.btnAddColumn.Click += new System.EventHandler(this.btnAddColumn_Click);
+            // 
+            // btnClearMap
+            // 
+            this.btnClearMap.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnClearMap.Location = new System.Drawing.Point(1093, 0);
+            this.btnClearMap.Name = "btnClearMap";
+            this.btnClearMap.Size = new System.Drawing.Size(171, 75);
+            this.btnClearMap.TabIndex = 6;
+            this.btnClearMap.Text = "Clear map";
+            this.btnClearMap.UseVisualStyleBackColor = true;
+            this.btnClearMap.Click += new System.EventHandler(this.btnClearMap_Click);
             // 
             // label2
             // 
@@ -188,37 +218,6 @@
             0,
             0,
             0});
-            // 
-            // btnClearMap
-            // 
-            this.btnClearMap.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnClearMap.Location = new System.Drawing.Point(1093, 0);
-            this.btnClearMap.Name = "btnClearMap";
-            this.btnClearMap.Size = new System.Drawing.Size(171, 75);
-            this.btnClearMap.TabIndex = 6;
-            this.btnClearMap.Text = "Clear map";
-            this.btnClearMap.UseVisualStyleBackColor = true;
-            this.btnClearMap.Click += new System.EventHandler(this.btnClearMap_Click);
-            // 
-            // btnAddColumn
-            // 
-            this.btnAddColumn.Location = new System.Drawing.Point(287, 33);
-            this.btnAddColumn.Name = "btnAddColumn";
-            this.btnAddColumn.Size = new System.Drawing.Size(96, 36);
-            this.btnAddColumn.TabIndex = 7;
-            this.btnAddColumn.Text = "Add column";
-            this.btnAddColumn.UseVisualStyleBackColor = true;
-            this.btnAddColumn.Click += new System.EventHandler(this.btnAddColumn_Click);
-            // 
-            // btnAddRow
-            // 
-            this.btnAddRow.Location = new System.Drawing.Point(389, 33);
-            this.btnAddRow.Name = "btnAddRow";
-            this.btnAddRow.Size = new System.Drawing.Size(96, 36);
-            this.btnAddRow.TabIndex = 8;
-            this.btnAddRow.Text = "Add Row";
-            this.btnAddRow.UseVisualStyleBackColor = true;
-            this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
             // 
             // Form1
             // 

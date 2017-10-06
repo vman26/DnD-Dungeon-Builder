@@ -73,6 +73,8 @@ namespace DnD_Dungeon_Builder
                 var rx = Coordinate.IsoToScreenX(selectedTileX, selectedTileY, IsoX, IsoW);
                 var ry = Coordinate.IsoToScreenY(selectedTileX, selectedTileY, IsoY, IsoH);
 
+                if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
+
                 Pen pen = new Pen(Color.Red);
 
                 g.DrawLine(pen, rx, ry, rx - IsoW, ry + IsoH);

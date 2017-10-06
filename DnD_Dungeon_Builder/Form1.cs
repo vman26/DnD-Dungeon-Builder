@@ -96,18 +96,11 @@ namespace DnD_Dungeon_Builder
         private void gridPb_MouseDown(object sender, MouseEventArgs e)
         {
             Point selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
-            redrawTiles(selectedTile.X, selectedTile.Y);
-        }
 
-        private void isometricPb_MouseDown(object sender, MouseEventArgs e)
-        {
-            var IsoW = tileSize; // cell width
-            var IsoH = tileSize / 2; // cell height
-            var IsoX = IsometricDrawArea.Width / 2;
-            var IsoY = 0;
-
-            Point selectedTile = new Point(Coordinate.ScreenToIsoX(e.X, e.Y, IsoX, IsoW, IsoY, IsoH), Coordinate.ScreenToIsoY(e.X, e.Y, IsoX, IsoW, IsoY, IsoH));
-            redrawTiles(selectedTile.X, selectedTile.Y);
+            if (Enumerable.Range(0, map.Columns).Contains(selectedTile.X) && Enumerable.Range(0, map.Rows).Contains(selectedTile.Y))
+            {
+                redrawTiles(selectedTile.X, selectedTile.Y);
+            }
         }
 
         private void btnNewMap_Click(object sender, EventArgs e)
