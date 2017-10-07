@@ -19,6 +19,8 @@ namespace DnD_Dungeon_Builder
         Bitmap GridDrawArea;
         Bitmap IsometricDrawArea;
 
+        Color isoBackgroundColor;
+
         public Form1()
         {
             InitializeComponent();
@@ -34,8 +36,13 @@ namespace DnD_Dungeon_Builder
             isometricPb.SizeMode = PictureBoxSizeMode.AutoSize;
             isometricPb.Anchor = AnchorStyles.None;
 
-            //gridPanel.AutoScroll = true;
-            //isometricPanel.AutoScroll = true;
+            gridPanel.BackColor = Color.White;
+            isometricPanel.BackColor = Color.White;
+
+            isometricPb.BackColor = Color.Transparent;
+            gridPb.BackColor = Color.Transparent;
+
+            isoBackgroundColor = Color.Transparent;
 
             this.Name = "D&D dungeon builder";
             this.Text = "D&D dungeon builder";
@@ -88,7 +95,7 @@ namespace DnD_Dungeon_Builder
                 Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
                 CenterPictureBox(gridPb, GridDrawArea);
 
-                Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, selectedTileX, selectedTileY);
+                Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, isoBackgroundColor, selectedTileX, selectedTileY);
                 CenterPictureBox(isometricPb, IsometricDrawArea);
             }
         }
@@ -105,8 +112,16 @@ namespace DnD_Dungeon_Builder
 
         private void btnNewMap_Click(object sender, EventArgs e)
         {
-            map = new Map<int>((int)nupXtiles.Value, (int)nupYtiles.Value, "Test map");
-            refreshScreen();
+            using (CreateMapForm form = new CreateMapForm())
+            {
+                form.Parent = this.Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    map = new Map<int>(form.Xtiles, form.Ytiles, form.MapName);
+                    refreshScreen();
+                }
+            }
         }
 
         private void nupTileSize_ValueChanged(object sender, EventArgs e)
@@ -132,7 +147,6 @@ namespace DnD_Dungeon_Builder
             if (map != null)
             {
                 map.AddColumn();
-                nupXtiles.Value++;
                 refreshScreen();
             }
         }
@@ -142,7 +156,25 @@ namespace DnD_Dungeon_Builder
             if (map != null)
             {
                 map.AddRow();
-                nupYtiles.Value++;
+                refreshScreen();
+            }
+        }
+
+        private void btnAddColumnAndRow_Click(object sender, EventArgs e)
+        {
+            if (map != null)
+            {
+                map.AddColumn();
+                map.AddRow();
+                refreshScreen();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cdBackgroud.ShowDialog() == DialogResult.OK)
+            {
+                isoBackgroundColor = cdBackgroud.Color;
                 refreshScreen();
             }
         }

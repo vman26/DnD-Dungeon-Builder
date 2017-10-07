@@ -33,23 +33,21 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.btnAddColumnAndRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
             this.btnAddColumn = new System.Windows.Forms.Button();
             this.btnClearMap = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nupYtiles = new System.Windows.Forms.NumericUpDown();
-            this.nupXtiles = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cdBackgroud = new System.Windows.Forms.ColorDialog();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.isometricPb)).BeginInit();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupTileSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupYtiles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupXtiles)).BeginInit();
             this.SuspendLayout();
             // 
             // gridPanel
@@ -94,35 +92,44 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.button1);
+            this.controlPanel.Controls.Add(this.btnAddColumnAndRow);
             this.controlPanel.Controls.Add(this.btnAddRow);
             this.controlPanel.Controls.Add(this.btnAddColumn);
             this.controlPanel.Controls.Add(this.btnClearMap);
             this.controlPanel.Controls.Add(this.label2);
             this.controlPanel.Controls.Add(this.nupTileSize);
             this.controlPanel.Controls.Add(this.btnNewMap);
-            this.controlPanel.Controls.Add(this.label1);
-            this.controlPanel.Controls.Add(this.nupYtiles);
-            this.controlPanel.Controls.Add(this.nupXtiles);
             this.controlPanel.Location = new System.Drawing.Point(0, 0);
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
             // 
+            // btnAddColumnAndRow
+            // 
+            this.btnAddColumnAndRow.Location = new System.Drawing.Point(297, 33);
+            this.btnAddColumnAndRow.Name = "btnAddColumnAndRow";
+            this.btnAddColumnAndRow.Size = new System.Drawing.Size(70, 36);
+            this.btnAddColumnAndRow.TabIndex = 9;
+            this.btnAddColumnAndRow.Text = "Add both";
+            this.btnAddColumnAndRow.UseVisualStyleBackColor = true;
+            this.btnAddColumnAndRow.Click += new System.EventHandler(this.btnAddColumnAndRow_Click);
+            // 
             // btnAddRow
             // 
-            this.btnAddRow.Location = new System.Drawing.Point(389, 33);
+            this.btnAddRow.Location = new System.Drawing.Point(221, 33);
             this.btnAddRow.Name = "btnAddRow";
-            this.btnAddRow.Size = new System.Drawing.Size(96, 36);
+            this.btnAddRow.Size = new System.Drawing.Size(70, 36);
             this.btnAddRow.TabIndex = 8;
-            this.btnAddRow.Text = "Add Row";
+            this.btnAddRow.Text = "Add row";
             this.btnAddRow.UseVisualStyleBackColor = true;
             this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
             // 
             // btnAddColumn
             // 
-            this.btnAddColumn.Location = new System.Drawing.Point(287, 33);
+            this.btnAddColumn.Location = new System.Drawing.Point(145, 33);
             this.btnAddColumn.Name = "btnAddColumn";
-            this.btnAddColumn.Size = new System.Drawing.Size(96, 36);
+            this.btnAddColumn.Size = new System.Drawing.Size(70, 36);
             this.btnAddColumn.TabIndex = 7;
             this.btnAddColumn.Text = "Add column";
             this.btnAddColumn.UseVisualStyleBackColor = true;
@@ -142,7 +149,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(284, 9);
+            this.label2.Location = new System.Drawing.Point(142, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 5;
@@ -150,14 +157,14 @@
             // 
             // nupTileSize
             // 
-            this.nupTileSize.Location = new System.Drawing.Point(338, 7);
+            this.nupTileSize.Location = new System.Drawing.Point(196, 7);
             this.nupTileSize.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
             this.nupTileSize.Name = "nupTileSize";
-            this.nupTileSize.Size = new System.Drawing.Size(147, 20);
+            this.nupTileSize.Size = new System.Drawing.Size(171, 20);
             this.nupTileSize.TabIndex = 4;
             this.nupTileSize.Value = new decimal(new int[] {
             40,
@@ -168,56 +175,23 @@
             // 
             // btnNewMap
             // 
-            this.btnNewMap.Location = new System.Drawing.Point(12, 33);
+            this.btnNewMap.Location = new System.Drawing.Point(12, 7);
             this.btnNewMap.Name = "btnNewMap";
-            this.btnNewMap.Size = new System.Drawing.Size(266, 36);
+            this.btnNewMap.Size = new System.Drawing.Size(127, 62);
             this.btnNewMap.TabIndex = 3;
             this.btnNewMap.Text = "Create new map";
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // label1
+            // button1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(138, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "X";
-            // 
-            // nupYtiles
-            // 
-            this.nupYtiles.Location = new System.Drawing.Point(158, 7);
-            this.nupYtiles.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nupYtiles.Name = "nupYtiles";
-            this.nupYtiles.Size = new System.Drawing.Size(120, 20);
-            this.nupYtiles.TabIndex = 1;
-            this.nupYtiles.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // nupXtiles
-            // 
-            this.nupXtiles.Location = new System.Drawing.Point(12, 7);
-            this.nupXtiles.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nupXtiles.Name = "nupXtiles";
-            this.nupXtiles.Size = new System.Drawing.Size(120, 20);
-            this.nupXtiles.TabIndex = 0;
-            this.nupXtiles.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.button1.Location = new System.Drawing.Point(373, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(127, 62);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Pick background color";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -238,8 +212,6 @@
             this.controlPanel.ResumeLayout(false);
             this.controlPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupTileSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupYtiles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupXtiles)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -251,15 +223,15 @@
         private System.Windows.Forms.PictureBox gridPb;
         private System.Windows.Forms.PictureBox isometricPb;
         private System.Windows.Forms.Panel controlPanel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown nupYtiles;
-        private System.Windows.Forms.NumericUpDown nupXtiles;
         private System.Windows.Forms.Button btnNewMap;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown nupTileSize;
         private System.Windows.Forms.Button btnClearMap;
         private System.Windows.Forms.Button btnAddRow;
         private System.Windows.Forms.Button btnAddColumn;
+        private System.Windows.Forms.Button btnAddColumnAndRow;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ColorDialog cdBackgroud;
     }
 }
 
