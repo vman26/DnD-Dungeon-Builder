@@ -170,12 +170,22 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBackgroundColor_Click(object sender, EventArgs e)
         {
             if (cdBackgroud.ShowDialog() == DialogResult.OK)
             {
                 isoBackgroundColor = cdBackgroud.Color;
                 refreshScreen();
+            }
+        }
+
+        private void btnDrawObject_Click(object sender, EventArgs e)
+        {
+            using (ObjectDrawFrom form = new ObjectDrawFrom())
+            {
+                form.Parent = this.Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog();
             }
         }
     }

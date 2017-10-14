@@ -28,3 +28,4 @@ C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\Dn
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.exe
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.pdb
 E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.CreateMapForm.resources
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.ObjectDrawFrom.resources

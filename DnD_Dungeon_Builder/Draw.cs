@@ -89,6 +89,58 @@ namespace DnD_Dungeon_Builder
             g.Dispose();
         }
 
+
+        static public void DrawGridTiles(ref Bitmap bitmap)
+        {
+            Graphics g = Graphics.FromImage(bitmap);
+            int size = Math.Min(bitmap.Width, bitmap.Height);
+            int x = 0;
+            int y = 0;
+
+            if (bitmap.Height < bitmap.Width)
+            {
+                x = (bitmap.Width - size) / 2;
+            }
+            else
+            {
+                y = (bitmap.Height - size) / 2;
+            }
+            
+            // Draw tile outline
+            Pen pen = new Pen(Color.Black);
+
+            g.DrawRectangle(pen, x, y, size, size);
+            g.Dispose();
+        }
+
+        static public void DrawIsometricTiles(ref Bitmap bitmap)
+        {
+            Graphics g = Graphics.FromImage(bitmap);
+            int size = 200;
+
+            var IsoW = size; // cell width
+            var IsoH = size / 2; // cell height
+            var IsoX = bitmap.Width / 2;
+            var IsoY = 0;
+
+            int x = 0;
+            int y = 0;
+
+            var rx = Coordinate.IsoToScreenX(x, y, IsoX, IsoW);
+            var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
+
+            ry += bitmap.Height - IsoW - 2;
+            
+            Pen pen = new Pen(Color.Black);
+
+            g.DrawLine(pen, rx, ry, rx - IsoW, ry + IsoH);
+            g.DrawLine(pen, rx - IsoW, ry + IsoH, rx, ry + IsoH * 2);
+            g.DrawLine(pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
+            g.DrawLine(pen, rx + IsoW, ry + IsoH, rx, ry);
+
+            g.Dispose();
+        }
+
         static public void ClearDrawing(ref Bitmap bitmap)
         {
             Graphics g = Graphics.FromImage(bitmap);
