@@ -21,8 +21,13 @@ namespace DnD_Dungeon_Builder
             this.rows = rows;
             this.Name = name;
 
+            initMap();
+        }
+
+        private void initMap()
+        {
             grid = new List<List<T>>();
-            for (int col = 0; col < columns; col++)
+            for (int col = 0; col < cols; col++)
             {
                 grid.Add(new List<T>());
                 for (int row = 0; row < rows; row++)
@@ -72,6 +77,11 @@ namespace DnD_Dungeon_Builder
                 grid.RemoveAt(rowIndex);
             }
             rows--;
+        }
+
+        public void ClearMap()
+        {
+            initMap();
         }
 
         public override string ToString()

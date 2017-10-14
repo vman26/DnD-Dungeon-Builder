@@ -19,6 +19,8 @@ namespace DnD_Dungeon_Builder
         Bitmap GridDrawArea;
         Bitmap IsometricDrawArea;
 
+        Color isoBackgroundColor;
+
         public Form1()
         {
             InitializeComponent();
@@ -34,33 +36,41 @@ namespace DnD_Dungeon_Builder
             isometricPb.SizeMode = PictureBoxSizeMode.AutoSize;
             isometricPb.Anchor = AnchorStyles.None;
 
-            gridPanel.AutoScroll = true;
-            isometricPanel.AutoScroll = true;
+            gridPanel.BackColor = Color.White;
+            isometricPanel.BackColor = Color.White;
 
-            map = new Map<int>(10, 10, "Test map");
+            isometricPb.BackColor = Color.Transparent;
+            gridPb.BackColor = Color.Transparent;
+
+            isoBackgroundColor = Color.Transparent;
+
+            this.Name = "D&D dungeon builder";
+            this.Text = "D&D dungeon builder";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            resizeGridPanels();
-            redrawTiles();
+            refreshScreen();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            resizeGridPanels();
-            redrawTiles();
+            refreshScreen();
         }
 
-        void resizeGridPanels()
+        void resizePanels()
         {
+            int controlPanelHeigth = 75;
             Size frameSize = ClientRectangle.Size; // Get size of frame without borders
-
-            gridPanel.Location = new Point(0, 0);
-            gridPanel.Size = new Size(frameSize.Width / 2, frameSize.Height);
             
-            isometricPanel.Location = new Point(frameSize.Width / 2, 0);
-            isometricPanel.Size = new Size(frameSize.Width / 2, frameSize.Height);
+            controlPanel.Location = new Point(0, 0);
+            controlPanel.Size = new Size(frameSize.Width, controlPanelHeigth);
+
+            gridPanel.Location = new Point(0, controlPanelHeigth);
+            gridPanel.Size = new Size(frameSize.Width / 2, frameSize.Height - controlPanelHeigth);
+            
+            isometricPanel.Location = new Point(frameSize.Width / 2, controlPanelHeigth);
+            isometricPanel.Size = new Size(frameSize.Width / 2, frameSize.Height - controlPanelHeigth);
         }
 
         private void CenterPictureBox(PictureBox picBox, Bitmap picImage)
@@ -80,18 +90,93 @@ namespace DnD_Dungeon_Builder
         {
             Draw.ClearDrawing(ref GridDrawArea);
             Draw.ClearDrawing(ref IsometricDrawArea);
+            if (map != null)
+            {
+                Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
+                CenterPictureBox(gridPb, GridDrawArea);
 
-            Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
-            CenterPictureBox(gridPb, GridDrawArea);
-
-            Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, selectedTileX, selectedTileY);
-            CenterPictureBox(isometricPb, IsometricDrawArea);
+                Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, isoBackgroundColor, selectedTileX, selectedTileY);
+                CenterPictureBox(isometricPb, IsometricDrawArea);
+            }
         }
 
         private void gridPb_MouseDown(object sender, MouseEventArgs e)
         {
             Point selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
-            redrawTiles(selectedTile.X, selectedTile.Y);
+
+            if (Enumerable.Range(0, map.Columns).Contains(selectedTile.X) && Enumerable.Range(0, map.Rows).Contains(selectedTile.Y))
+            {
+                redrawTiles(selectedTile.X, selectedTile.Y);
+            }
+        }
+
+        private void btnNewMap_Click(object sender, EventArgs e)
+        {
+            using (CreateMapForm form = new CreateMapForm())
+            {
+                form.Parent = this.Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    map = new Map<int>(form.Xtiles, form.Ytiles, form.MapName);
+                    refreshScreen();
+                }
+            }
+        }
+
+        private void nupTileSize_ValueChanged(object sender, EventArgs e)
+        {
+            tileSize = (int)nupTileSize.Value;
+            refreshScreen();
+        }
+
+        private void btnClearMap_Click(object sender, EventArgs e)
+        {
+            map?.ClearMap();
+            refreshScreen();
+        }
+
+        private void refreshScreen()
+        {
+            resizePanels();
+            redrawTiles();
+        }
+
+        private void btnAddColumn_Click(object sender, EventArgs e)
+        {
+            if (map != null)
+            {
+                map.AddColumn();
+                refreshScreen();
+            }
+        }
+
+        private void btnAddRow_Click(object sender, EventArgs e)
+        {
+            if (map != null)
+            {
+                map.AddRow();
+                refreshScreen();
+            }
+        }
+
+        private void btnAddColumnAndRow_Click(object sender, EventArgs e)
+        {
+            if (map != null)
+            {
+                map.AddColumn();
+                map.AddRow();
+                refreshScreen();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cdBackgroud.ShowDialog() == DialogResult.OK)
+            {
+                isoBackgroundColor = cdBackgroud.Color;
+                refreshScreen();
+            }
         }
     }
 }

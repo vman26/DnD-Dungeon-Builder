@@ -33,22 +33,33 @@ namespace DnD_Dungeon_Builder
             g.Dispose();
         }
 
-        static public void DrawIsometricTiles(int xTiles, int yTiles, int tileSize, ref Bitmap bitmap, int selectedTileX = -1, int selectedTileY = -1)
+        static public void DrawIsometricTiles(int xTiles, int yTiles, int tileSize, ref Bitmap bitmap, Color backgroudColor, int selectedTileX = -1, int selectedTileY = -1)
         {
-            bitmap = new Bitmap(tileSize * xTiles * 2, tileSize * yTiles);
+            int bitmapOffset = 100;
+            Size bitmapSize = new Size(tileSize * xTiles * 2 + bitmapOffset, tileSize * yTiles + bitmapOffset);
+            
+            if (yTiles - xTiles > 0) bitmapSize.Width += ((yTiles - xTiles) * tileSize * 2);
+            if (xTiles - yTiles > 0) bitmapSize.Height += (int)Math.Floor((xTiles - yTiles) * tileSize * 0.5);
+            
+            bitmap = new Bitmap(bitmapSize.Width, bitmapSize.Height);
             Graphics g = Graphics.FromImage(bitmap);
 
             var IsoW = tileSize; // cell width
             var IsoH = tileSize / 2; // cell height
             var IsoX = bitmap.Width / 2;
             var IsoY = 0;
-            
+
+            g.Clear(backgroudColor);
+
             for (var y = 0; y < yTiles; y++)
             {
                 for (var x = 0; x < xTiles; x++)
                 {
                     var rx = Coordinate.IsoToScreenX(x, y, IsoX, IsoW);
                     var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
+                    
+                    if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
+                    ry += bitmapOffset/2;
 
                     Pen pen = new Pen(Color.Black);
 
@@ -64,6 +75,9 @@ namespace DnD_Dungeon_Builder
                 var rx = Coordinate.IsoToScreenX(selectedTileX, selectedTileY, IsoX, IsoW);
                 var ry = Coordinate.IsoToScreenY(selectedTileX, selectedTileY, IsoY, IsoH);
 
+                if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
+                ry += bitmapOffset / 2;
+
                 Pen pen = new Pen(Color.Red);
 
                 g.DrawLine(pen, rx, ry, rx - IsoW, ry + IsoH);
@@ -78,7 +92,7 @@ namespace DnD_Dungeon_Builder
         static public void ClearDrawing(ref Bitmap bitmap)
         {
             Graphics g = Graphics.FromImage(bitmap);
-            g.Clear(Color.White);
+            g.Clear(Color.Transparent);
             g.Dispose();
         }
     }
