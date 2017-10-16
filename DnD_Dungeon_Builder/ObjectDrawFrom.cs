@@ -14,8 +14,10 @@ namespace DnD_Dungeon_Builder
     public partial class ObjectDrawFrom : Form
     {
         Point lastPoint = Point.Empty; // Point.Empty represents null for a Point object
+        Point keptPoint = Point.Empty;
 
         bool isMouseDown = false; // This is used to evaluate whether our mousebutton is down or not
+        bool isOffset = false;
 
         Bitmap drawing;
         Bitmap grid2D;
@@ -55,7 +57,25 @@ namespace DnD_Dungeon_Builder
             pbDrawColor.BackColor = Color.Black;
             pbFillColor.BackColor = Color.White;
 
+            ContextMenu cm = new ContextMenu();
+            cm.MenuItems.Add("Offset start", new EventHandler(SetOffset_Click));
+            cm.MenuItems.Add("Item 2");
+            pbDrawing2D.ContextMenu = cm;
+            pbDrawingIsometric.ContextMenu = cm;
+        }
 
+        private void SetOffset_Click(object sender, EventArgs e)
+        {
+            using (OffsetForm form = new OffsetForm())
+            {
+                form.Parent = Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                if(form.ShowDialog() == DialogResult.OK)
+                {
+                    keptPoint.Offset(form.XOffset, form.YOffset);
+                    isOffset = true;
+                }
+            }
         }
 
         private void ObjectDrawFrom_Load(object sender, EventArgs e)
@@ -66,24 +86,35 @@ namespace DnD_Dungeon_Builder
 
         private void pbDrawing_MouseDown(object sender, MouseEventArgs e)
         {
-            backup(sender as PictureBox);
-
-            if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked )
+            if (e.Button == MouseButtons.Left)
             {
-                lastPoint = e.Location; // We assign the lastPoint to the current mouse position: e.Location
-                isMouseDown = true; // We set to true because our mouse button is down (clicked)
-            }
+                backup(sender as PictureBox);
 
-            if(rbFill.Checked)
-            {
-                if (sender is PictureBox)
+                if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
                 {
-                    PictureBox pbSelected = sender as PictureBox;
-
-                    if (pbSelected != null)
+                    if (isOffset)
                     {
-                        FloodFill((Bitmap)pbSelected.Image, new Point(e.X, e.Y), (pbSelected.Image as Bitmap).GetPixel(e.X, e.Y), pbFillColor.BackColor);
-                        pbSelected.Invalidate();
+                        lastPoint = keptPoint;
+                    }
+                    else
+                    {
+                        keptPoint = e.Location;
+                        lastPoint = e.Location; // We assign the lastPoint to the current mouse position: e.Location
+                    }
+                    isMouseDown = true; // We set to true because our mouse button is down (clicked)
+                }
+
+                if (rbFill.Checked)
+                {
+                    if (sender is PictureBox)
+                    {
+                        PictureBox pbSelected = sender as PictureBox;
+
+                        if (pbSelected != null)
+                        {
+                            FloodFill((Bitmap)pbSelected.Image, new Point(e.X, e.Y), (pbSelected.Image as Bitmap).GetPixel(e.X, e.Y), pbFillColor.BackColor);
+                            pbSelected.Invalidate();
+                        }
                     }
                 }
             }
@@ -128,7 +159,7 @@ namespace DnD_Dungeon_Builder
                                 if (rbLine.Checked)
                                     g.DrawLine(drawingPen, lastPoint, e.Location);
                                 if (rbRectangle.Checked)
-                                    g.DrawRectangle(drawingPen, lastPoint.X, lastPoint.Y, (e.Location.X - lastPoint.X), (e.Location.Y - lastPoint.Y));
+                                    g.DrawRectangle(drawingPen, Math.Min(lastPoint.X, e.Location.X), Math.Min(lastPoint.Y, e.Location.Y), Math.Abs(e.Location.X - lastPoint.X), Math.Abs(e.Location.Y - lastPoint.Y));
                                 if (rbCircle.Checked)
                                     g.DrawEllipse(drawingPen, lastPoint.X, lastPoint.Y, (e.Location.X - lastPoint.X), (e.Location.Y - lastPoint.Y));
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -143,6 +174,7 @@ namespace DnD_Dungeon_Builder
         private void pbDrawing_MouseUp(object sender, MouseEventArgs e)
         {
             isMouseDown = false;
+            isOffset = false;
             lastPoint = Point.Empty;
             // Set the previous point back to null if the user lets go of the mouse button
         }
