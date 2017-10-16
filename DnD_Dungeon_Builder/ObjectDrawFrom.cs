@@ -25,7 +25,10 @@ namespace DnD_Dungeon_Builder
 
         List<BitmapBackup> bitmapBackup;
 
-        public ObjectDrawFrom()
+        public Bitmap TwoDimensional { get; private set; }
+        public Bitmap Isometric { get; private set; }
+
+        public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
         {
             InitializeComponent();
             bitmapBackup = new List<BitmapBackup>();
@@ -50,8 +53,15 @@ namespace DnD_Dungeon_Builder
             pbDrawingIsometric.Size = pbDrawingIsometric.Parent.Size;
             pbDrawingIsometric.Location = new Point(0, 0);
 
-            // Set default clean image
-            clearDrawings();
+            if (twoDimensional != null)
+            {
+                loadDrawings(twoDimensional, isometric);
+            }
+            else
+            {
+                // Set default clean image
+                clearDrawings();
+            }
 
             rbDraw.Checked = true;
             pbDrawColor.BackColor = Color.Black;
@@ -215,6 +225,16 @@ namespace DnD_Dungeon_Builder
             Invalidate();
         }
 
+
+
+        private void loadDrawings(Bitmap twoDimensional, Bitmap isometric = null)
+        {
+            pbDrawing2D.Image = twoDimensional;
+            Bitmap bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
+            pbDrawingIsometric.Image = (isometric != null) ? isometric : bmp;
+            Invalidate();
+        }
+
         private void FloodFill(Bitmap bmp, Point pt, Color targetColor, Color replacementColor)
         {
             Stack<Point> pixels = new Stack<Point>();
@@ -289,6 +309,13 @@ namespace DnD_Dungeon_Builder
         private void btnClearBoth_Click(object sender, EventArgs e)
         {
             clearDrawings();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            TwoDimensional = (Bitmap)pbDrawing2D.Image;
+            Isometric = (Bitmap)pbDrawingIsometric.Image;
+            DialogResult = DialogResult.OK;
         }
     }
 }

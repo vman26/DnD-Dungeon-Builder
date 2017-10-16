@@ -49,6 +49,7 @@
             this.nupEraserWidth = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.rbEraser = new System.Windows.Forms.RadioButton();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawingIsometric)).BeginInit();
@@ -287,11 +288,22 @@
             this.rbEraser.Text = "Eraser";
             this.rbEraser.UseVisualStyleBackColor = true;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(1097, 12);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(113, 70);
+            this.btnSave.TabIndex = 25;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // ObjectDrawFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 616);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rbEraser);
             this.Controls.Add(this.nupEraserWidth);
             this.Controls.Add(this.label2);
@@ -351,5 +363,6 @@
         private System.Windows.Forms.NumericUpDown nupEraserWidth;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton rbEraser;
+        private System.Windows.Forms.Button btnSave;
     }
 }
