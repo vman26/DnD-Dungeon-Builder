@@ -46,6 +46,9 @@
             this.nupBrushWidth = new System.Windows.Forms.NumericUpDown();
             this.btnClearIso = new System.Windows.Forms.Button();
             this.btnClearBoth = new System.Windows.Forms.Button();
+            this.nupEraserWidth = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.rbEraser = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawingIsometric)).BeginInit();
@@ -53,6 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFillColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupBrushWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupEraserWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // pbDrawing2D
@@ -120,7 +124,7 @@
             // rbFill
             // 
             this.rbFill.AutoSize = true;
-            this.rbFill.Location = new System.Drawing.Point(423, 12);
+            this.rbFill.Location = new System.Drawing.Point(359, 12);
             this.rbFill.Name = "rbFill";
             this.rbFill.Size = new System.Drawing.Size(37, 17);
             this.rbFill.TabIndex = 6;
@@ -144,7 +148,7 @@
             // pbFillColor
             // 
             this.pbFillColor.BackColor = System.Drawing.Color.Black;
-            this.pbFillColor.Location = new System.Drawing.Point(423, 36);
+            this.pbFillColor.Location = new System.Drawing.Point(359, 36);
             this.pbFillColor.Name = "pbFillColor";
             this.pbFillColor.Size = new System.Drawing.Size(50, 46);
             this.pbFillColor.TabIndex = 13;
@@ -242,11 +246,55 @@
             this.btnClearBoth.UseVisualStyleBackColor = true;
             this.btnClearBoth.Click += new System.EventHandler(this.btnClearBoth_Click);
             // 
+            // nupEraserWidth
+            // 
+            this.nupEraserWidth.Location = new System.Drawing.Point(418, 62);
+            this.nupEraserWidth.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.nupEraserWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupEraserWidth.Name = "nupEraserWidth";
+            this.nupEraserWidth.Size = new System.Drawing.Size(65, 20);
+            this.nupEraserWidth.TabIndex = 23;
+            this.nupEraserWidth.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(415, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Eraser width:";
+            // 
+            // rbEraser
+            // 
+            this.rbEraser.AutoSize = true;
+            this.rbEraser.Location = new System.Drawing.Point(418, 12);
+            this.rbEraser.Name = "rbEraser";
+            this.rbEraser.Size = new System.Drawing.Size(55, 17);
+            this.rbEraser.TabIndex = 24;
+            this.rbEraser.Text = "Eraser";
+            this.rbEraser.UseVisualStyleBackColor = true;
+            // 
             // ObjectDrawFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 616);
+            this.Controls.Add(this.rbEraser);
+            this.Controls.Add(this.nupEraserWidth);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnClearBoth);
             this.Controls.Add(this.btnClearIso);
             this.Controls.Add(this.nupBrushWidth);
@@ -274,6 +322,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFillColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupBrushWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupEraserWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,5 +348,8 @@
         private System.Windows.Forms.NumericUpDown nupBrushWidth;
         private System.Windows.Forms.Button btnClearIso;
         private System.Windows.Forms.Button btnClearBoth;
+        private System.Windows.Forms.NumericUpDown nupEraserWidth;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton rbEraser;
     }
 }

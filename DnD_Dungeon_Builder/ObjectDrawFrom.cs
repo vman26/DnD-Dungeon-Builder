@@ -90,7 +90,7 @@ namespace DnD_Dungeon_Builder
             {
                 backup(sender as PictureBox);
 
-                if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
+                if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked || rbEraser.Checked)
                 {
                     if (isOffset)
                     {
@@ -131,22 +131,25 @@ namespace DnD_Dungeon_Builder
                 {
                     if (lastPoint != null)
                     {
-                        int brushWidth = (int)nupBrushWidth.Value;
                         if (drawingBox.Image == null) // If no available bitmap exists on the picturebox to draw on
                         {
                             // Create a new bitmap
                             Bitmap bmp = new Bitmap(drawingBox.Width, drawingBox.Height);
                             drawingBox.Image = bmp; // Assign the picturebox.Image property to the bitmap created
                         }
-
-                        if (rbDraw.Checked)
+                        Pen drawingPen = new Pen(pbDrawColor.BackColor, (int)nupBrushWidth.Value);
+                        if (rbDraw.Checked || rbEraser.Checked)
                         {
                             using (Graphics g = Graphics.FromImage(drawingBox.Image))
                             {
-                                g.DrawLine(new Pen(pbDrawColor.BackColor, brushWidth), lastPoint, e.Location);
+                                Color erase = Color.FromArgb(1, 1, 1);
+                                drawingPen = (rbEraser.Checked) ? new Pen(erase, (int)nupEraserWidth.Value) : drawingPen;
+                                g.DrawLine(drawingPen, lastPoint, e.Location);
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
                                 // This is to give the drawing a more smoother, less sharper look
                                 lastPoint = e.Location; // Keep assigning the lastPoint to the current mouse position
+                                if (rbEraser.Checked)
+                                    (drawingBox.Image as Bitmap).MakeTransparent(erase);
                             }
                         }
                         if (rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
@@ -155,7 +158,6 @@ namespace DnD_Dungeon_Builder
                             drawingBox.Image = drawing;
                             using (Graphics g = Graphics.FromImage(drawing))
                             {
-                                Pen drawingPen = new Pen(pbDrawColor.BackColor, brushWidth);
                                 if (rbLine.Checked)
                                     g.DrawLine(drawingPen, lastPoint, e.Location);
                                 if (rbRectangle.Checked)
