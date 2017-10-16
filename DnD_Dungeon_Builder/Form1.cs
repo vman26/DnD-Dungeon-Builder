@@ -21,9 +21,13 @@ namespace DnD_Dungeon_Builder
 
         Color isoBackgroundColor;
 
+        List<Component> tileComponents;
+
         public Form1()
         {
             InitializeComponent();
+
+            tileComponents = new List<Component>();
 
             GridDrawArea = new Bitmap(gridPb.Size.Width, gridPb.Size.Height);
             gridPb.Image = GridDrawArea;
