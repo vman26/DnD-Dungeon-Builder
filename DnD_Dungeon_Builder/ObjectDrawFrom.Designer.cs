@@ -217,7 +217,7 @@
             this.nupBrushWidth.Size = new System.Drawing.Size(167, 20);
             this.nupBrushWidth.TabIndex = 19;
             this.nupBrushWidth.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
