@@ -14,10 +14,10 @@ namespace DnD_Dungeon_Builder
     public partial class ObjectDrawFrom : Form
     {
         Point lastPoint = Point.Empty; // Point.Empty represents null for a Point object
-        Point tempPoint = Point.Empty;
 
-        bool isMouseDown = new Boolean(); // This is used to evaluate whether our mousebutton is down or not
+        bool isMouseDown = false; // This is used to evaluate whether our mousebutton is down or not
 
+        Bitmap drawing;
         Bitmap grid2D;
         Bitmap gridIsometric;
 
@@ -49,10 +49,7 @@ namespace DnD_Dungeon_Builder
             pbDrawingIsometric.Location = new Point(0, 0);
 
             // Set default clean image
-            Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
-            pbDrawing2D.Image = bmp;
-            bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
-            pbDrawingIsometric.Image = bmp;
+            clearDrawings();
 
             rbDraw.Checked = true;
             pbDrawColor.BackColor = Color.Black;
@@ -69,9 +66,9 @@ namespace DnD_Dungeon_Builder
 
         private void pbDrawing_MouseDown(object sender, MouseEventArgs e)
         {
-            bitmapBackup.Add(new BitmapBackup((sender as PictureBox), (Bitmap)(sender as PictureBox).Image.Clone()));
+            backup(sender as PictureBox);
 
-            if (rbDraw.Checked || rbLine.Checked)
+            if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked )
             {
                 lastPoint = e.Location; // We assign the lastPoint to the current mouse position: e.Location
                 isMouseDown = true; // We set to true because our mouse button is down (clicked)
@@ -109,18 +106,30 @@ namespace DnD_Dungeon_Builder
                             Bitmap bmp = new Bitmap(drawingBox.Width, drawingBox.Height);
                             drawingBox.Image = bmp; // Assign the picturebox.Image property to the bitmap created
                         }
-                        using (Graphics g = Graphics.FromImage(drawingBox.Image))
+
+                        if (rbDraw.Checked)
                         {
-                            if (rbDraw.Checked)
+                            using (Graphics g = Graphics.FromImage(drawingBox.Image))
                             {
                                 g.DrawLine(new Pen(pbDrawColor.BackColor, 2), lastPoint, e.Location);
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
                                 // This is to give the drawing a more smoother, less sharper look
                                 lastPoint = e.Location; // Keep assigning the lastPoint to the current mouse position
                             }
-                            if (rbLine.Checked)
+                        }
+                        if (rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
+                        {
+                            drawing = (Bitmap)bitmapBackup.Last().Bitmap.Clone();
+                            drawingBox.Image = drawing;
+                            using (Graphics g = Graphics.FromImage(drawing))
                             {
-                                g.DrawLine(new Pen(pbDrawColor.BackColor, 2), lastPoint, e.Location);
+                                Pen drawingPen = new Pen(pbDrawColor.BackColor, 2);
+                                if (rbLine.Checked)
+                                    g.DrawLine(drawingPen, lastPoint, e.Location);
+                                if (rbRectangle.Checked)
+                                    g.DrawRectangle(drawingPen, lastPoint.X, lastPoint.Y, (e.Location.X - lastPoint.X), (e.Location.Y - lastPoint.Y));
+                                if (rbCircle.Checked)
+                                    g.DrawEllipse(drawingPen, lastPoint.X, lastPoint.Y, (e.Location.X - lastPoint.X), (e.Location.Y - lastPoint.Y));
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
                             }
                         }
@@ -139,14 +148,15 @@ namespace DnD_Dungeon_Builder
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            if (pbDrawing2D.Image != null)
-            {
-                pbDrawing2D.Image = null;
-            }
-            if (pbDrawingIsometric.Image != null)
-            {
-                pbDrawingIsometric.Image = null;
-            }
+            clearDrawings();
+        }
+
+        private void clearDrawings()
+        {
+            Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
+            pbDrawing2D.Image = bmp;
+            bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
+            pbDrawingIsometric.Image = bmp;
             Invalidate();
         }
 
@@ -189,6 +199,16 @@ namespace DnD_Dungeon_Builder
         }
 
         private void btnUndo_Click(object sender, EventArgs e)
+        {
+            undo();
+        }
+
+        private void backup(PictureBox pictureBox)
+        {
+            bitmapBackup.Add(new BitmapBackup(pictureBox, (Bitmap)pictureBox.Image.Clone()));
+        }
+
+        private void undo()
         {
             if (bitmapBackup.Count > 0)
             {

@@ -40,6 +40,8 @@
             this.pbFillColor = new System.Windows.Forms.PictureBox();
             this.rbLine = new System.Windows.Forms.RadioButton();
             this.btnUndo = new System.Windows.Forms.Button();
+            this.rbRectangle = new System.Windows.Forms.RadioButton();
+            this.rbCircle = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawingIsometric)).BeginInit();
@@ -129,7 +131,7 @@
             this.pbDrawColor.BackColor = System.Drawing.Color.Black;
             this.pbDrawColor.Location = new System.Drawing.Point(115, 36);
             this.pbDrawColor.Name = "pbDrawColor";
-            this.pbDrawColor.Size = new System.Drawing.Size(101, 46);
+            this.pbDrawColor.Size = new System.Drawing.Size(238, 46);
             this.pbDrawColor.TabIndex = 12;
             this.pbDrawColor.TabStop = false;
             this.pbDrawColor.Click += new System.EventHandler(this.pbColor_Click);
@@ -164,11 +166,33 @@
             this.btnUndo.UseVisualStyleBackColor = true;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
+            // rbRectangle
+            // 
+            this.rbRectangle.AutoSize = true;
+            this.rbRectangle.Location = new System.Drawing.Point(222, 12);
+            this.rbRectangle.Name = "rbRectangle";
+            this.rbRectangle.Size = new System.Drawing.Size(74, 17);
+            this.rbRectangle.TabIndex = 16;
+            this.rbRectangle.Text = "Rectangle";
+            this.rbRectangle.UseVisualStyleBackColor = true;
+            // 
+            // rbCircle
+            // 
+            this.rbCircle.AutoSize = true;
+            this.rbCircle.Location = new System.Drawing.Point(302, 12);
+            this.rbCircle.Name = "rbCircle";
+            this.rbCircle.Size = new System.Drawing.Size(51, 17);
+            this.rbCircle.TabIndex = 17;
+            this.rbCircle.Text = "Circle";
+            this.rbCircle.UseVisualStyleBackColor = true;
+            // 
             // ObjectDrawFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 616);
+            this.Controls.Add(this.rbCircle);
+            this.Controls.Add(this.rbRectangle);
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.rbLine);
             this.Controls.Add(this.pbFillColor);
@@ -208,5 +232,7 @@
         private System.Windows.Forms.PictureBox pbFillColor;
         private System.Windows.Forms.RadioButton rbLine;
         private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.RadioButton rbRectangle;
+        private System.Windows.Forms.RadioButton rbCircle;
     }
 }
