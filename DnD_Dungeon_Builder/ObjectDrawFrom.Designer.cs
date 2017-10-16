@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.pbDrawing2D = new System.Windows.Forms.PictureBox();
-            this.btnClear = new System.Windows.Forms.Button();
+            this.btnClear2D = new System.Windows.Forms.Button();
             this.pbGrid2D = new System.Windows.Forms.PictureBox();
             this.pbDrawingIsometric = new System.Windows.Forms.PictureBox();
             this.pbGridIsometric = new System.Windows.Forms.PictureBox();
@@ -42,12 +42,17 @@
             this.btnUndo = new System.Windows.Forms.Button();
             this.rbRectangle = new System.Windows.Forms.RadioButton();
             this.rbCircle = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nupBrushWidth = new System.Windows.Forms.NumericUpDown();
+            this.btnClearIso = new System.Windows.Forms.Button();
+            this.btnClearBoth = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawingIsometric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGridIsometric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFillColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupBrushWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // pbDrawing2D
@@ -62,15 +67,15 @@
             this.pbDrawing2D.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbDrawing_MouseMove);
             this.pbDrawing2D.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbDrawing_MouseUp);
             // 
-            // btnClear
+            // btnClear2D
             // 
-            this.btnClear.Location = new System.Drawing.Point(12, 12);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(97, 70);
-            this.btnClear.TabIndex = 1;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.clearButton_Click);
+            this.btnClear2D.Location = new System.Drawing.Point(12, 12);
+            this.btnClear2D.Name = "btnClear2D";
+            this.btnClear2D.Size = new System.Drawing.Size(46, 41);
+            this.btnClear2D.TabIndex = 1;
+            this.btnClear2D.Text = "Clear left";
+            this.btnClear2D.UseVisualStyleBackColor = true;
+            this.btnClear2D.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // pbGrid2D
             // 
@@ -131,7 +136,7 @@
             this.pbDrawColor.BackColor = System.Drawing.Color.Black;
             this.pbDrawColor.Location = new System.Drawing.Point(115, 36);
             this.pbDrawColor.Name = "pbDrawColor";
-            this.pbDrawColor.Size = new System.Drawing.Size(238, 46);
+            this.pbDrawColor.Size = new System.Drawing.Size(238, 17);
             this.pbDrawColor.TabIndex = 12;
             this.pbDrawColor.TabStop = false;
             this.pbDrawColor.Click += new System.EventHandler(this.pbColor_Click);
@@ -158,7 +163,7 @@
             // 
             // btnUndo
             // 
-            this.btnUndo.Location = new System.Drawing.Point(1214, 12);
+            this.btnUndo.Location = new System.Drawing.Point(1216, 12);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(103, 70);
             this.btnUndo.TabIndex = 15;
@@ -186,11 +191,66 @@
             this.rbCircle.Text = "Circle";
             this.rbCircle.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(115, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Brush width:";
+            // 
+            // nupBrushWidth
+            // 
+            this.nupBrushWidth.Location = new System.Drawing.Point(186, 62);
+            this.nupBrushWidth.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.nupBrushWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupBrushWidth.Name = "nupBrushWidth";
+            this.nupBrushWidth.Size = new System.Drawing.Size(167, 20);
+            this.nupBrushWidth.TabIndex = 19;
+            this.nupBrushWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnClearIso
+            // 
+            this.btnClearIso.Location = new System.Drawing.Point(64, 12);
+            this.btnClearIso.Name = "btnClearIso";
+            this.btnClearIso.Size = new System.Drawing.Size(45, 41);
+            this.btnClearIso.TabIndex = 20;
+            this.btnClearIso.Text = "Clear right";
+            this.btnClearIso.UseVisualStyleBackColor = true;
+            this.btnClearIso.Click += new System.EventHandler(this.btnClearIso_Click);
+            // 
+            // btnClearBoth
+            // 
+            this.btnClearBoth.Location = new System.Drawing.Point(12, 59);
+            this.btnClearBoth.Name = "btnClearBoth";
+            this.btnClearBoth.Size = new System.Drawing.Size(97, 23);
+            this.btnClearBoth.TabIndex = 21;
+            this.btnClearBoth.Text = "Clear both";
+            this.btnClearBoth.UseVisualStyleBackColor = true;
+            this.btnClearBoth.Click += new System.EventHandler(this.btnClearBoth_Click);
+            // 
             // ObjectDrawFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 616);
+            this.Controls.Add(this.btnClearBoth);
+            this.Controls.Add(this.btnClearIso);
+            this.Controls.Add(this.nupBrushWidth);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.rbCircle);
             this.Controls.Add(this.rbRectangle);
             this.Controls.Add(this.btnUndo);
@@ -203,7 +263,7 @@
             this.Controls.Add(this.pbGridIsometric);
             this.Controls.Add(this.pbDrawing2D);
             this.Controls.Add(this.pbGrid2D);
-            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnClear2D);
             this.Name = "ObjectDrawFrom";
             this.Text = "ObjectDraw";
             this.Load += new System.EventHandler(this.ObjectDrawFrom_Load);
@@ -213,6 +273,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbGridIsometric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFillColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupBrushWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,7 +282,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbDrawing2D;
-        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnClear2D;
         private System.Windows.Forms.PictureBox pbGrid2D;
         private System.Windows.Forms.PictureBox pbDrawingIsometric;
         private System.Windows.Forms.PictureBox pbGridIsometric;
@@ -234,5 +295,9 @@
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.RadioButton rbRectangle;
         private System.Windows.Forms.RadioButton rbCircle;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nupBrushWidth;
+        private System.Windows.Forms.Button btnClearIso;
+        private System.Windows.Forms.Button btnClearBoth;
     }
 }

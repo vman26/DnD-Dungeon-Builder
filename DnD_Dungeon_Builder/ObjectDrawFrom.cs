@@ -100,6 +100,7 @@ namespace DnD_Dungeon_Builder
                 {
                     if (lastPoint != null)
                     {
+                        int brushWidth = (int)nupBrushWidth.Value;
                         if (drawingBox.Image == null) // If no available bitmap exists on the picturebox to draw on
                         {
                             // Create a new bitmap
@@ -111,7 +112,7 @@ namespace DnD_Dungeon_Builder
                         {
                             using (Graphics g = Graphics.FromImage(drawingBox.Image))
                             {
-                                g.DrawLine(new Pen(pbDrawColor.BackColor, 2), lastPoint, e.Location);
+                                g.DrawLine(new Pen(pbDrawColor.BackColor, brushWidth), lastPoint, e.Location);
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
                                 // This is to give the drawing a more smoother, less sharper look
                                 lastPoint = e.Location; // Keep assigning the lastPoint to the current mouse position
@@ -123,7 +124,7 @@ namespace DnD_Dungeon_Builder
                             drawingBox.Image = drawing;
                             using (Graphics g = Graphics.FromImage(drawing))
                             {
-                                Pen drawingPen = new Pen(pbDrawColor.BackColor, 2);
+                                Pen drawingPen = new Pen(pbDrawColor.BackColor, brushWidth);
                                 if (rbLine.Checked)
                                     g.DrawLine(drawingPen, lastPoint, e.Location);
                                 if (rbRectangle.Checked)
@@ -148,15 +149,35 @@ namespace DnD_Dungeon_Builder
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            clearDrawings();
+            clearDrawings(1);
         }
 
-        private void clearDrawings()
+        private void clearDrawings(int drawing=0)
         {
             Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
-            pbDrawing2D.Image = bmp;
-            bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
-            pbDrawingIsometric.Image = bmp;
+
+            switch(drawing)
+            {
+                case 0:
+                    backup(new PictureBox[]{ pbDrawing2D, pbDrawingIsometric });
+                    break;
+                case 1:
+                    backup(pbDrawing2D);
+                    break;
+                case 2:
+                    backup(pbDrawingIsometric);
+                    break;
+            }
+
+            if (drawing == 0 || drawing == 1)
+            {
+                pbDrawing2D.Image = bmp;
+            }
+            if (drawing == 0 || drawing == 2)
+            {
+                bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
+                pbDrawingIsometric.Image = bmp;
+            }
             Invalidate();
         }
 
@@ -205,7 +226,14 @@ namespace DnD_Dungeon_Builder
 
         private void backup(PictureBox pictureBox)
         {
-            bitmapBackup.Add(new BitmapBackup(pictureBox, (Bitmap)pictureBox.Image.Clone()));
+            if (pictureBox.Image != null)
+                bitmapBackup.Add(new BitmapBackup(pictureBox));
+        }
+
+        private void backup(PictureBox[] pictureBoxes)
+        {
+            if (pictureBoxes != null)
+                bitmapBackup.Add(new BitmapBackup(pictureBoxes));
         }
 
         private void undo()
@@ -217,6 +245,16 @@ namespace DnD_Dungeon_Builder
                 bitmapBackup.Remove(backup);
                 Invalidate();
             }
+        }
+
+        private void btnClearIso_Click(object sender, EventArgs e)
+        {
+            clearDrawings(2);
+        }
+
+        private void btnClearBoth_Click(object sender, EventArgs e)
+        {
+            clearDrawings();
         }
     }
 }
