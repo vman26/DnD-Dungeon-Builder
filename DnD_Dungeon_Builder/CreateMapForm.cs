@@ -29,7 +29,7 @@ namespace DnD_Dungeon_Builder
                 Xtiles = (int)nupXtiles.Value;
                 Ytiles = (int)nupYtiles.Value;
 
-                this.DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
             }
             else
             {
@@ -39,7 +39,7 @@ namespace DnD_Dungeon_Builder
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
     }
 }
