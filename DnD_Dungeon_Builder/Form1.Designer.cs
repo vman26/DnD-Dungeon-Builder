@@ -33,6 +33,7 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.btnDrawObject = new System.Windows.Forms.Button();
             this.btnBackgroundColor = new System.Windows.Forms.Button();
             this.btnAddColumnAndRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
@@ -42,7 +43,8 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
-            this.btnDrawObject = new System.Windows.Forms.Button();
+            this.cbComponents = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -93,6 +95,8 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.label1);
+            this.controlPanel.Controls.Add(this.cbComponents);
             this.controlPanel.Controls.Add(this.btnDrawObject);
             this.controlPanel.Controls.Add(this.btnBackgroundColor);
             this.controlPanel.Controls.Add(this.btnAddColumnAndRow);
@@ -106,6 +110,16 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // btnDrawObject
+            // 
+            this.btnDrawObject.Location = new System.Drawing.Point(505, 7);
+            this.btnDrawObject.Name = "btnDrawObject";
+            this.btnDrawObject.Size = new System.Drawing.Size(127, 62);
+            this.btnDrawObject.TabIndex = 11;
+            this.btnDrawObject.Text = "Draw object";
+            this.btnDrawObject.UseVisualStyleBackColor = true;
+            this.btnDrawObject.Click += new System.EventHandler(this.btnDrawObject_Click);
             // 
             // btnBackgroundColor
             // 
@@ -195,15 +209,22 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // btnDrawObject
+            // cbComponents
             // 
-            this.btnDrawObject.Location = new System.Drawing.Point(505, 7);
-            this.btnDrawObject.Name = "btnDrawObject";
-            this.btnDrawObject.Size = new System.Drawing.Size(127, 62);
-            this.btnDrawObject.TabIndex = 11;
-            this.btnDrawObject.Text = "Draw object";
-            this.btnDrawObject.UseVisualStyleBackColor = true;
-            this.btnDrawObject.Click += new System.EventHandler(this.btnDrawObject_Click);
+            this.cbComponents.FormattingEnabled = true;
+            this.cbComponents.Location = new System.Drawing.Point(765, 33);
+            this.cbComponents.Name = "cbComponents";
+            this.cbComponents.Size = new System.Drawing.Size(121, 21);
+            this.cbComponents.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(765, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Components";
             // 
             // Form1
             // 
@@ -245,6 +266,8 @@
         private System.Windows.Forms.Button btnBackgroundColor;
         private System.Windows.Forms.ColorDialog cdBackgroud;
         private System.Windows.Forms.Button btnDrawObject;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbComponents;
     }
 }
 

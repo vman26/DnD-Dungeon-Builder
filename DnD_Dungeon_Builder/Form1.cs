@@ -21,13 +21,16 @@ namespace DnD_Dungeon_Builder
 
         Color isoBackgroundColor;
 
-        List<Component> tileComponents;
+        ComponentManager componentManager;
 
         public Form1()
         {
             InitializeComponent();
 
-            tileComponents = new List<Component>();
+            componentManager = new ComponentManager();
+            //bindingSource1.DataSource = countries;
+            cbComponents.DataSource = componentManager.Components;
+            cbComponents.DisplayMember = "Name";
 
             GridDrawArea = new Bitmap(gridPb.Size.Width, gridPb.Size.Height);
             gridPb.Image = GridDrawArea;

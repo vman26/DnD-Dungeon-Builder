@@ -9,10 +9,12 @@ namespace DnD_Dungeon_Builder
 {
     class Component
     {
+        public string Name { get; private set; }
         public Drawing[] Drawings { get; private set; }
 
-        public Component()
+        public Component(string name)
         {
+            Name = name;
             Drawings = new Drawing[4] { null, null, null, null };
         }
 
