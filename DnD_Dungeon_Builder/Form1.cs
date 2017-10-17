@@ -28,6 +28,7 @@ namespace DnD_Dungeon_Builder
             InitializeComponent();
 
             componentManager = new ComponentManager();
+
             //bindingSource1.DataSource = countries;
             cbComponents.DataSource = componentManager.Components;
             cbComponents.DisplayMember = "Name";
@@ -193,6 +194,24 @@ namespace DnD_Dungeon_Builder
                 form.Parent = this.Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog();
+            }
+        }
+
+        private void btnAddComponent_Click(object sender, EventArgs e)
+        {
+            /*using (ObjectDrawFrom form = new ObjectDrawFrom(componentManager))
+            {
+                form.Parent = this.Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog();
+            }*/
+        }
+
+        private void btnRemoveComponent_Click(object sender, EventArgs e)
+        {
+            if (cbComponents.SelectedItem is Component)
+            {
+                componentManager.RemoveComponent(cbComponents.SelectedItem as Component);
             }
         }
     }

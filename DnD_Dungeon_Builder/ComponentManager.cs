@@ -8,12 +8,6 @@ namespace DnD_Dungeon_Builder
 {
     class ComponentManager
     {
-        // Delegate type for the event handler
-        public delegate void OnChangeEventHandler();
-
-        // Declare the event.
-        public event OnChangeEventHandler OnChangeEvent;
-
         public List<Component> Components { get; private set; }
 
         public ComponentManager()
@@ -27,10 +21,6 @@ namespace DnD_Dungeon_Builder
                 return false;
 
             Components.Add(new Component(name));
-
-            if (OnChangeEvent != null)
-                OnChangeEvent();
-
             return true;
         }
 
@@ -38,8 +28,6 @@ namespace DnD_Dungeon_Builder
         {
             if(Components.Remove(component))
             {
-                if (OnChangeEvent != null)
-                    OnChangeEvent();
                 return true;
             }
             return false;

@@ -33,6 +33,8 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbComponents = new System.Windows.Forms.ComboBox();
             this.btnDrawObject = new System.Windows.Forms.Button();
             this.btnBackgroundColor = new System.Windows.Forms.Button();
             this.btnAddColumnAndRow = new System.Windows.Forms.Button();
@@ -43,8 +45,8 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
-            this.cbComponents = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnAddComponent = new System.Windows.Forms.Button();
+            this.btnRemoveComponent = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -95,6 +97,8 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.btnRemoveComponent);
+            this.controlPanel.Controls.Add(this.btnAddComponent);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.cbComponents);
             this.controlPanel.Controls.Add(this.btnDrawObject);
@@ -110,6 +114,23 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(638, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Components:";
+            // 
+            // cbComponents
+            // 
+            this.cbComponents.FormattingEnabled = true;
+            this.cbComponents.Location = new System.Drawing.Point(638, 48);
+            this.cbComponents.Name = "cbComponents";
+            this.cbComponents.Size = new System.Drawing.Size(121, 21);
+            this.cbComponents.TabIndex = 12;
             // 
             // btnDrawObject
             // 
@@ -209,22 +230,27 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // cbComponents
+            // btnAddComponent
             // 
-            this.cbComponents.FormattingEnabled = true;
-            this.cbComponents.Location = new System.Drawing.Point(765, 33);
-            this.cbComponents.Name = "cbComponents";
-            this.cbComponents.Size = new System.Drawing.Size(121, 21);
-            this.cbComponents.TabIndex = 12;
+            this.btnAddComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddComponent.Location = new System.Drawing.Point(765, 7);
+            this.btnAddComponent.Name = "btnAddComponent";
+            this.btnAddComponent.Size = new System.Drawing.Size(34, 62);
+            this.btnAddComponent.TabIndex = 14;
+            this.btnAddComponent.Text = "+";
+            this.btnAddComponent.UseVisualStyleBackColor = true;
+            this.btnAddComponent.Click += new System.EventHandler(this.btnAddComponent_Click);
             // 
-            // label1
+            // btnRemoveComponent
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(765, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Components";
+            this.btnRemoveComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveComponent.Location = new System.Drawing.Point(805, 7);
+            this.btnRemoveComponent.Name = "btnRemoveComponent";
+            this.btnRemoveComponent.Size = new System.Drawing.Size(34, 62);
+            this.btnRemoveComponent.TabIndex = 15;
+            this.btnRemoveComponent.Text = "-";
+            this.btnRemoveComponent.UseVisualStyleBackColor = true;
+            this.btnRemoveComponent.Click += new System.EventHandler(this.btnRemoveComponent_Click);
             // 
             // Form1
             // 
@@ -268,6 +294,8 @@
         private System.Windows.Forms.Button btnDrawObject;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbComponents;
+        private System.Windows.Forms.Button btnRemoveComponent;
+        private System.Windows.Forms.Button btnAddComponent;
     }
 }
 
