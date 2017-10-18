@@ -162,5 +162,59 @@ namespace DnD_Dungeon_Builder
                 updateInfo(selectedComponent);
             }
         }
+
+        private void btnNorthToWest_Click(object sender, EventArgs e)
+        {
+            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.North);
+            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
+            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
+
+            twoD.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
+
+            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.West));
+            updateInfo(selectedComponent);
+        }
+
+        private void btnWestToNorth_Click(object sender, EventArgs e)
+        {
+            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.West);
+            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
+            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
+
+            twoD.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
+
+            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.North));
+            updateInfo(selectedComponent);
+        }
+
+        private void btnSouthToEast_Click(object sender, EventArgs e)
+        {
+
+            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.South);
+            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
+            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
+
+            twoD.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
+
+            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.East));
+            updateInfo(selectedComponent);
+        }
+
+        private void btnEastToSouth_Click(object sender, EventArgs e)
+        {
+
+            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.East);
+            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
+            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
+
+            twoD.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
+
+            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.South));
+            updateInfo(selectedComponent);
+        }
     }
 }

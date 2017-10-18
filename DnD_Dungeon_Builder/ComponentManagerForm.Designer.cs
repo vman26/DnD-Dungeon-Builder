@@ -48,6 +48,10 @@
             this.btnEastEdit = new System.Windows.Forms.Button();
             this.btnSouthEdit = new System.Windows.Forms.Button();
             this.btnWestEdit = new System.Windows.Forms.Button();
+            this.btnNorthToWest = new System.Windows.Forms.Button();
+            this.btnWestToNorth = new System.Windows.Forms.Button();
+            this.btnEastToSouth = new System.Windows.Forms.Button();
+            this.btnSouthToEast = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorth2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorthIsometric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSouthIsometric)).BeginInit();
@@ -155,7 +159,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(605, 49);
+            this.label4.Location = new System.Drawing.Point(679, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 18);
             this.label4.TabIndex = 15;
@@ -165,7 +169,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(605, 301);
+            this.label5.Location = new System.Drawing.Point(679, 301);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 18);
             this.label5.TabIndex = 14;
@@ -173,7 +177,7 @@
             // 
             // pbWestIsometric
             // 
-            this.pbWestIsometric.Location = new System.Drawing.Point(814, 70);
+            this.pbWestIsometric.Location = new System.Drawing.Point(888, 70);
             this.pbWestIsometric.Name = "pbWestIsometric";
             this.pbWestIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbWestIsometric.TabIndex = 13;
@@ -181,7 +185,7 @@
             // 
             // pbWest2D
             // 
-            this.pbWest2D.Location = new System.Drawing.Point(608, 70);
+            this.pbWest2D.Location = new System.Drawing.Point(682, 70);
             this.pbWest2D.Name = "pbWest2D";
             this.pbWest2D.Size = new System.Drawing.Size(200, 200);
             this.pbWest2D.TabIndex = 12;
@@ -189,7 +193,7 @@
             // 
             // pbEastIsometric
             // 
-            this.pbEastIsometric.Location = new System.Drawing.Point(814, 322);
+            this.pbEastIsometric.Location = new System.Drawing.Point(888, 322);
             this.pbEastIsometric.Name = "pbEastIsometric";
             this.pbEastIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbEastIsometric.TabIndex = 11;
@@ -197,7 +201,7 @@
             // 
             // pbEast2D
             // 
-            this.pbEast2D.Location = new System.Drawing.Point(608, 322);
+            this.pbEast2D.Location = new System.Drawing.Point(682, 322);
             this.pbEast2D.Name = "pbEast2D";
             this.pbEast2D.Size = new System.Drawing.Size(200, 200);
             this.pbEast2D.TabIndex = 10;
@@ -215,7 +219,7 @@
             // 
             // btnEastEdit
             // 
-            this.btnEastEdit.Location = new System.Drawing.Point(939, 300);
+            this.btnEastEdit.Location = new System.Drawing.Point(1013, 300);
             this.btnEastEdit.Name = "btnEastEdit";
             this.btnEastEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEastEdit.TabIndex = 17;
@@ -235,7 +239,7 @@
             // 
             // btnWestEdit
             // 
-            this.btnWestEdit.Location = new System.Drawing.Point(939, 49);
+            this.btnWestEdit.Location = new System.Drawing.Point(1013, 49);
             this.btnWestEdit.Name = "btnWestEdit";
             this.btnWestEdit.Size = new System.Drawing.Size(75, 23);
             this.btnWestEdit.TabIndex = 19;
@@ -243,11 +247,59 @@
             this.btnWestEdit.UseVisualStyleBackColor = true;
             this.btnWestEdit.Click += new System.EventHandler(this.btnWestEdit_Click);
             // 
+            // btnNorthToWest
+            // 
+            this.btnNorthToWest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNorthToWest.Location = new System.Drawing.Point(592, 70);
+            this.btnNorthToWest.Name = "btnNorthToWest";
+            this.btnNorthToWest.Size = new System.Drawing.Size(84, 96);
+            this.btnNorthToWest.TabIndex = 20;
+            this.btnNorthToWest.Text = ">>";
+            this.btnNorthToWest.UseVisualStyleBackColor = true;
+            this.btnNorthToWest.Click += new System.EventHandler(this.btnNorthToWest_Click);
+            // 
+            // btnWestToNorth
+            // 
+            this.btnWestToNorth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWestToNorth.Location = new System.Drawing.Point(592, 174);
+            this.btnWestToNorth.Name = "btnWestToNorth";
+            this.btnWestToNorth.Size = new System.Drawing.Size(84, 96);
+            this.btnWestToNorth.TabIndex = 21;
+            this.btnWestToNorth.Text = "<<";
+            this.btnWestToNorth.UseVisualStyleBackColor = true;
+            this.btnWestToNorth.Click += new System.EventHandler(this.btnWestToNorth_Click);
+            // 
+            // btnEastToSouth
+            // 
+            this.btnEastToSouth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEastToSouth.Location = new System.Drawing.Point(589, 426);
+            this.btnEastToSouth.Name = "btnEastToSouth";
+            this.btnEastToSouth.Size = new System.Drawing.Size(84, 96);
+            this.btnEastToSouth.TabIndex = 23;
+            this.btnEastToSouth.Text = "<<";
+            this.btnEastToSouth.UseVisualStyleBackColor = true;
+            this.btnEastToSouth.Click += new System.EventHandler(this.btnEastToSouth_Click);
+            // 
+            // btnSouthToEast
+            // 
+            this.btnSouthToEast.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSouthToEast.Location = new System.Drawing.Point(589, 322);
+            this.btnSouthToEast.Name = "btnSouthToEast";
+            this.btnSouthToEast.Size = new System.Drawing.Size(84, 96);
+            this.btnSouthToEast.TabIndex = 22;
+            this.btnSouthToEast.Text = ">>";
+            this.btnSouthToEast.UseVisualStyleBackColor = true;
+            this.btnSouthToEast.Click += new System.EventHandler(this.btnSouthToEast_Click);
+            // 
             // ComponentManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 534);
+            this.ClientSize = new System.Drawing.Size(1100, 534);
+            this.Controls.Add(this.btnEastToSouth);
+            this.Controls.Add(this.btnSouthToEast);
+            this.Controls.Add(this.btnWestToNorth);
+            this.Controls.Add(this.btnNorthToWest);
             this.Controls.Add(this.btnWestEdit);
             this.Controls.Add(this.btnSouthEdit);
             this.Controls.Add(this.btnEastEdit);
@@ -308,5 +360,9 @@
         private System.Windows.Forms.Button btnEastEdit;
         private System.Windows.Forms.Button btnSouthEdit;
         private System.Windows.Forms.Button btnWestEdit;
+        private System.Windows.Forms.Button btnNorthToWest;
+        private System.Windows.Forms.Button btnWestToNorth;
+        private System.Windows.Forms.Button btnEastToSouth;
+        private System.Windows.Forms.Button btnSouthToEast;
     }
 }
