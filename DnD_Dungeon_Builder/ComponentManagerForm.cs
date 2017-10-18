@@ -13,6 +13,7 @@ namespace DnD_Dungeon_Builder
     public partial class ComponentManagerForm : Form
     {
         ComponentManager componentManager;
+        Component selectedComponent = null;
 
         public ComponentManagerForm(ComponentManager componentManager)
         {
@@ -54,9 +55,9 @@ namespace DnD_Dungeon_Builder
         {
             if (lbComponents.SelectedItem is Component)
             {
-                Component component = lbComponents.SelectedItem as Component;
+                selectedComponent = lbComponents.SelectedItem as Component;
 
-                updateInfo(component);
+                updateInfo(selectedComponent);
             }
             else
             {
