@@ -22,6 +22,8 @@ namespace DnD_Dungeon_Builder
             
             lbComponents.DataSource = componentManager.Components;
             lbComponents.DisplayMember = "Name";
+            
+            updateInfo();
         }
 
         private void btnAddComponent_Click(object sender, EventArgs e)
@@ -50,7 +52,55 @@ namespace DnD_Dungeon_Builder
 
         private void lbComponents_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (lbComponents.SelectedItem is Component)
+            {
+                Component component = lbComponents.SelectedItem as Component;
 
+                updateInfo(component);
+            }
+            updateInfo();
+        }
+
+        private void updateInfo(Component component = null)
+        {
+            if(component == null)
+            {
+                lblComponentName.Text = "No component selected";
+
+                pbNorth2D.Image = null;
+                pbNorthIsometric.Image = null;
+                pbEast2D.Image = null;
+                pbEastIsometric.Image = null;
+                pbSouth2D.Image = null;
+                pbSouthIsometric.Image = null;
+                pbWest2D.Image = null;
+                pbWestIsometric.Image = null;
+
+                btnRemoveComponent.Enabled = false;
+                btnNorthEdit.Enabled = false;
+                btnEastEdit.Enabled = false;
+                btnSouthEdit.Enabled = false;
+                btnWestEdit.Enabled = false;
+
+                return;
+            }
+
+            lblComponentName.Text = component.Name;
+
+            pbNorth2D.Image = component.GetDrawing(Position.North).TwoDView;
+            pbNorthIsometric.Image = component.GetDrawing(Position.North).ThreeDView;
+            pbEast2D.Image = component.GetDrawing(Position.East).TwoDView;
+            pbEastIsometric.Image = component.GetDrawing(Position.East).ThreeDView;
+            pbSouth2D.Image = component.GetDrawing(Position.South).TwoDView;
+            pbSouthIsometric.Image = component.GetDrawing(Position.South).ThreeDView;
+            pbWest2D.Image = component.GetDrawing(Position.West).TwoDView;
+            pbWestIsometric.Image = component.GetDrawing(Position.West).ThreeDView;
+
+            btnRemoveComponent.Enabled = true;
+            btnNorthEdit.Enabled = true;
+            btnEastEdit.Enabled = true;
+            btnSouthEdit.Enabled = true;
+            btnWestEdit.Enabled = true;
         }
     }
 }
