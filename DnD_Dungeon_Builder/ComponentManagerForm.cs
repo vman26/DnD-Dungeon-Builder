@@ -191,12 +191,11 @@ namespace DnD_Dungeon_Builder
 
         private void btnSouthToEast_Click(object sender, EventArgs e)
         {
-
             Drawing drawingToCopy = selectedComponent.GetDrawing(Position.South);
             Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
             Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
 
-            twoD.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            twoD.RotateFlip(RotateFlipType.Rotate270FlipNone);
             isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
 
             selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.East));
@@ -205,12 +204,11 @@ namespace DnD_Dungeon_Builder
 
         private void btnEastToSouth_Click(object sender, EventArgs e)
         {
-
             Drawing drawingToCopy = selectedComponent.GetDrawing(Position.East);
             Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
             Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
 
-            twoD.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            twoD.RotateFlip(RotateFlipType.Rotate90FlipNone);
             isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
 
             selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.South));
