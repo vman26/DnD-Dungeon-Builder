@@ -32,7 +32,7 @@
             this.btnAddComponent = new System.Windows.Forms.Button();
             this.btnRemoveComponent = new System.Windows.Forms.Button();
             this.pbNorth2D = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblComponentName = new System.Windows.Forms.Label();
             this.pbNorthIsometric = new System.Windows.Forms.PictureBox();
             this.pbSouthIsometric = new System.Windows.Forms.PictureBox();
             this.pbSouth2D = new System.Windows.Forms.PictureBox();
@@ -96,15 +96,15 @@
             this.pbNorth2D.TabIndex = 3;
             this.pbNorth2D.TabStop = false;
             // 
-            // label1
+            // lblComponentName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(181, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(217, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "No component selected";
+            this.lblComponentName.AutoSize = true;
+            this.lblComponentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComponentName.Location = new System.Drawing.Point(181, 13);
+            this.lblComponentName.Name = "lblComponentName";
+            this.lblComponentName.Size = new System.Drawing.Size(217, 25);
+            this.lblComponentName.TabIndex = 4;
+            this.lblComponentName.Text = "No component selected";
             // 
             // pbNorthIsometric
             // 
@@ -258,7 +258,7 @@
             this.Controls.Add(this.pbSouthIsometric);
             this.Controls.Add(this.pbSouth2D);
             this.Controls.Add(this.pbNorthIsometric);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblComponentName);
             this.Controls.Add(this.pbNorth2D);
             this.Controls.Add(this.btnRemoveComponent);
             this.Controls.Add(this.btnAddComponent);
@@ -287,7 +287,7 @@
         private System.Windows.Forms.Button btnAddComponent;
         private System.Windows.Forms.Button btnRemoveComponent;
         private System.Windows.Forms.PictureBox pbNorth2D;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblComponentName;
         private System.Windows.Forms.PictureBox pbNorthIsometric;
         private System.Windows.Forms.PictureBox pbSouthIsometric;
         private System.Windows.Forms.PictureBox pbSouth2D;
