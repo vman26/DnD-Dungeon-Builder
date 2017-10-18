@@ -29,9 +29,10 @@ namespace DnD_Dungeon_Builder
         public Bitmap Isometric { get; private set; }
         public Drawing Drawing { get; private set; }
 
-        public ObjectDrawFrom(Drawing drawing)
+        public ObjectDrawFrom(Drawing drawing, Position position = Position.NotSet)
             : this(drawing?.TwoDView, drawing?.ThreeDView)
         {
+            Text = "Edit: " + position.ToString();
         }
 
             public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)

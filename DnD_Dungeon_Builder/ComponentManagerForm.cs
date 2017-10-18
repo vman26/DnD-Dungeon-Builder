@@ -46,32 +46,62 @@ namespace DnD_Dungeon_Builder
         {
             ContextMenu cm = new ContextMenu();
 
+            MenuItem item = new MenuItem("Copy to All", new EventHandler(CopyToAll_Click))
+            {
+                Name = position.ToString()
+            };
+            cm.MenuItems.Add(item);
+
             if (position != Position.North)
             {
-                MenuItem item = new MenuItem("Copy to North", new EventHandler(CopyToNorth_Click));
-                item.Name = position.ToString();
+                item = new MenuItem("Copy to North", new EventHandler(CopyToNorth_Click))
+                {
+                    Name = position.ToString()
+                };
                 cm.MenuItems.Add(item);
             }
             if (position != Position.East)
             {
-                MenuItem item = new MenuItem("Copy to East", new EventHandler(CopyToEast_Click));
-                item.Name = position.ToString();
+                item = new MenuItem("Copy to East", new EventHandler(CopyToEast_Click))
+                {
+                    Name = position.ToString()
+                };
                 cm.MenuItems.Add(item);
             }
             if (position != Position.South)
             {
-                MenuItem item = new MenuItem("Copy to South", new EventHandler(CopyToSouth_Click));
-                item.Name = position.ToString();
+                item = new MenuItem("Copy to South", new EventHandler(CopyToSouth_Click))
+                {
+                    Name = position.ToString()
+                };
                 cm.MenuItems.Add(item);
             }
             if (position != Position.West)
             {
-                MenuItem item = new MenuItem("Copy to West", new EventHandler(CopyToWest_Click));
-                item.Name = position.ToString();
+                item = new MenuItem("Copy to West", new EventHandler(CopyToWest_Click))
+                {
+                    Name = position.ToString()
+                };
                 cm.MenuItems.Add(item);
             }
 
             return cm;
+        }
+
+        private void CopyToAll_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem)
+            {
+                MenuItem menuItem = sender as MenuItem;
+                Position position = Position.NotSet;
+                if (Enum.TryParse(menuItem.Name, out position))
+                {
+                    rotateBitmap(position, Position.North);
+                    rotateBitmap(position, Position.East);
+                    rotateBitmap(position, Position.South);
+                    rotateBitmap(position, Position.West);
+                }
+            }
         }
 
         private void CopyToWest_Click(object sender, EventArgs e)
@@ -231,7 +261,7 @@ namespace DnD_Dungeon_Builder
             Drawing drawing = selectedComponent.GetDrawing(position);
             drawing = drawing ?? new Drawing(position: position);
 
-            using (ObjectDrawFrom form = new ObjectDrawFrom(drawing))
+            using (ObjectDrawFrom form = new ObjectDrawFrom(drawing, position))
             {
                 form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
@@ -255,57 +285,53 @@ namespace DnD_Dungeon_Builder
 
         private void btnNorthToWest_Click(object sender, EventArgs e)
         {
-            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.North);
-            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
-            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
-
-            twoD.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
-
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.West));
-            updateInfo(selectedComponent);
+            rotateAndMirrorViews(Position.North, Position.West);
         }
 
         private void btnWestToNorth_Click(object sender, EventArgs e)
         {
-            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.West);
-            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
-            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
-
-            twoD.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
-
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.North));
-            updateInfo(selectedComponent);
+            rotateAndMirrorViews(Position.West, Position.North);
         }
 
         private void btnSouthToEast_Click(object sender, EventArgs e)
         {
-            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.South);
-            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
-            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
-
-            twoD.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
-
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.East));
-            updateInfo(selectedComponent);
+            rotateAndMirrorViews(Position.South, Position.East);
         }
 
         private void btnEastToSouth_Click(object sender, EventArgs e)
         {
-            Drawing drawingToCopy = selectedComponent.GetDrawing(Position.East);
-            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
-            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
+            rotateAndMirrorViews(Position.East, Position.South);
+        }
 
-            twoD.RotateFlip(RotateFlipType.Rotate90FlipNone);
+        private void rotateAndMirrorViews(Position basePosition, Position targetPosition)
+        {
+            Drawing drawingToCopy = selectedComponent.GetDrawing(basePosition);
+            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
+            Bitmap isometric = (drawingToCopy.ThreeDView != null) ? (Bitmap)drawingToCopy.ThreeDView.Clone() : null;
+
+            twoD.RotateFlip(calculateRotateFlip(basePosition, targetPosition));
             isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
 
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, Position.South));
+            selectedComponent.AddDrawing(new Drawing(twoD, isometric, targetPosition));
             updateInfo(selectedComponent);
         }
 
         private void rotateBitmap(Position basePosition, Position targetPosition)
+        {
+            RotateFlipType rotateFlipType = calculateRotateFlip(basePosition, targetPosition);
+
+            Drawing drawingToCopy = selectedComponent.GetDrawing(basePosition);
+            Drawing targetOriginal = selectedComponent.GetDrawing(targetPosition);
+            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
+            Bitmap isometric = (targetOriginal != null) ? targetOriginal.ThreeDView : null;
+
+            twoD.RotateFlip(rotateFlipType);
+
+            selectedComponent.AddDrawing(new Drawing(twoD, isometric, targetPosition));
+            updateInfo(selectedComponent);
+        }
+
+        private RotateFlipType calculateRotateFlip(Position basePosition, Position targetPosition)
         {
             int baseRotation = (int)basePosition;
             int targetRotation = (int)targetPosition;
@@ -333,15 +359,7 @@ namespace DnD_Dungeon_Builder
                     break;
             }
 
-            Drawing drawingToCopy = selectedComponent.GetDrawing(basePosition);
-            Drawing targetOriginal = selectedComponent.GetDrawing(targetPosition);
-            Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
-            Bitmap isometric = (targetOriginal != null) ? targetOriginal.ThreeDView : null;
-
-            twoD.RotateFlip(rotateFlipType);
-
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, targetPosition));
-            updateInfo(selectedComponent);
+            return rotateFlipType;
         }
     }
 }
