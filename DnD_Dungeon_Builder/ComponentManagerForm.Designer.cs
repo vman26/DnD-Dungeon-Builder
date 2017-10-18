@@ -155,7 +155,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(609, 301);
+            this.label4.Location = new System.Drawing.Point(605, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 18);
             this.label4.TabIndex = 15;
@@ -165,7 +165,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(609, 49);
+            this.label5.Location = new System.Drawing.Point(605, 301);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 18);
             this.label5.TabIndex = 14;
@@ -173,7 +173,7 @@
             // 
             // pbWestIsometric
             // 
-            this.pbWestIsometric.Location = new System.Drawing.Point(818, 322);
+            this.pbWestIsometric.Location = new System.Drawing.Point(814, 70);
             this.pbWestIsometric.Name = "pbWestIsometric";
             this.pbWestIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbWestIsometric.TabIndex = 13;
@@ -181,7 +181,7 @@
             // 
             // pbWest2D
             // 
-            this.pbWest2D.Location = new System.Drawing.Point(612, 322);
+            this.pbWest2D.Location = new System.Drawing.Point(608, 70);
             this.pbWest2D.Name = "pbWest2D";
             this.pbWest2D.Size = new System.Drawing.Size(200, 200);
             this.pbWest2D.TabIndex = 12;
@@ -189,7 +189,7 @@
             // 
             // pbEastIsometric
             // 
-            this.pbEastIsometric.Location = new System.Drawing.Point(818, 70);
+            this.pbEastIsometric.Location = new System.Drawing.Point(814, 322);
             this.pbEastIsometric.Name = "pbEastIsometric";
             this.pbEastIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbEastIsometric.TabIndex = 11;
@@ -197,7 +197,7 @@
             // 
             // pbEast2D
             // 
-            this.pbEast2D.Location = new System.Drawing.Point(612, 70);
+            this.pbEast2D.Location = new System.Drawing.Point(608, 322);
             this.pbEast2D.Name = "pbEast2D";
             this.pbEast2D.Size = new System.Drawing.Size(200, 200);
             this.pbEast2D.TabIndex = 10;
@@ -215,7 +215,7 @@
             // 
             // btnEastEdit
             // 
-            this.btnEastEdit.Location = new System.Drawing.Point(943, 48);
+            this.btnEastEdit.Location = new System.Drawing.Point(939, 300);
             this.btnEastEdit.Name = "btnEastEdit";
             this.btnEastEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEastEdit.TabIndex = 17;
@@ -235,7 +235,7 @@
             // 
             // btnWestEdit
             // 
-            this.btnWestEdit.Location = new System.Drawing.Point(943, 301);
+            this.btnWestEdit.Location = new System.Drawing.Point(939, 49);
             this.btnWestEdit.Name = "btnWestEdit";
             this.btnWestEdit.Size = new System.Drawing.Size(75, 23);
             this.btnWestEdit.TabIndex = 19;
@@ -247,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 534);
+            this.ClientSize = new System.Drawing.Size(1025, 534);
             this.Controls.Add(this.btnWestEdit);
             this.Controls.Add(this.btnSouthEdit);
             this.Controls.Add(this.btnEastEdit);
