@@ -190,16 +190,9 @@ namespace DnD_Dungeon_Builder
 
         private void btnComponentManager_Click(object sender, EventArgs e)
         {
-            /*using (ObjectDrawFrom form = new ObjectDrawFrom())
-            {
-                form.Parent = this.Parent;
-                form.StartPosition = FormStartPosition.CenterParent;
-                form.ShowDialog();
-            }*/
-
             using (ComponentManagerForm form = new ComponentManagerForm(componentManager))
             {
-                form.Parent = this.Parent;
+                form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog();
             }

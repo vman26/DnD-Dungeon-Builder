@@ -44,7 +44,7 @@ namespace DnD_Dungeon_Builder
         public Drawing GetDrawing(Position position)
         {
             Drawing drawing = null;
-            switch (drawing.Position)
+            switch (position)
             {
                 case Position.North:
                     drawing = Drawings[0];

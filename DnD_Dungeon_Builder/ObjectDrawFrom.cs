@@ -27,8 +27,14 @@ namespace DnD_Dungeon_Builder
 
         public Bitmap TwoDimensional { get; private set; }
         public Bitmap Isometric { get; private set; }
+        public Drawing Drawing { get; private set; }
 
-        public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
+        public ObjectDrawFrom(Drawing drawing)
+            : this(drawing.TwoDView, drawing.ThreeDView)
+        {
+        }
+
+            public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
         {
             InitializeComponent();
             bitmapBackup = new List<BitmapBackup>();
@@ -229,8 +235,9 @@ namespace DnD_Dungeon_Builder
 
         private void loadDrawings(Bitmap twoDimensional, Bitmap isometric = null)
         {
-            pbDrawing2D.Image = twoDimensional;
-            Bitmap bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
+            Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
+            pbDrawing2D.Image = (twoDimensional != null) ? twoDimensional : bmp;
+            bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
             pbDrawingIsometric.Image = (isometric != null) ? isometric : bmp;
             Invalidate();
         }
@@ -313,8 +320,11 @@ namespace DnD_Dungeon_Builder
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            TwoDimensional = (Bitmap)pbDrawing2D.Image;
-            Isometric = (Bitmap)pbDrawingIsometric.Image;
+            TwoDimensional = (Bitmap)pbDrawing2D.Image.Clone();
+            Isometric = (Bitmap)pbDrawingIsometric.Image.Clone();
+
+            Drawing = new Drawing(TwoDimensional, Isometric);
+
             DialogResult = DialogResult.OK;
         }
     }

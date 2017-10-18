@@ -12,7 +12,8 @@ namespace DnD_Dungeon_Builder
         North,
         East,
         South,
-        West
+        West,
+        NotSet
     }
 
     public class Drawing
@@ -21,10 +22,15 @@ namespace DnD_Dungeon_Builder
         public Bitmap ThreeDView { get; private set; }
         public Position Position { get; private set; }
 
-        public Drawing(Bitmap twoDView, Bitmap threeDView, Position position)
+        public Drawing(Bitmap twoDView, Bitmap threeDView, Position position = Position.NotSet)
         {
             TwoDView = twoDView;
             ThreeDView = threeDView;
+            Position = position;
+        }
+
+        public void SetPosition(Position position)
+        {
             Position = position;
         }
     }

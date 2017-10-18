@@ -211,6 +211,7 @@
             this.btnNorthEdit.TabIndex = 16;
             this.btnNorthEdit.Text = "Edit";
             this.btnNorthEdit.UseVisualStyleBackColor = true;
+            this.btnNorthEdit.Click += new System.EventHandler(this.btnNorthEdit_Click);
             // 
             // btnEastEdit
             // 
@@ -220,6 +221,7 @@
             this.btnEastEdit.TabIndex = 17;
             this.btnEastEdit.Text = "Edit";
             this.btnEastEdit.UseVisualStyleBackColor = true;
+            this.btnEastEdit.Click += new System.EventHandler(this.btnEastEdit_Click);
             // 
             // btnSouthEdit
             // 
@@ -229,6 +231,7 @@
             this.btnSouthEdit.TabIndex = 18;
             this.btnSouthEdit.Text = "Edit";
             this.btnSouthEdit.UseVisualStyleBackColor = true;
+            this.btnSouthEdit.Click += new System.EventHandler(this.btnSouthEdit_Click);
             // 
             // btnWestEdit
             // 
@@ -238,6 +241,7 @@
             this.btnWestEdit.TabIndex = 19;
             this.btnWestEdit.Text = "Edit";
             this.btnWestEdit.UseVisualStyleBackColor = true;
+            this.btnWestEdit.Click += new System.EventHandler(this.btnWestEdit_Click);
             // 
             // ComponentManagerForm
             // 

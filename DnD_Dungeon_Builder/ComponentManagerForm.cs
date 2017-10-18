@@ -58,7 +58,10 @@ namespace DnD_Dungeon_Builder
 
                 updateInfo(component);
             }
-            updateInfo();
+            else
+            {
+                updateInfo();
+            }
         }
 
         private void updateInfo(Component component = null)
@@ -87,20 +90,56 @@ namespace DnD_Dungeon_Builder
 
             lblComponentName.Text = component.Name;
 
-            pbNorth2D.Image = component.GetDrawing(Position.North).TwoDView;
-            pbNorthIsometric.Image = component.GetDrawing(Position.North).ThreeDView;
-            pbEast2D.Image = component.GetDrawing(Position.East).TwoDView;
-            pbEastIsometric.Image = component.GetDrawing(Position.East).ThreeDView;
-            pbSouth2D.Image = component.GetDrawing(Position.South).TwoDView;
-            pbSouthIsometric.Image = component.GetDrawing(Position.South).ThreeDView;
-            pbWest2D.Image = component.GetDrawing(Position.West).TwoDView;
-            pbWestIsometric.Image = component.GetDrawing(Position.West).ThreeDView;
+            pbNorth2D.Image = component.GetDrawing(Position.North)?.TwoDView;
+            pbNorthIsometric.Image = component.GetDrawing(Position.North)?.ThreeDView;
+            pbEast2D.Image = component.GetDrawing(Position.East)?.TwoDView;
+            pbEastIsometric.Image = component.GetDrawing(Position.East)?.ThreeDView;
+            pbSouth2D.Image = component.GetDrawing(Position.South)?.TwoDView;
+            pbSouthIsometric.Image = component.GetDrawing(Position.South)?.ThreeDView;
+            pbWest2D.Image = component.GetDrawing(Position.West)?.TwoDView;
+            pbWestIsometric.Image = component.GetDrawing(Position.West)?.ThreeDView;
 
             btnRemoveComponent.Enabled = true;
             btnNorthEdit.Enabled = true;
             btnEastEdit.Enabled = true;
             btnSouthEdit.Enabled = true;
             btnWestEdit.Enabled = true;
+        }
+
+        private void btnNorthEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEastEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSouthEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnWestEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private Drawing editDrawing(Drawing drawing)
+        {
+            using (ObjectDrawFrom form = new ObjectDrawFrom(drawing))
+            {
+                form.Parent = Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    Drawing d = form.Drawing;
+                    d.SetPosition(drawing.Position);
+                    return d;
+                }
+            }
+            return null;
         }
     }
 }
