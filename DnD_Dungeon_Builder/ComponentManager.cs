@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,11 @@ namespace DnD_Dungeon_Builder
 {
     public class ComponentManager
     {
-        public List<Component> Components { get; private set; }
+        public BindingList<Component> Components { get; private set; }
 
         public ComponentManager()
         {
-            Components = new List<Component>();
+            Components = new BindingList<Component>();
         }
 
         public bool AddNewComponent(string name)

@@ -19,19 +19,25 @@ namespace DnD_Dungeon_Builder
             InitializeComponent();
 
             this.componentManager = componentManager;
-
+            
             lbComponents.DataSource = componentManager.Components;
             lbComponents.DisplayMember = "Name";
         }
 
         private void btnAddComponent_Click(object sender, EventArgs e)
         {
-            /*using (ObjectDrawFrom form = new ObjectDrawFrom(componentManager))
+            using (StringInputForm form = new StringInputForm())
             {
                 form.Parent = this.Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
-                form.ShowDialog();
-            }*/
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if(!componentManager.AddNewComponent(form.InputText))
+                    {
+                        MessageBox.Show("The given component name is already existing in the collection.");
+                    }
+                }
+            }
         }
 
         private void btnRemoveComponent_Click(object sender, EventArgs e)
@@ -40,6 +46,11 @@ namespace DnD_Dungeon_Builder
             {
                 componentManager.RemoveComponent(lbComponents.SelectedItem as Component);
             }
+        }
+
+        private void lbComponents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

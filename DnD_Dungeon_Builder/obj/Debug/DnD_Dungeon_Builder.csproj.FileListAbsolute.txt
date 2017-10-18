@@ -33,3 +33,5 @@ C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\Dn
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.ObjectDrawFrom.resources
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.OffsetForm.resources
 E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.OffsetForm.resources
+C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.ComponentManagerForm.resources
+C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.StringInputForm.resources

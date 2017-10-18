@@ -65,6 +65,7 @@
             this.lbComponents.Name = "lbComponents";
             this.lbComponents.Size = new System.Drawing.Size(161, 459);
             this.lbComponents.TabIndex = 0;
+            this.lbComponents.SelectedIndexChanged += new System.EventHandler(this.lbComponents_SelectedIndexChanged);
             // 
             // btnAddComponent
             // 

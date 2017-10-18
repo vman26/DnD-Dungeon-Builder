@@ -78,6 +78,12 @@
     <Compile Include="ObjectDrawFrom.Designer.cs">
       <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="StringInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringInputForm.Designer.cs">
+      <DependentUpon>StringInputForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="OffsetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectDrawFrom.resx">
       <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringInputForm.resx">
+      <DependentUpon>StringInputForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OffsetForm.resx">
       <DependentUpon>OffsetForm.cs</DependentUpon>

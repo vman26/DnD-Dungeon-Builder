@@ -30,6 +30,7 @@ namespace DnD_Dungeon_Builder
             componentManager = new ComponentManager();
 
             //bindingSource1.DataSource = countries;
+
             cbComponents.DataSource = componentManager.Components;
             cbComponents.DisplayMember = "Name";
 
@@ -189,7 +190,14 @@ namespace DnD_Dungeon_Builder
 
         private void btnComponentManager_Click(object sender, EventArgs e)
         {
-            using (ObjectDrawFrom form = new ObjectDrawFrom())
+            /*using (ObjectDrawFrom form = new ObjectDrawFrom())
+            {
+                form.Parent = this.Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog();
+            }*/
+
+            using (ComponentManagerForm form = new ComponentManagerForm(componentManager))
             {
                 form.Parent = this.Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
