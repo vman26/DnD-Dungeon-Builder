@@ -324,6 +324,9 @@
             this.Controls.Add(this.pbDrawing2D);
             this.Controls.Add(this.pbGrid2D);
             this.Controls.Add(this.btnClear2D);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ObjectDrawFrom";
             this.Text = "ObjectDraw";
             this.Load += new System.EventHandler(this.ObjectDrawFrom_Load);

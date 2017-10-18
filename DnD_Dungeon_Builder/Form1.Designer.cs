@@ -35,7 +35,7 @@
             this.controlPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.cbComponents = new System.Windows.Forms.ComboBox();
-            this.btnDrawObject = new System.Windows.Forms.Button();
+            this.btnComponentManager = new System.Windows.Forms.Button();
             this.btnBackgroundColor = new System.Windows.Forms.Button();
             this.btnAddColumnAndRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
@@ -45,8 +45,6 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
-            this.btnAddComponent = new System.Windows.Forms.Button();
-            this.btnRemoveComponent = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -97,11 +95,9 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.controlPanel.Controls.Add(this.btnRemoveComponent);
-            this.controlPanel.Controls.Add(this.btnAddComponent);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.cbComponents);
-            this.controlPanel.Controls.Add(this.btnDrawObject);
+            this.controlPanel.Controls.Add(this.btnComponentManager);
             this.controlPanel.Controls.Add(this.btnBackgroundColor);
             this.controlPanel.Controls.Add(this.btnAddColumnAndRow);
             this.controlPanel.Controls.Add(this.btnAddRow);
@@ -132,15 +128,15 @@
             this.cbComponents.Size = new System.Drawing.Size(121, 21);
             this.cbComponents.TabIndex = 12;
             // 
-            // btnDrawObject
+            // btnComponentManager
             // 
-            this.btnDrawObject.Location = new System.Drawing.Point(505, 7);
-            this.btnDrawObject.Name = "btnDrawObject";
-            this.btnDrawObject.Size = new System.Drawing.Size(127, 62);
-            this.btnDrawObject.TabIndex = 11;
-            this.btnDrawObject.Text = "Draw object";
-            this.btnDrawObject.UseVisualStyleBackColor = true;
-            this.btnDrawObject.Click += new System.EventHandler(this.btnDrawObject_Click);
+            this.btnComponentManager.Location = new System.Drawing.Point(765, 9);
+            this.btnComponentManager.Name = "btnComponentManager";
+            this.btnComponentManager.Size = new System.Drawing.Size(127, 62);
+            this.btnComponentManager.TabIndex = 11;
+            this.btnComponentManager.Text = "Component manager";
+            this.btnComponentManager.UseVisualStyleBackColor = true;
+            this.btnComponentManager.Click += new System.EventHandler(this.btnComponentManager_Click);
             // 
             // btnBackgroundColor
             // 
@@ -230,28 +226,6 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // btnAddComponent
-            // 
-            this.btnAddComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(765, 7);
-            this.btnAddComponent.Name = "btnAddComponent";
-            this.btnAddComponent.Size = new System.Drawing.Size(34, 62);
-            this.btnAddComponent.TabIndex = 14;
-            this.btnAddComponent.Text = "+";
-            this.btnAddComponent.UseVisualStyleBackColor = true;
-            this.btnAddComponent.Click += new System.EventHandler(this.btnAddComponent_Click);
-            // 
-            // btnRemoveComponent
-            // 
-            this.btnRemoveComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveComponent.Location = new System.Drawing.Point(805, 7);
-            this.btnRemoveComponent.Name = "btnRemoveComponent";
-            this.btnRemoveComponent.Size = new System.Drawing.Size(34, 62);
-            this.btnRemoveComponent.TabIndex = 15;
-            this.btnRemoveComponent.Text = "-";
-            this.btnRemoveComponent.UseVisualStyleBackColor = true;
-            this.btnRemoveComponent.Click += new System.EventHandler(this.btnRemoveComponent_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -291,11 +265,9 @@
         private System.Windows.Forms.Button btnAddColumnAndRow;
         private System.Windows.Forms.Button btnBackgroundColor;
         private System.Windows.Forms.ColorDialog cdBackgroud;
-        private System.Windows.Forms.Button btnDrawObject;
+        private System.Windows.Forms.Button btnComponentManager;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbComponents;
-        private System.Windows.Forms.Button btnRemoveComponent;
-        private System.Windows.Forms.Button btnAddComponent;
     }
 }
 

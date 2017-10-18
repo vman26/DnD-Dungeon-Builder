@@ -187,31 +187,13 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void btnDrawObject_Click(object sender, EventArgs e)
+        private void btnComponentManager_Click(object sender, EventArgs e)
         {
             using (ObjectDrawFrom form = new ObjectDrawFrom())
             {
                 form.Parent = this.Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog();
-            }
-        }
-
-        private void btnAddComponent_Click(object sender, EventArgs e)
-        {
-            /*using (ObjectDrawFrom form = new ObjectDrawFrom(componentManager))
-            {
-                form.Parent = this.Parent;
-                form.StartPosition = FormStartPosition.CenterParent;
-                form.ShowDialog();
-            }*/
-        }
-
-        private void btnRemoveComponent_Click(object sender, EventArgs e)
-        {
-            if (cbComponents.SelectedItem is Component)
-            {
-                componentManager.RemoveComponent(cbComponents.SelectedItem as Component);
             }
         }
     }

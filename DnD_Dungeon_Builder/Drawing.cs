@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DnD_Dungeon_Builder
 {
-    enum Position
+    public enum Position
     {
         North,
         East,
@@ -15,7 +15,7 @@ namespace DnD_Dungeon_Builder
         West
     }
 
-    class Drawing
+    public class Drawing
     {
         public Bitmap TwoDView { get; private set; }
         public Bitmap ThreeDView { get; private set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DnD_Dungeon_Builder
 {
-    class ComponentManager
+    public class ComponentManager
     {
         public List<Component> Components { get; private set; }
 

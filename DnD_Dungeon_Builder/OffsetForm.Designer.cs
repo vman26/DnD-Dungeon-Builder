@@ -101,6 +101,8 @@
             this.Controls.Add(this.nupOffsetX);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OffsetForm";
             this.Text = "Offset";
             ((System.ComponentModel.ISupportInitialize)(this.nupOffsetX)).EndInit();
