@@ -30,7 +30,7 @@ namespace DnD_Dungeon_Builder
         public Drawing Drawing { get; private set; }
 
         public ObjectDrawFrom(Drawing drawing)
-            : this(drawing.TwoDView, drawing.ThreeDView)
+            : this(drawing?.TwoDView, drawing?.ThreeDView)
         {
         }
 

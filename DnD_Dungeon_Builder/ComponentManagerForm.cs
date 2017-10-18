@@ -23,7 +23,16 @@ namespace DnD_Dungeon_Builder
             
             lbComponents.DataSource = componentManager.Components;
             lbComponents.DisplayMember = "Name";
-            
+
+            pbNorth2D.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbNorthIsometric.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbEast2D.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbEastIsometric.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbSouth2D.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbSouthIsometric.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbWest2D.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbWestIsometric.SizeMode = PictureBoxSizeMode.StretchImage;
+
             updateInfo();
         }
 
@@ -109,38 +118,49 @@ namespace DnD_Dungeon_Builder
 
         private void btnNorthEdit_Click(object sender, EventArgs e)
         {
-
+            editDrawing(Position.North);
         }
 
         private void btnEastEdit_Click(object sender, EventArgs e)
         {
-
+            editDrawing(Position.East);
         }
 
         private void btnSouthEdit_Click(object sender, EventArgs e)
         {
-
+            editDrawing(Position.South);
         }
 
         private void btnWestEdit_Click(object sender, EventArgs e)
         {
-
+            editDrawing(Position.West);
         }
 
-        private Drawing editDrawing(Drawing drawing)
+        private void editDrawing(Position position)
         {
+            Drawing drawing = selectedComponent.GetDrawing(position);
+            drawing = drawing ?? new Drawing(position: position);
+
             using (ObjectDrawFrom form = new ObjectDrawFrom(drawing))
             {
                 form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Drawing d = form.Drawing;
-                    d.SetPosition(drawing.Position);
-                    return d;
+                    drawing = form.Drawing;
+                    drawing.SetPosition(position);
+                }
+                else
+                {
+                    drawing = null;
                 }
             }
-            return null;
+
+            if (drawing != null)
+            {
+                selectedComponent.AddDrawing(drawing);
+                updateInfo(selectedComponent);
+            }
         }
     }
 }

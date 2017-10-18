@@ -22,7 +22,7 @@ namespace DnD_Dungeon_Builder
         public Bitmap ThreeDView { get; private set; }
         public Position Position { get; private set; }
 
-        public Drawing(Bitmap twoDView, Bitmap threeDView, Position position = Position.NotSet)
+        public Drawing(Bitmap twoDView = null, Bitmap threeDView = null, Position position = Position.NotSet)
         {
             TwoDView = twoDView;
             ThreeDView = threeDView;
