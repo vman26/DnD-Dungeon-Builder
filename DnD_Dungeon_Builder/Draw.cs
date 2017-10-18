@@ -90,7 +90,7 @@ namespace DnD_Dungeon_Builder
         }
 
 
-        static public void DrawGridTiles(ref Bitmap bitmap)
+        static public void DrawGridTiles(ref Bitmap bitmap, Position position = Position.NotSet)
         {
             Graphics g = Graphics.FromImage(bitmap);
             int size = Math.Min(bitmap.Width, bitmap.Height);
@@ -105,15 +105,20 @@ namespace DnD_Dungeon_Builder
             {
                 y = (bitmap.Height - size) / 2;
             }
-            
+
             // Draw tile outline
             Pen pen = new Pen(Color.Black);
+            Pen positionPen = new Pen(Color.Red);
+            size-=3;
 
-            g.DrawRectangle(pen, x, y, size, size);
+            g.DrawLine((position == Position.West) ? positionPen : pen, x, y, x, y + size);
+            g.DrawLine((position == Position.South) ? positionPen : pen, x, y + size, x + size, y + size);
+            g.DrawLine((position == Position.East) ? positionPen : pen, x + size, y + size, x + size, y);
+            g.DrawLine((position == Position.North) ? positionPen : pen, x + size, y, x, y);
             g.Dispose();
         }
 
-        static public void DrawIsometricTiles(ref Bitmap bitmap)
+        static public void DrawIsometricTiles(ref Bitmap bitmap, Position position = Position.NotSet)
         {
             Graphics g = Graphics.FromImage(bitmap);
             int size = 200;
@@ -132,11 +137,12 @@ namespace DnD_Dungeon_Builder
             ry += bitmap.Height - IsoW - 2;
             
             Pen pen = new Pen(Color.Black);
+            Pen positionPen = new Pen(Color.Red);
 
-            g.DrawLine(pen, rx, ry, rx - IsoW, ry + IsoH);
-            g.DrawLine(pen, rx - IsoW, ry + IsoH, rx, ry + IsoH * 2);
-            g.DrawLine(pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
-            g.DrawLine(pen, rx + IsoW, ry + IsoH, rx, ry);
+            g.DrawLine((position == Position.West) ? positionPen : pen, rx, ry, rx - IsoW, ry + IsoH);
+            g.DrawLine((position == Position.South) ? positionPen : pen, rx - IsoW, ry + IsoH, rx, ry + IsoH * 2);
+            g.DrawLine((position == Position.East) ? positionPen : pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
+            g.DrawLine((position == Position.North) ? positionPen : pen, rx + IsoW, ry + IsoH, rx, ry);
 
             g.Dispose();
         }

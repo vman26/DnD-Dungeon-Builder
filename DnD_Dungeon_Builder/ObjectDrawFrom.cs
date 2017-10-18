@@ -29,10 +29,13 @@ namespace DnD_Dungeon_Builder
         public Bitmap Isometric { get; private set; }
         public Drawing Drawing { get; private set; }
 
+        Position Position = Position.NotSet;
+
         public ObjectDrawFrom(Drawing drawing, Position position = Position.NotSet)
             : this(drawing?.TwoDView, drawing?.ThreeDView)
         {
             Text = "Edit: " + position.ToString();
+            Position = position;
         }
 
             public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
@@ -97,8 +100,8 @@ namespace DnD_Dungeon_Builder
 
         private void ObjectDrawFrom_Load(object sender, EventArgs e)
         {
-            Draw.DrawGridTiles(ref grid2D);
-            Draw.DrawIsometricTiles(ref gridIsometric);
+            Draw.DrawGridTiles(ref grid2D, Position);
+            Draw.DrawIsometricTiles(ref gridIsometric, Position);
         }
 
         private void pbDrawing_MouseDown(object sender, MouseEventArgs e)
