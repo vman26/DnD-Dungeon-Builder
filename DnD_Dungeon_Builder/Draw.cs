@@ -105,7 +105,7 @@ namespace DnD_Dungeon_Builder
             // Draw tile outline
             Pen pen = new Pen(Color.Black);
             Pen positionPen = new Pen(Color.Red);
-            size-=3;
+            size-=1;
 
             g.DrawLine((position == Position.West) ? positionPen : pen, x, y, x, y + size);
             g.DrawLine((position == Position.South) ? positionPen : pen, x, y + size, x + size, y + size);

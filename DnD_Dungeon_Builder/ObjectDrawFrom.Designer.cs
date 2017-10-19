@@ -63,7 +63,6 @@
             // 
             // pbDrawing2D
             // 
-            this.pbDrawing2D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbDrawing2D.Location = new System.Drawing.Point(246, 326);
             this.pbDrawing2D.Name = "pbDrawing2D";
             this.pbDrawing2D.Size = new System.Drawing.Size(50, 48);
@@ -93,7 +92,6 @@
             // 
             // pbDrawingIsometric
             // 
-            this.pbDrawingIsometric.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbDrawingIsometric.Location = new System.Drawing.Point(788, 326);
             this.pbDrawingIsometric.Name = "pbDrawingIsometric";
             this.pbDrawingIsometric.Size = new System.Drawing.Size(50, 48);
