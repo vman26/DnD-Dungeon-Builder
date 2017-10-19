@@ -13,6 +13,8 @@ namespace DnD_Dungeon_Builder
 {
     public partial class ObjectDrawFrom : Form
     {
+        bool isChanged = false;
+        bool isSaved = true;
         Point lastPoint = Point.Empty; // Point.Empty represents null for a Point object
         Point keptPoint = Point.Empty;
 
@@ -108,6 +110,8 @@ namespace DnD_Dungeon_Builder
 
         private void pbDrawing_MouseDown(object sender, MouseEventArgs e)
         {
+            isSaved = false;
+            isChanged = true;
             if (e.Button == MouseButtons.Left)
             {
                 backup(sender as PictureBox);
@@ -242,9 +246,9 @@ namespace DnD_Dungeon_Builder
         private void loadDrawings(Bitmap twoDimensional, Bitmap isometric = null)
         {
             Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
-            pbDrawing2D.Image = (twoDimensional != null) ? twoDimensional : bmp;
+            pbDrawing2D.Image = (twoDimensional != null) ? (Bitmap)twoDimensional.Clone() : bmp;
             bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
-            pbDrawingIsometric.Image = (isometric != null) ? isometric : bmp;
+            pbDrawingIsometric.Image = (isometric != null) ? (Bitmap)isometric.Clone() : bmp;
             Invalidate();
         }
 
@@ -353,17 +357,44 @@ namespace DnD_Dungeon_Builder
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            save();
+        }
+
+        private void save()
+        {
+            isSaved = true;
             TwoDimensional = (Bitmap)pbDrawing2D.Image.Clone();
             Isometric = (Bitmap)pbDrawingIsometric.Image.Clone();
 
             Drawing = new Drawing(TwoDimensional, Isometric);
-
-            DialogResult = DialogResult.OK;
         }
 
         private void btnRedo_Click(object sender, EventArgs e)
         {
             redo();
+        }
+
+        private void ObjectDrawFrom_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isChanged)
+            {
+                DialogResult = DialogResult.Cancel;
+                return;
+            }
+            if (isSaved)
+            {
+                DialogResult = DialogResult.OK;
+                return;
+            }
+            else
+            {
+                if (MessageBox.Show("Do you want to save all changes before exiting?","Save?",MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    save();
+                    DialogResult = DialogResult.OK;
+                    return;
+                }
+            }
         }
     }
 }

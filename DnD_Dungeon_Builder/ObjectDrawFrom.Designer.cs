@@ -341,6 +341,7 @@
             this.MinimizeBox = false;
             this.Name = "ObjectDrawFrom";
             this.Text = "ObjectDraw";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ObjectDrawFrom_FormClosing);
             this.Load += new System.EventHandler(this.ObjectDrawFrom_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).EndInit();

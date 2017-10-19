@@ -270,10 +270,6 @@ namespace DnD_Dungeon_Builder
                     drawing = form.Drawing;
                     drawing.SetPosition(position);
                 }
-                else
-                {
-                    drawing = null;
-                }
             }
 
             if (drawing != null)
