@@ -325,6 +325,7 @@
             this.MinimizeBox = false;
             this.Name = "ComponentManagerForm";
             this.Text = "ComponentManagerForm";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ComponentManagerForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbNorth2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorthIsometric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSouthIsometric)).EndInit();

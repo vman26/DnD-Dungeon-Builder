@@ -14,6 +14,7 @@ namespace DnD_Dungeon_Builder
             InitializeComponent();
 
             this.componentManager = componentManager;
+            KeyPreview = true;
             
             lbComponents.DataSource = componentManager.Components;
             lbComponents.DisplayMember = "Name";
@@ -161,6 +162,11 @@ namespace DnD_Dungeon_Builder
                     if(!componentManager.AddNewComponent(form.InputText))
                     {
                         MessageBox.Show("The given component name is already existing in the collection.");
+                    }
+                    else
+                    {
+                        lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
+                        lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
                     }
                 }
             }
@@ -350,6 +356,33 @@ namespace DnD_Dungeon_Builder
             }
 
             return rotateFlipType;
+        }
+
+        private void ComponentManagerForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+               case Keys.Insert:
+                    btnAddComponent.PerformClick();
+                    break;
+                case Keys.Delete:
+                    btnRemoveComponent.PerformClick();
+                    break;
+                case Keys.N:
+                    editDrawing(Position.North);
+                    break;
+                case Keys.W:
+                    editDrawing(Position.West);
+                    break;
+                case Keys.S:
+                    editDrawing(Position.South);
+                    break;
+                case Keys.E:
+                    editDrawing(Position.East);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
