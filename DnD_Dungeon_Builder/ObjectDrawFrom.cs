@@ -108,13 +108,18 @@ namespace DnD_Dungeon_Builder
             Draw.DrawIsometricTiles(ref gridIsometric, Position);
         }
 
+        private void contentChanged()
+        {
+            isSaved = false;
+            if (!Text.Contains("*"))
+                Text += "*";
+            isChanged = true;
+        }
+
         private void pbDrawing_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                isSaved = false;
-                isChanged = true;
-
                 redoBitmapBackup = new List<BitmapBackup>();
                 btnRedo.Enabled = false;
 
@@ -147,6 +152,7 @@ namespace DnD_Dungeon_Builder
                         }
                     }
                 }
+                contentChanged();
             }
         }
 
@@ -243,6 +249,7 @@ namespace DnD_Dungeon_Builder
                 bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
                 pbDrawingIsometric.Image = bmp;
             }
+            contentChanged();
             Invalidate();
         }
 
@@ -322,6 +329,7 @@ namespace DnD_Dungeon_Builder
         {
             if (undoBitmapBackup.Count > 0)
             {
+                contentChanged();
                 BitmapBackup backup = undoBitmapBackup.Last();
                 if (backup.PictureBoxes != null)
                 {
@@ -346,6 +354,7 @@ namespace DnD_Dungeon_Builder
         {
             if (redoBitmapBackup.Count > 0)
             {
+                contentChanged();
                 BitmapBackup backup = redoBitmapBackup.Last();
                 if (backup.PictureBoxes != null)
                 {
@@ -384,6 +393,7 @@ namespace DnD_Dungeon_Builder
         private void save()
         {
             isSaved = true;
+            Text = Text.Substring(0, Text.IndexOf("*"));
             TwoDimensional = (Bitmap)pbDrawing2D.Image.Clone();
             Isometric = (Bitmap)pbDrawingIsometric.Image.Clone();
 
