@@ -64,7 +64,7 @@
             // pbDrawing2D
             // 
             this.pbDrawing2D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbDrawing2D.Location = new System.Drawing.Point(299, 326);
+            this.pbDrawing2D.Location = new System.Drawing.Point(246, 326);
             this.pbDrawing2D.Name = "pbDrawing2D";
             this.pbDrawing2D.Size = new System.Drawing.Size(50, 48);
             this.pbDrawing2D.TabIndex = 0;
@@ -87,14 +87,14 @@
             // 
             this.pbGrid2D.Location = new System.Drawing.Point(12, 88);
             this.pbGrid2D.Name = "pbGrid2D";
-            this.pbGrid2D.Size = new System.Drawing.Size(650, 524);
+            this.pbGrid2D.Size = new System.Drawing.Size(525, 525);
             this.pbGrid2D.TabIndex = 2;
             this.pbGrid2D.TabStop = false;
             // 
             // pbDrawingIsometric
             // 
             this.pbDrawingIsometric.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbDrawingIsometric.Location = new System.Drawing.Point(974, 326);
+            this.pbDrawingIsometric.Location = new System.Drawing.Point(788, 326);
             this.pbDrawingIsometric.Name = "pbDrawingIsometric";
             this.pbDrawingIsometric.Size = new System.Drawing.Size(50, 48);
             this.pbDrawingIsometric.TabIndex = 3;
@@ -105,9 +105,9 @@
             // 
             // pbGridIsometric
             // 
-            this.pbGridIsometric.Location = new System.Drawing.Point(668, 88);
+            this.pbGridIsometric.Location = new System.Drawing.Point(543, 88);
             this.pbGridIsometric.Name = "pbGridIsometric";
-            this.pbGridIsometric.Size = new System.Drawing.Size(650, 524);
+            this.pbGridIsometric.Size = new System.Drawing.Size(525, 525);
             this.pbGridIsometric.TabIndex = 4;
             this.pbGridIsometric.TabStop = false;
             // 
@@ -169,7 +169,7 @@
             // 
             // btnUndo
             // 
-            this.btnUndo.Location = new System.Drawing.Point(1107, 12);
+            this.btnUndo.Location = new System.Drawing.Point(856, 12);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(103, 70);
             this.btnUndo.TabIndex = 15;
@@ -291,7 +291,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(988, 12);
+            this.btnSave.Location = new System.Drawing.Point(737, 12);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(113, 70);
             this.btnSave.TabIndex = 25;
@@ -301,7 +301,7 @@
             // 
             // btnRedo
             // 
-            this.btnRedo.Location = new System.Drawing.Point(1216, 12);
+            this.btnRedo.Location = new System.Drawing.Point(965, 12);
             this.btnRedo.Name = "btnRedo";
             this.btnRedo.Size = new System.Drawing.Size(103, 70);
             this.btnRedo.TabIndex = 26;
@@ -313,7 +313,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1331, 616);
+            this.ClientSize = new System.Drawing.Size(1078, 616);
             this.Controls.Add(this.btnRedo);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rbEraser);

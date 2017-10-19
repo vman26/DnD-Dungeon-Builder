@@ -117,7 +117,7 @@ namespace DnD_Dungeon_Builder
         static public void DrawIsometricTiles(ref Bitmap bitmap, Position position = Position.NotSet)
         {
             Graphics g = Graphics.FromImage(bitmap);
-            int size = 200;
+            int size = bitmap.Width / 2;
 
             var IsoW = size; // cell width
             var IsoH = size / 2; // cell height
