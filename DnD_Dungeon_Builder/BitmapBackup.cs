@@ -17,7 +17,7 @@ namespace DnD_Dungeon_Builder
         public BitmapBackup(PictureBox pictureBox)
         {
             PictureBox = pictureBox;
-            if (pictureBox.Image != null)
+            if (pictureBox?.Image != null)
                 Bitmap = (Bitmap)pictureBox.Image.Clone();
             else
                 throw new ArgumentNullException("The picturebox given has no image to backup.");

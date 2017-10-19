@@ -23,7 +23,8 @@ namespace DnD_Dungeon_Builder
         Bitmap grid2D;
         Bitmap gridIsometric;
 
-        List<BitmapBackup> bitmapBackup;
+        List<BitmapBackup> undoBitmapBackup;
+        List<BitmapBackup> redoBitmapBackup;
 
         public Bitmap TwoDimensional { get; private set; }
         public Bitmap Isometric { get; private set; }
@@ -41,7 +42,8 @@ namespace DnD_Dungeon_Builder
             public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
         {
             InitializeComponent();
-            bitmapBackup = new List<BitmapBackup>();
+            undoBitmapBackup = new List<BitmapBackup>();
+            redoBitmapBackup = new List<BitmapBackup>();
 
             grid2D = new Bitmap(pbGrid2D.Width, pbGrid2D.Height);
             pbGrid2D.Image = grid2D;
@@ -174,7 +176,7 @@ namespace DnD_Dungeon_Builder
                         }
                         if (rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
                         {
-                            drawing = (Bitmap)bitmapBackup.Last().Bitmap.Clone();
+                            drawing = (Bitmap)undoBitmapBackup.Last().Bitmap.Clone();
                             drawingBox.Image = drawing;
                             using (Graphics g = Graphics.FromImage(drawing))
                             {
@@ -292,22 +294,49 @@ namespace DnD_Dungeon_Builder
         private void backup(PictureBox pictureBox)
         {
             if (pictureBox.Image != null)
-                bitmapBackup.Add(new BitmapBackup(pictureBox));
+                undoBitmapBackup.Add(new BitmapBackup(pictureBox));
         }
 
         private void backup(PictureBox[] pictureBoxes)
         {
             if (pictureBoxes != null)
-                bitmapBackup.Add(new BitmapBackup(pictureBoxes));
+                undoBitmapBackup.Add(new BitmapBackup(pictureBoxes));
         }
 
         private void undo()
         {
-            if (bitmapBackup.Count > 0)
+            if (undoBitmapBackup.Count > 0)
             {
-                BitmapBackup backup = bitmapBackup.Last();
+                BitmapBackup backup = undoBitmapBackup.Last();
+                if (backup.PictureBoxes != null)
+                {
+                    redoBitmapBackup.Add(new BitmapBackup(backup.PictureBoxes.ToArray()));
+                }
+                else
+                {
+                    redoBitmapBackup.Add(new BitmapBackup(backup.PictureBox));
+                }
                 backup.Restore();
-                bitmapBackup.Remove(backup);
+                undoBitmapBackup.Remove(backup);
+                Invalidate();
+            }
+        }
+
+        private void redo()
+        {
+            if (redoBitmapBackup.Count > 0)
+            {
+                BitmapBackup backup = redoBitmapBackup.Last();
+                if (backup.PictureBoxes != null)
+                {
+                    undoBitmapBackup.Add(new BitmapBackup(backup.PictureBoxes.ToArray()));
+                }
+                else
+                {
+                    undoBitmapBackup.Add(new BitmapBackup(backup.PictureBox));
+                }
+                backup.Restore();
+                redoBitmapBackup.Remove(backup);
                 Invalidate();
             }
         }
@@ -330,6 +359,11 @@ namespace DnD_Dungeon_Builder
             Drawing = new Drawing(TwoDimensional, Isometric);
 
             DialogResult = DialogResult.OK;
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e)
+        {
+            redo();
         }
     }
 }
