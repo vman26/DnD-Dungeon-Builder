@@ -6,11 +6,30 @@ namespace DnD_Dungeon_Builder
     {
         public string Name { get; private set; }
         public Drawing[] Drawings { get; private set; }
+        public Position DrawPosition { get; private set; }
 
         public Component(string name)
         {
             Name = name;
             Drawings = new Drawing[4] { null, null, null, null };
+            DrawPosition = Position.North;
+        }
+
+        public void RotateDrawPosition(Rotate rotate = Rotate.Clockwise)
+        {
+            int rotation = (int)DrawPosition;
+            rotation += (int)rotate;
+
+            if (rotation > 360)
+            {
+                rotation -= 360;
+            }
+            if (rotation < 0)
+            {
+                rotation += 360;
+            }
+
+            DrawPosition = (Position)rotation;
         }
 
         public void AddDrawing(Drawing drawing)
