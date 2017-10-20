@@ -78,21 +78,24 @@ namespace DnD_Dungeon_Builder
             IFormatter formatter = new BinaryFormatter();
             foreach (string file in Directory.GetFiles(path))
             {
-                Console.WriteLine(file);
-                using (Stream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                if (Path.GetExtension(file) == ".bin")
                 {
-                    try
+                    Console.WriteLine(file);
+                    using (Stream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        Component obj = (Component)formatter.Deserialize(stream);
-                        LoadComponent(obj);
-                    }
-                    catch(InvalidCastException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    catch(SerializationException e)
-                    {
-                        Console.WriteLine(e.Message);
+                        try
+                        {
+                            Component obj = (Component)formatter.Deserialize(stream);
+                            LoadComponent(obj);
+                        }
+                        catch (InvalidCastException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        catch (SerializationException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
                     }
                 }
             }
