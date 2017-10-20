@@ -9,7 +9,7 @@ namespace DnD_Dungeon_Builder
     {
         int tileSize = 40;
 
-        Map<Component> map;
+        Map<ComponentVariant> map;
 
         Bitmap GridDrawArea;
         Bitmap IsometricDrawArea;
@@ -122,7 +122,7 @@ namespace DnD_Dungeon_Builder
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    map = new Map<Component>(form.Xtiles, form.Ytiles, form.MapName);
+                    map = new Map<ComponentVariant>(form.Xtiles, form.Ytiles, form.MapName);
                     refreshScreen();
                 }
             }

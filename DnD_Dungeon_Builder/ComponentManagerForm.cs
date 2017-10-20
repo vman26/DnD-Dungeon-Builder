@@ -8,6 +8,7 @@ namespace DnD_Dungeon_Builder
     {
         ComponentManager componentManager;
         Component selectedComponent = null;
+        ComponentVariant selectedVariant = null;
 
         public ComponentManagerForm(ComponentManager componentManager)
         {
@@ -155,7 +156,7 @@ namespace DnD_Dungeon_Builder
         {
             using (StringInputForm form = new StringInputForm())
             {
-                form.Parent = this.Parent;
+                form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -170,6 +171,14 @@ namespace DnD_Dungeon_Builder
                     }
                 }
             }
+            if (lbComponents.Items.Count > 0)
+            {
+                btnRemoveComponent.Enabled = true;
+            }
+            else
+            {
+                btnRemoveComponent.Enabled = false;
+            }
         }
 
         private void btnRemoveComponent_Click(object sender, EventArgs e)
@@ -177,16 +186,91 @@ namespace DnD_Dungeon_Builder
             if (lbComponents.SelectedItem is Component)
             {
                 componentManager.RemoveComponent(lbComponents.SelectedItem as Component);
+                selectedVariant = null;
+                selectedComponent = null;
+                lbComponentVariants.DataSource = null;
+                lbComponentVariants.Items.Clear();
+                if (lbComponents.Items.Count > 0)
+                {
+                    btnRemoveComponent.Enabled = true;
+                }
+                else
+                {
+                    btnRemoveComponent.Enabled = false;
+                }
+            }
+        }
+
+        private void btnAddVariant_Click(object sender, EventArgs e)
+        {
+            if (selectedComponent != null)
+            {
+                using (StringInputForm form = new StringInputForm())
+                {
+                    form.Parent = Parent;
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        if (!selectedComponent.AddComponent(form.InputText))
+                        {
+                            MessageBox.Show("The given component name is already existing in the collection.");
+                        }
+                        else
+                        {
+                            lbComponentVariants.SelectedIndex = lbComponentVariants.Items.Count - 1;
+                            lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
+                        }
+                    }
+                }
+                if (lbComponentVariants.Items.Count > 0)
+                {
+                    btnRemoveVariant.Enabled = true;
+                }
+                else
+                {
+                    btnRemoveVariant.Enabled = false;
+                }
+            }
+        }
+
+        private void btnRemoveVariant_Click(object sender, EventArgs e)
+        {
+            if (lbComponentVariants.SelectedItem is ComponentVariant)
+            {
+                selectedComponent.RemoveComponent(lbComponentVariants.SelectedItem as ComponentVariant);
+                selectedVariant = null;
+                if (lbComponentVariants.Items.Count > 0)
+                {
+                    btnRemoveVariant.Enabled = true;
+                }
+                else
+                {
+                    btnRemoveVariant.Enabled = false;
+                }
             }
         }
 
         private void lbComponents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbComponents.SelectedItem is Component)
+            if(lbComponents.SelectedItem is Component)
             {
-                selectedComponent = lbComponents.SelectedItem as Component;
+                Component component = lbComponents.SelectedItem as Component;
+                selectedComponent = component;
+                lbComponentVariants.DataSource = selectedComponent.Components;
+                lbComponentVariants.DisplayMember = "Name";
+                int variantCount = lbComponentVariants.Items.Count;
+                variantCount = (variantCount > 0) ? 1 : 0;
+                lbComponentVariants.SelectedIndex = variantCount - 1;
+                lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
+            }
+        }
 
-                updateInfo(selectedComponent);
+        private void lbComponentVariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbComponentVariants.SelectedItem is ComponentVariant)
+            {
+                selectedVariant = lbComponentVariants.SelectedItem as ComponentVariant;
+                updateInfo(selectedVariant);
             }
             else
             {
@@ -194,7 +278,7 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void updateInfo(Component component = null)
+        private void updateInfo(ComponentVariant component = null)
         {
             if(component == null)
             {
@@ -210,6 +294,7 @@ namespace DnD_Dungeon_Builder
                 pbWestIsometric.Image = null;
 
                 btnRemoveComponent.Enabled = false;
+                btnRemoveVariant.Enabled = false;
                 btnNorthEdit.Enabled = false;
                 btnEastEdit.Enabled = false;
                 btnSouthEdit.Enabled = false;
@@ -230,6 +315,7 @@ namespace DnD_Dungeon_Builder
             pbWestIsometric.Image = component.GetDrawing(Position.West)?.ThreeDView;
 
             btnRemoveComponent.Enabled = true;
+            btnRemoveVariant.Enabled = true;
             btnNorthEdit.Enabled = true;
             btnEastEdit.Enabled = true;
             btnSouthEdit.Enabled = true;
@@ -258,7 +344,7 @@ namespace DnD_Dungeon_Builder
 
         private void editDrawing(Position position)
         {
-            Drawing drawing = selectedComponent.GetDrawing(position);
+            Drawing drawing = selectedVariant.GetDrawing(position);
             drawing = drawing ?? new Drawing(position: position);
 
             using (ObjectDrawFrom form = new ObjectDrawFrom(drawing, position))
@@ -274,8 +360,8 @@ namespace DnD_Dungeon_Builder
 
             if (drawing != null)
             {
-                selectedComponent.AddDrawing(drawing);
-                updateInfo(selectedComponent);
+                selectedVariant.AddDrawing(drawing);
+                updateInfo(selectedVariant);
             }
         }
 
@@ -301,30 +387,30 @@ namespace DnD_Dungeon_Builder
 
         private void rotateAndMirrorViews(Position basePosition, Position targetPosition)
         {
-            Drawing drawingToCopy = selectedComponent.GetDrawing(basePosition);
+            Drawing drawingToCopy = selectedVariant.GetDrawing(basePosition);
             Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
             Bitmap isometric = (drawingToCopy.ThreeDView != null) ? (Bitmap)drawingToCopy.ThreeDView.Clone() : null;
 
             twoD.RotateFlip(calculateRotateFlip(basePosition, targetPosition));
             isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
 
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, targetPosition));
-            updateInfo(selectedComponent);
+            selectedVariant.AddDrawing(new Drawing(twoD, isometric, targetPosition));
+            updateInfo(selectedVariant);
         }
 
         private void rotateBitmap(Position basePosition, Position targetPosition)
         {
             RotateFlipType rotateFlipType = calculateRotateFlip(basePosition, targetPosition);
 
-            Drawing drawingToCopy = selectedComponent.GetDrawing(basePosition);
-            Drawing targetOriginal = selectedComponent.GetDrawing(targetPosition);
+            Drawing drawingToCopy = selectedVariant.GetDrawing(basePosition);
+            Drawing targetOriginal = selectedVariant.GetDrawing(targetPosition);
             Bitmap twoD = (Bitmap)drawingToCopy.TwoDView.Clone();
             Bitmap isometric = (targetOriginal != null) ? targetOriginal.ThreeDView : null;
 
             twoD.RotateFlip(rotateFlipType);
 
-            selectedComponent.AddDrawing(new Drawing(twoD, isometric, targetPosition));
-            updateInfo(selectedComponent);
+            selectedVariant.AddDrawing(new Drawing(twoD, isometric, targetPosition));
+            updateInfo(selectedVariant);
         }
 
         private RotateFlipType calculateRotateFlip(Position basePosition, Position targetPosition)
@@ -360,28 +446,45 @@ namespace DnD_Dungeon_Builder
 
         private void ComponentManagerForm_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (e.Modifiers == Keys.Shift)
             {
-               case Keys.Insert:
-                    btnAddComponent.PerformClick();
-                    break;
-                case Keys.Delete:
-                    btnRemoveComponent.PerformClick();
-                    break;
-                case Keys.N:
-                    editDrawing(Position.North);
-                    break;
-                case Keys.W:
-                    editDrawing(Position.West);
-                    break;
-                case Keys.S:
-                    editDrawing(Position.South);
-                    break;
-                case Keys.E:
-                    editDrawing(Position.East);
-                    break;
-                default:
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.Insert:
+                        btnAddVariant.PerformClick();
+                        break;
+                    case Keys.Delete:
+                        btnRemoveVariant.PerformClick();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Insert:
+                        btnAddComponent.PerformClick();
+                        break;
+                    case Keys.Delete:
+                        btnRemoveComponent.PerformClick();
+                        break;
+                    case Keys.N:
+                        editDrawing(Position.North);
+                        break;
+                    case Keys.W:
+                        editDrawing(Position.West);
+                        break;
+                    case Keys.S:
+                        editDrawing(Position.South);
+                        break;
+                    case Keys.E:
+                        editDrawing(Position.East);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

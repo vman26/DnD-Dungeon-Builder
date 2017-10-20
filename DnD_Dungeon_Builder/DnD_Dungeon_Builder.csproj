@@ -54,6 +54,7 @@
     <Compile Include="ComponentManagerForm.Designer.cs">
       <DependentUpon>ComponentManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComponentVariant.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="CreateMapForm.cs">
       <SubType>Form</SubType>

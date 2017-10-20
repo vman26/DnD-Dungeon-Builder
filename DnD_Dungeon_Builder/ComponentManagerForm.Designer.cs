@@ -52,6 +52,9 @@
             this.btnWestToNorth = new System.Windows.Forms.Button();
             this.btnEastToSouth = new System.Windows.Forms.Button();
             this.btnSouthToEast = new System.Windows.Forms.Button();
+            this.lbComponentVariants = new System.Windows.Forms.ListBox();
+            this.btnRemoveVariant = new System.Windows.Forms.Button();
+            this.btnAddVariant = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorth2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorthIsometric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSouthIsometric)).BeginInit();
@@ -67,14 +70,14 @@
             this.lbComponents.FormattingEnabled = true;
             this.lbComponents.Location = new System.Drawing.Point(13, 13);
             this.lbComponents.Name = "lbComponents";
-            this.lbComponents.Size = new System.Drawing.Size(161, 459);
+            this.lbComponents.Size = new System.Drawing.Size(161, 212);
             this.lbComponents.TabIndex = 0;
             this.lbComponents.SelectedIndexChanged += new System.EventHandler(this.lbComponents_SelectedIndexChanged);
             // 
             // btnAddComponent
             // 
             this.btnAddComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(13, 478);
+            this.btnAddComponent.Location = new System.Drawing.Point(12, 233);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(80, 44);
             this.btnAddComponent.TabIndex = 1;
@@ -85,7 +88,7 @@
             // btnRemoveComponent
             // 
             this.btnRemoveComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveComponent.Location = new System.Drawing.Point(93, 478);
+            this.btnRemoveComponent.Location = new System.Drawing.Point(92, 233);
             this.btnRemoveComponent.Name = "btnRemoveComponent";
             this.btnRemoveComponent.Size = new System.Drawing.Size(81, 44);
             this.btnRemoveComponent.TabIndex = 2;
@@ -291,11 +294,45 @@
             this.btnSouthToEast.UseVisualStyleBackColor = true;
             this.btnSouthToEast.Click += new System.EventHandler(this.btnSouthToEast_Click);
             // 
+            // lbComponentVariants
+            // 
+            this.lbComponentVariants.FormattingEnabled = true;
+            this.lbComponentVariants.Location = new System.Drawing.Point(13, 286);
+            this.lbComponentVariants.Name = "lbComponentVariants";
+            this.lbComponentVariants.Size = new System.Drawing.Size(161, 186);
+            this.lbComponentVariants.TabIndex = 24;
+            this.lbComponentVariants.SelectedIndexChanged += new System.EventHandler(this.lbComponentVariants_SelectedIndexChanged);
+            // 
+            // btnRemoveVariant
+            // 
+            this.btnRemoveVariant.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveVariant.Location = new System.Drawing.Point(93, 478);
+            this.btnRemoveVariant.Name = "btnRemoveVariant";
+            this.btnRemoveVariant.Size = new System.Drawing.Size(81, 44);
+            this.btnRemoveVariant.TabIndex = 26;
+            this.btnRemoveVariant.Text = "-";
+            this.btnRemoveVariant.UseVisualStyleBackColor = true;
+            this.btnRemoveVariant.Click += new System.EventHandler(this.btnRemoveVariant_Click);
+            // 
+            // btnAddVariant
+            // 
+            this.btnAddVariant.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddVariant.Location = new System.Drawing.Point(12, 478);
+            this.btnAddVariant.Name = "btnAddVariant";
+            this.btnAddVariant.Size = new System.Drawing.Size(80, 44);
+            this.btnAddVariant.TabIndex = 25;
+            this.btnAddVariant.Text = "+";
+            this.btnAddVariant.UseVisualStyleBackColor = true;
+            this.btnAddVariant.Click += new System.EventHandler(this.btnAddVariant_Click);
+            // 
             // ComponentManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 534);
+            this.Controls.Add(this.btnRemoveVariant);
+            this.Controls.Add(this.btnAddVariant);
+            this.Controls.Add(this.lbComponentVariants);
             this.Controls.Add(this.btnEastToSouth);
             this.Controls.Add(this.btnSouthToEast);
             this.Controls.Add(this.btnWestToNorth);
@@ -365,5 +402,8 @@
         private System.Windows.Forms.Button btnWestToNorth;
         private System.Windows.Forms.Button btnEastToSouth;
         private System.Windows.Forms.Button btnSouthToEast;
+        private System.Windows.Forms.ListBox lbComponentVariants;
+        private System.Windows.Forms.Button btnRemoveVariant;
+        private System.Windows.Forms.Button btnAddVariant;
     }
 }
