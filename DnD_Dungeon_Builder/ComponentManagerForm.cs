@@ -14,6 +14,8 @@ namespace DnD_Dungeon_Builder
         Component selectedComponent = null;
         ComponentVariant selectedVariant = null;
 
+        Position copyPosition = Position.NotSet;
+
         public ComponentManagerForm(ComponentManager componentManager)
         {
             InitializeComponent();
@@ -39,6 +41,11 @@ namespace DnD_Dungeon_Builder
             pbEast2D.ContextMenu = createContextMenu(Position.East);
             pbSouth2D.ContextMenu = createContextMenu(Position.South);
             pbWest2D.ContextMenu = createContextMenu(Position.West);
+
+            pbNorthIsometric.ContextMenu = createContextMenuIsometric(Position.North);
+            pbEastIsometric.ContextMenu = createContextMenuIsometric(Position.East);
+            pbSouthIsometric.ContextMenu = createContextMenuIsometric(Position.South);
+            pbWestIsometric.ContextMenu = createContextMenuIsometric(Position.West);
 
             lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
             lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
@@ -89,6 +96,53 @@ namespace DnD_Dungeon_Builder
             }
 
             return cm;
+        }
+
+        private ContextMenu createContextMenuIsometric(Position position)
+        {
+            ContextMenu cm = new ContextMenu();
+
+            MenuItem item = new MenuItem("Copy", new EventHandler(Copy_Click))
+            {
+                Name = position.ToString()
+            };
+            cm.MenuItems.Add(item);
+            item = new MenuItem("Paste", new EventHandler(Paste_Click))
+            {
+                Name = position.ToString()
+            };
+            cm.MenuItems.Add(item);
+
+            return cm;
+        }
+
+        private void Paste_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem)
+            {
+                MenuItem menuItem = sender as MenuItem;
+                Position position = Position.NotSet;
+                if (Enum.TryParse(menuItem.Name, out position))
+                {
+                    if (copyPosition != Position.NotSet)
+                    {
+                        CopyBitmap(copyPosition, position);
+                    }
+                }
+            }
+        }
+
+        private void Copy_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem)
+            {
+                MenuItem menuItem = sender as MenuItem;
+                Position position = Position.NotSet;
+                if (Enum.TryParse(menuItem.Name, out position))
+                {
+                    copyPosition = position;
+                }
+            }
         }
 
         private void CopyToAll_Click(object sender, EventArgs e)
@@ -232,7 +286,6 @@ namespace DnD_Dungeon_Builder
             if (lbComponentVariants.SelectedItem is ComponentVariant)
             {
                 selectedComponent.RemoveComponent(lbComponentVariants.SelectedItem as ComponentVariant);
-                selectedVariant = null;
                 updateInfo(selectedComponent, selectedVariant);
             }
         }
@@ -277,6 +330,11 @@ namespace DnD_Dungeon_Builder
                 lbComponentVariants.SelectedIndex = variantCount - 1;
                 lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
             }
+            else
+            {
+                selectedComponent = null;
+                updateInfo();
+            }
         }
 
         private void lbComponentVariants_SelectedIndexChanged(object sender, EventArgs e)
@@ -288,6 +346,7 @@ namespace DnD_Dungeon_Builder
             }
             else
             {
+                selectedVariant = null;
                 updateInfo();
             }
         }
@@ -425,6 +484,17 @@ namespace DnD_Dungeon_Builder
             updateInfo(selectedComponent, selectedVariant);
         }
 
+        private void CopyBitmap(Position basePosition, Position targetPosition)
+        {
+            Drawing drawingToCopy = selectedVariant.GetDrawing(basePosition);
+            Drawing targetOriginal = selectedVariant.GetDrawing(targetPosition);
+            Bitmap isometric = (Bitmap)drawingToCopy.ThreeDView.Clone();
+            Bitmap twoD = (targetOriginal != null) ? targetOriginal.TwoDView : null;
+            
+            selectedVariant.AddDrawing(new Drawing(twoD, isometric, targetPosition));
+            updateInfo(selectedComponent, selectedVariant);
+        }
+
         private RotateFlipType calculateRotateFlip(Position basePosition, Position targetPosition)
         {
             int baseRotation = (int)basePosition;
@@ -502,20 +572,15 @@ namespace DnD_Dungeon_Builder
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (StringInputForm form = new StringInputForm())
+            if (selectedComponent != null)
             {
-                form.Parent = Parent;
-                form.StartPosition = FormStartPosition.CenterParent;
-                if (form.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    try
-                    {
-                        componentManager.SaveComponentToFile(selectedComponent, form.InputText);
-                    }
-                    catch(IOException)
-                    {
-                        MessageBox.Show("The given filename already exists.");
-                    }
+                    componentManager.SaveComponentToFile(selectedComponent, selectedComponent.Name);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("The given filename already exists.");
                 }
             }
         }

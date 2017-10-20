@@ -65,7 +65,7 @@ namespace DnD_Dungeon_Builder
         public void SaveComponentToFile(Component component, string fileName)
         {
             IFormatter formatter = new BinaryFormatter();
-            using (Stream stream = new FileStream("Components/" + fileName + ".bin", FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            using (Stream stream = new FileStream("Components/" + fileName + ".bin", FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 formatter.Serialize(stream, component);
             }
