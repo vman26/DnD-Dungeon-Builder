@@ -56,6 +56,10 @@
             this.btnRemoveVariant = new System.Windows.Forms.Button();
             this.btnAddVariant = new System.Windows.Forms.Button();
             this.btnCloneVariant = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorth2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNorthIsometric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSouthIsometric)).BeginInit();
@@ -64,12 +68,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbWest2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEastIsometric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEast2D)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbComponents
             // 
             this.lbComponents.FormattingEnabled = true;
-            this.lbComponents.Location = new System.Drawing.Point(13, 12);
+            this.lbComponents.Location = new System.Drawing.Point(12, 27);
             this.lbComponents.Name = "lbComponents";
             this.lbComponents.Size = new System.Drawing.Size(161, 199);
             this.lbComponents.TabIndex = 0;
@@ -78,7 +83,7 @@
             // btnAddComponent
             // 
             this.btnAddComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(12, 218);
+            this.btnAddComponent.Location = new System.Drawing.Point(11, 233);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(80, 44);
             this.btnAddComponent.TabIndex = 1;
@@ -89,7 +94,7 @@
             // btnRemoveComponent
             // 
             this.btnRemoveComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveComponent.Location = new System.Drawing.Point(92, 218);
+            this.btnRemoveComponent.Location = new System.Drawing.Point(91, 233);
             this.btnRemoveComponent.Name = "btnRemoveComponent";
             this.btnRemoveComponent.Size = new System.Drawing.Size(81, 44);
             this.btnRemoveComponent.TabIndex = 2;
@@ -99,7 +104,7 @@
             // 
             // pbNorth2D
             // 
-            this.pbNorth2D.Location = new System.Drawing.Point(180, 70);
+            this.pbNorth2D.Location = new System.Drawing.Point(179, 85);
             this.pbNorth2D.Name = "pbNorth2D";
             this.pbNorth2D.Size = new System.Drawing.Size(200, 200);
             this.pbNorth2D.TabIndex = 3;
@@ -109,7 +114,7 @@
             // 
             this.lblComponentName.AutoSize = true;
             this.lblComponentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblComponentName.Location = new System.Drawing.Point(181, 13);
+            this.lblComponentName.Location = new System.Drawing.Point(180, 28);
             this.lblComponentName.Name = "lblComponentName";
             this.lblComponentName.Size = new System.Drawing.Size(217, 25);
             this.lblComponentName.TabIndex = 4;
@@ -117,7 +122,7 @@
             // 
             // pbNorthIsometric
             // 
-            this.pbNorthIsometric.Location = new System.Drawing.Point(386, 70);
+            this.pbNorthIsometric.Location = new System.Drawing.Point(385, 85);
             this.pbNorthIsometric.Name = "pbNorthIsometric";
             this.pbNorthIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbNorthIsometric.TabIndex = 5;
@@ -125,7 +130,7 @@
             // 
             // pbSouthIsometric
             // 
-            this.pbSouthIsometric.Location = new System.Drawing.Point(386, 322);
+            this.pbSouthIsometric.Location = new System.Drawing.Point(385, 337);
             this.pbSouthIsometric.Name = "pbSouthIsometric";
             this.pbSouthIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbSouthIsometric.TabIndex = 7;
@@ -133,7 +138,7 @@
             // 
             // pbSouth2D
             // 
-            this.pbSouth2D.Location = new System.Drawing.Point(180, 322);
+            this.pbSouth2D.Location = new System.Drawing.Point(179, 337);
             this.pbSouth2D.Name = "pbSouth2D";
             this.pbSouth2D.Size = new System.Drawing.Size(200, 200);
             this.pbSouth2D.TabIndex = 6;
@@ -143,7 +148,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(177, 49);
+            this.label2.Location = new System.Drawing.Point(176, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 18);
             this.label2.TabIndex = 8;
@@ -153,7 +158,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(177, 301);
+            this.label3.Location = new System.Drawing.Point(176, 316);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 18);
             this.label3.TabIndex = 9;
@@ -163,7 +168,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(679, 49);
+            this.label4.Location = new System.Drawing.Point(678, 64);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 18);
             this.label4.TabIndex = 15;
@@ -173,7 +178,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(679, 301);
+            this.label5.Location = new System.Drawing.Point(678, 316);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 18);
             this.label5.TabIndex = 14;
@@ -181,7 +186,7 @@
             // 
             // pbWestIsometric
             // 
-            this.pbWestIsometric.Location = new System.Drawing.Point(888, 70);
+            this.pbWestIsometric.Location = new System.Drawing.Point(887, 85);
             this.pbWestIsometric.Name = "pbWestIsometric";
             this.pbWestIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbWestIsometric.TabIndex = 13;
@@ -189,7 +194,7 @@
             // 
             // pbWest2D
             // 
-            this.pbWest2D.Location = new System.Drawing.Point(682, 70);
+            this.pbWest2D.Location = new System.Drawing.Point(681, 85);
             this.pbWest2D.Name = "pbWest2D";
             this.pbWest2D.Size = new System.Drawing.Size(200, 200);
             this.pbWest2D.TabIndex = 12;
@@ -197,7 +202,7 @@
             // 
             // pbEastIsometric
             // 
-            this.pbEastIsometric.Location = new System.Drawing.Point(888, 322);
+            this.pbEastIsometric.Location = new System.Drawing.Point(887, 337);
             this.pbEastIsometric.Name = "pbEastIsometric";
             this.pbEastIsometric.Size = new System.Drawing.Size(200, 200);
             this.pbEastIsometric.TabIndex = 11;
@@ -205,7 +210,7 @@
             // 
             // pbEast2D
             // 
-            this.pbEast2D.Location = new System.Drawing.Point(682, 322);
+            this.pbEast2D.Location = new System.Drawing.Point(681, 337);
             this.pbEast2D.Name = "pbEast2D";
             this.pbEast2D.Size = new System.Drawing.Size(200, 200);
             this.pbEast2D.TabIndex = 10;
@@ -213,7 +218,7 @@
             // 
             // btnNorthEdit
             // 
-            this.btnNorthEdit.Location = new System.Drawing.Point(511, 49);
+            this.btnNorthEdit.Location = new System.Drawing.Point(510, 64);
             this.btnNorthEdit.Name = "btnNorthEdit";
             this.btnNorthEdit.Size = new System.Drawing.Size(75, 23);
             this.btnNorthEdit.TabIndex = 16;
@@ -223,7 +228,7 @@
             // 
             // btnEastEdit
             // 
-            this.btnEastEdit.Location = new System.Drawing.Point(1013, 300);
+            this.btnEastEdit.Location = new System.Drawing.Point(1012, 315);
             this.btnEastEdit.Name = "btnEastEdit";
             this.btnEastEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEastEdit.TabIndex = 17;
@@ -233,7 +238,7 @@
             // 
             // btnSouthEdit
             // 
-            this.btnSouthEdit.Location = new System.Drawing.Point(511, 300);
+            this.btnSouthEdit.Location = new System.Drawing.Point(510, 315);
             this.btnSouthEdit.Name = "btnSouthEdit";
             this.btnSouthEdit.Size = new System.Drawing.Size(75, 23);
             this.btnSouthEdit.TabIndex = 18;
@@ -243,7 +248,7 @@
             // 
             // btnWestEdit
             // 
-            this.btnWestEdit.Location = new System.Drawing.Point(1013, 49);
+            this.btnWestEdit.Location = new System.Drawing.Point(1012, 64);
             this.btnWestEdit.Name = "btnWestEdit";
             this.btnWestEdit.Size = new System.Drawing.Size(75, 23);
             this.btnWestEdit.TabIndex = 19;
@@ -254,7 +259,7 @@
             // btnNorthToWest
             // 
             this.btnNorthToWest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNorthToWest.Location = new System.Drawing.Point(592, 70);
+            this.btnNorthToWest.Location = new System.Drawing.Point(591, 85);
             this.btnNorthToWest.Name = "btnNorthToWest";
             this.btnNorthToWest.Size = new System.Drawing.Size(84, 96);
             this.btnNorthToWest.TabIndex = 20;
@@ -265,7 +270,7 @@
             // btnWestToNorth
             // 
             this.btnWestToNorth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWestToNorth.Location = new System.Drawing.Point(592, 174);
+            this.btnWestToNorth.Location = new System.Drawing.Point(591, 189);
             this.btnWestToNorth.Name = "btnWestToNorth";
             this.btnWestToNorth.Size = new System.Drawing.Size(84, 96);
             this.btnWestToNorth.TabIndex = 21;
@@ -276,7 +281,7 @@
             // btnEastToSouth
             // 
             this.btnEastToSouth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEastToSouth.Location = new System.Drawing.Point(589, 426);
+            this.btnEastToSouth.Location = new System.Drawing.Point(588, 441);
             this.btnEastToSouth.Name = "btnEastToSouth";
             this.btnEastToSouth.Size = new System.Drawing.Size(84, 96);
             this.btnEastToSouth.TabIndex = 23;
@@ -287,7 +292,7 @@
             // btnSouthToEast
             // 
             this.btnSouthToEast.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSouthToEast.Location = new System.Drawing.Point(589, 322);
+            this.btnSouthToEast.Location = new System.Drawing.Point(588, 337);
             this.btnSouthToEast.Name = "btnSouthToEast";
             this.btnSouthToEast.Size = new System.Drawing.Size(84, 96);
             this.btnSouthToEast.TabIndex = 22;
@@ -298,7 +303,7 @@
             // lbComponentVariants
             // 
             this.lbComponentVariants.FormattingEnabled = true;
-            this.lbComponentVariants.Location = new System.Drawing.Point(12, 268);
+            this.lbComponentVariants.Location = new System.Drawing.Point(11, 283);
             this.lbComponentVariants.Name = "lbComponentVariants";
             this.lbComponentVariants.Size = new System.Drawing.Size(161, 160);
             this.lbComponentVariants.TabIndex = 24;
@@ -307,7 +312,7 @@
             // btnRemoveVariant
             // 
             this.btnRemoveVariant.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveVariant.Location = new System.Drawing.Point(93, 478);
+            this.btnRemoveVariant.Location = new System.Drawing.Point(92, 493);
             this.btnRemoveVariant.Name = "btnRemoveVariant";
             this.btnRemoveVariant.Size = new System.Drawing.Size(81, 44);
             this.btnRemoveVariant.TabIndex = 26;
@@ -318,7 +323,7 @@
             // btnAddVariant
             // 
             this.btnAddVariant.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddVariant.Location = new System.Drawing.Point(12, 478);
+            this.btnAddVariant.Location = new System.Drawing.Point(11, 493);
             this.btnAddVariant.Name = "btnAddVariant";
             this.btnAddVariant.Size = new System.Drawing.Size(80, 44);
             this.btnAddVariant.TabIndex = 25;
@@ -329,7 +334,7 @@
             // btnCloneVariant
             // 
             this.btnCloneVariant.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloneVariant.Location = new System.Drawing.Point(12, 434);
+            this.btnCloneVariant.Location = new System.Drawing.Point(11, 449);
             this.btnCloneVariant.Name = "btnCloneVariant";
             this.btnCloneVariant.Size = new System.Drawing.Size(161, 38);
             this.btnCloneVariant.TabIndex = 27;
@@ -337,11 +342,44 @@
             this.btnCloneVariant.UseVisualStyleBackColor = true;
             this.btnCloneVariant.Click += new System.EventHandler(this.btnCloneVariant_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1100, 24);
+            this.menuStrip1.TabIndex = 28;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
             // ComponentManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 534);
+            this.ClientSize = new System.Drawing.Size(1100, 546);
             this.Controls.Add(this.btnCloneVariant);
             this.Controls.Add(this.btnRemoveVariant);
             this.Controls.Add(this.btnAddVariant);
@@ -370,7 +408,9 @@
             this.Controls.Add(this.btnRemoveComponent);
             this.Controls.Add(this.btnAddComponent);
             this.Controls.Add(this.lbComponents);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ComponentManagerForm";
@@ -384,6 +424,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbWest2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEastIsometric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEast2D)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,5 +461,9 @@
         private System.Windows.Forms.Button btnRemoveVariant;
         private System.Windows.Forms.Button btnAddVariant;
         private System.Windows.Forms.Button btnCloneVariant;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
