@@ -20,7 +20,7 @@ namespace DnD_Dungeon_Builder
             {
                 foreach (Drawing d in drawing)
                 {
-                    AddDrawing(d);
+                    AddDrawing(d?.Clone());
                 }
             }
             DrawPosition = Position.North;
@@ -45,24 +45,25 @@ namespace DnD_Dungeon_Builder
 
         public void AddDrawing(Drawing drawing)
         {
-            if (drawing == null) throw new ArgumentNullException("The drawing cannot be null.");
-
-            switch (drawing.Position)
+            if (drawing != null)
             {
-                case Position.North:
-                    Drawings[0] = drawing;
-                    break;
-                case Position.East:
-                    Drawings[1] = drawing;
-                    break;
-                case Position.South:
-                    Drawings[2] = drawing;
-                    break;
-                case Position.West:
-                    Drawings[3] = drawing;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Given position does not exist in the Drawing context.");
+                switch (drawing.Position)
+                {
+                    case Position.North:
+                        Drawings[0] = drawing;
+                        break;
+                    case Position.East:
+                        Drawings[1] = drawing;
+                        break;
+                    case Position.South:
+                        Drawings[2] = drawing;
+                        break;
+                    case Position.West:
+                        Drawings[3] = drawing;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Given position does not exist in the Drawing context.");
+                }
             }
         }
 

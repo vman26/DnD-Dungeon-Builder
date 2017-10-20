@@ -250,6 +250,41 @@ namespace DnD_Dungeon_Builder
             }
         }
 
+        private void btnCloneVariant_Click(object sender, EventArgs e)
+        {
+            if (lbComponentVariants.SelectedItem is ComponentVariant)
+            {
+                if (selectedComponent != null)
+                {
+                    using (StringInputForm form = new StringInputForm())
+                    {
+                        form.Parent = Parent;
+                        form.StartPosition = FormStartPosition.CenterParent;
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            if (!selectedComponent.AddComponent(form.InputText, selectedVariant.Drawings))
+                            {
+                                MessageBox.Show("The given component name is already existing in the collection.");
+                            }
+                            else
+                            {
+                                lbComponentVariants.SelectedIndex = lbComponentVariants.Items.Count - 1;
+                                lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
+                            }
+                        }
+                    }
+                    if (lbComponentVariants.Items.Count > 0)
+                    {
+                        btnRemoveVariant.Enabled = true;
+                    }
+                    else
+                    {
+                        btnRemoveVariant.Enabled = false;
+                    }
+                }
+            }
+        }
+
         private void lbComponents_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(lbComponents.SelectedItem is Component)
