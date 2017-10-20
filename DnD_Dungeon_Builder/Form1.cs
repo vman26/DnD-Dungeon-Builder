@@ -192,5 +192,24 @@ namespace DnD_Dungeon_Builder
                 form.ShowDialog();
             }
         }
+
+        private void cbComponents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbComponents.SelectedItem is Component)
+            {
+                Component component = cbComponents.SelectedItem as Component;
+                cbVariants.DataSource = component.Components;
+                cbVariants.DisplayMember = "Name";
+            }
+            else
+            {
+                cbVariants.DataSource = null;
+            }
+        }
+
+        private void cbVariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

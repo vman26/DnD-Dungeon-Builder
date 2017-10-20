@@ -33,6 +33,7 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.cbVariants = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbComponents = new System.Windows.Forms.ComboBox();
             this.btnComponentManager = new System.Windows.Forms.Button();
@@ -95,6 +96,7 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.cbVariants);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.cbComponents);
             this.controlPanel.Controls.Add(this.btnComponentManager);
@@ -111,6 +113,16 @@
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
             // 
+            // cbVariants
+            // 
+            this.cbVariants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVariants.FormattingEnabled = true;
+            this.cbVariants.Location = new System.Drawing.Point(641, 48);
+            this.cbVariants.Name = "cbVariants";
+            this.cbVariants.Size = new System.Drawing.Size(121, 21);
+            this.cbVariants.TabIndex = 14;
+            this.cbVariants.SelectedIndexChanged += new System.EventHandler(this.cbVariants_SelectedIndexChanged);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -122,11 +134,13 @@
             // 
             // cbComponents
             // 
+            this.cbComponents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbComponents.FormattingEnabled = true;
-            this.cbComponents.Location = new System.Drawing.Point(638, 48);
+            this.cbComponents.Location = new System.Drawing.Point(641, 23);
             this.cbComponents.Name = "cbComponents";
             this.cbComponents.Size = new System.Drawing.Size(121, 21);
             this.cbComponents.TabIndex = 12;
+            this.cbComponents.SelectedIndexChanged += new System.EventHandler(this.cbComponents_SelectedIndexChanged);
             // 
             // btnComponentManager
             // 
@@ -268,6 +282,7 @@
         private System.Windows.Forms.Button btnComponentManager;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbComponents;
+        private System.Windows.Forms.ComboBox cbVariants;
     }
 }
 
