@@ -175,7 +175,7 @@ namespace DnD_Dungeon_Builder
                     {
                         lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
                         lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
-                        updateInfo(selectedVariant);
+                        updateInfo(selectedComponent, selectedVariant);
                     }
                 }
             }
@@ -198,7 +198,7 @@ namespace DnD_Dungeon_Builder
                 selectedComponent = null;
                 lbComponentVariants.DataSource = null;
                 lbComponentVariants.Items.Clear();
-                updateInfo(selectedVariant);
+                updateInfo(selectedComponent, selectedVariant);
             }
         }
 
@@ -220,7 +220,7 @@ namespace DnD_Dungeon_Builder
                         {
                             lbComponentVariants.SelectedIndex = lbComponentVariants.Items.Count - 1;
                             lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
-                            updateInfo(selectedVariant);
+                            updateInfo(selectedComponent, selectedVariant);
                         }
                     }
                 }
@@ -233,7 +233,7 @@ namespace DnD_Dungeon_Builder
             {
                 selectedComponent.RemoveComponent(lbComponentVariants.SelectedItem as ComponentVariant);
                 selectedVariant = null;
-                updateInfo(selectedVariant);
+                updateInfo(selectedComponent, selectedVariant);
             }
         }
 
@@ -284,7 +284,7 @@ namespace DnD_Dungeon_Builder
             if (lbComponentVariants.SelectedItem is ComponentVariant)
             {
                 selectedVariant = lbComponentVariants.SelectedItem as ComponentVariant;
-                updateInfo(selectedVariant);
+                updateInfo(selectedComponent, selectedVariant);
             }
             else
             {
@@ -292,11 +292,11 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void updateInfo(ComponentVariant component = null)
+        private void updateInfo(Component component = null, ComponentVariant componentVariant = null)
         {
             btnRemoveVariant.Enabled = (lbComponentVariants.Items.Count > 0);
             btnRemoveComponent.Enabled = (lbComponents.Items.Count > 0);
-            if (component == null)
+            if (componentVariant == null)
             {
                 lblComponentName.Text = "No component selected";
 
@@ -317,16 +317,16 @@ namespace DnD_Dungeon_Builder
                 return;
             }
 
-            lblComponentName.Text = component.Name;
+            lblComponentName.Text = component.Name + ": " + componentVariant.Name;
 
-            pbNorth2D.Image = component.GetDrawing(Position.North)?.TwoDView;
-            pbNorthIsometric.Image = component.GetDrawing(Position.North)?.ThreeDView;
-            pbEast2D.Image = component.GetDrawing(Position.East)?.TwoDView;
-            pbEastIsometric.Image = component.GetDrawing(Position.East)?.ThreeDView;
-            pbSouth2D.Image = component.GetDrawing(Position.South)?.TwoDView;
-            pbSouthIsometric.Image = component.GetDrawing(Position.South)?.ThreeDView;
-            pbWest2D.Image = component.GetDrawing(Position.West)?.TwoDView;
-            pbWestIsometric.Image = component.GetDrawing(Position.West)?.ThreeDView;
+            pbNorth2D.Image = componentVariant.GetDrawing(Position.North)?.TwoDView;
+            pbNorthIsometric.Image = componentVariant.GetDrawing(Position.North)?.ThreeDView;
+            pbEast2D.Image = componentVariant.GetDrawing(Position.East)?.TwoDView;
+            pbEastIsometric.Image = componentVariant.GetDrawing(Position.East)?.ThreeDView;
+            pbSouth2D.Image = componentVariant.GetDrawing(Position.South)?.TwoDView;
+            pbSouthIsometric.Image = componentVariant.GetDrawing(Position.South)?.ThreeDView;
+            pbWest2D.Image = componentVariant.GetDrawing(Position.West)?.TwoDView;
+            pbWestIsometric.Image = componentVariant.GetDrawing(Position.West)?.ThreeDView;
             
             btnNorthEdit.Enabled = true;
             btnEastEdit.Enabled = true;
@@ -373,7 +373,7 @@ namespace DnD_Dungeon_Builder
             if (drawing != null)
             {
                 selectedVariant.AddDrawing(drawing);
-                updateInfo(selectedVariant);
+                updateInfo(selectedComponent, selectedVariant);
             }
         }
 
@@ -407,7 +407,7 @@ namespace DnD_Dungeon_Builder
             isometric.RotateFlip(RotateFlipType.RotateNoneFlipX);
 
             selectedVariant.AddDrawing(new Drawing(twoD, isometric, targetPosition));
-            updateInfo(selectedVariant);
+            updateInfo(selectedComponent, selectedVariant);
         }
 
         private void rotateBitmap(Position basePosition, Position targetPosition)
@@ -422,7 +422,7 @@ namespace DnD_Dungeon_Builder
             twoD.RotateFlip(rotateFlipType);
 
             selectedVariant.AddDrawing(new Drawing(twoD, isometric, targetPosition));
-            updateInfo(selectedVariant);
+            updateInfo(selectedComponent, selectedVariant);
         }
 
         private RotateFlipType calculateRotateFlip(Position basePosition, Position targetPosition)

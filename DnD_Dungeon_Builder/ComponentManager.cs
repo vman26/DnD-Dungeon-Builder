@@ -9,11 +9,18 @@ namespace DnD_Dungeon_Builder
 {
     public class ComponentManager
     {
+        string path = "Components";
         public BindingList<Component> Components { get; private set; }
 
         public ComponentManager()
         {
             Components = new BindingList<Component>();
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             LoadComponentsFromFile();
         }
 
@@ -69,7 +76,6 @@ namespace DnD_Dungeon_Builder
             Components.Clear();
             Console.WriteLine("Loading Files:");
             IFormatter formatter = new BinaryFormatter();
-            string path = "Components";
             foreach (string file in Directory.GetFiles(path))
             {
                 Console.WriteLine(file);
