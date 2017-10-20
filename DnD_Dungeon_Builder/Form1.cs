@@ -226,6 +226,14 @@ namespace DnD_Dungeon_Builder
             }
         }
 
+        private void btnNoneComponent_Click(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                map.RemoveObject(selectedTile.X, selectedTile.Y);
+            }
+        }
+
         private void gridPb_MouseDown(object sender, MouseEventArgs e)
         {
             selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
@@ -243,11 +251,6 @@ namespace DnD_Dungeon_Builder
             {
                 selectedTile = nullPoint;
             }
-        }
-
-        private void btnNoneComponent_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
