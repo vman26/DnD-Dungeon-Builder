@@ -69,7 +69,7 @@
             // lbComponents
             // 
             this.lbComponents.FormattingEnabled = true;
-            this.lbComponents.Location = new System.Drawing.Point(13, 13);
+            this.lbComponents.Location = new System.Drawing.Point(13, 12);
             this.lbComponents.Name = "lbComponents";
             this.lbComponents.Size = new System.Drawing.Size(161, 199);
             this.lbComponents.TabIndex = 0;
@@ -78,7 +78,7 @@
             // btnAddComponent
             // 
             this.btnAddComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(12, 226);
+            this.btnAddComponent.Location = new System.Drawing.Point(12, 218);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(80, 44);
             this.btnAddComponent.TabIndex = 1;
@@ -89,7 +89,7 @@
             // btnRemoveComponent
             // 
             this.btnRemoveComponent.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveComponent.Location = new System.Drawing.Point(92, 226);
+            this.btnRemoveComponent.Location = new System.Drawing.Point(92, 218);
             this.btnRemoveComponent.Name = "btnRemoveComponent";
             this.btnRemoveComponent.Size = new System.Drawing.Size(81, 44);
             this.btnRemoveComponent.TabIndex = 2;
@@ -298,7 +298,7 @@
             // lbComponentVariants
             // 
             this.lbComponentVariants.FormattingEnabled = true;
-            this.lbComponentVariants.Location = new System.Drawing.Point(12, 276);
+            this.lbComponentVariants.Location = new System.Drawing.Point(12, 268);
             this.lbComponentVariants.Name = "lbComponentVariants";
             this.lbComponentVariants.Size = new System.Drawing.Size(161, 160);
             this.lbComponentVariants.TabIndex = 24;
@@ -329,9 +329,9 @@
             // btnCloneVariant
             // 
             this.btnCloneVariant.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloneVariant.Location = new System.Drawing.Point(12, 442);
+            this.btnCloneVariant.Location = new System.Drawing.Point(12, 434);
             this.btnCloneVariant.Name = "btnCloneVariant";
-            this.btnCloneVariant.Size = new System.Drawing.Size(161, 30);
+            this.btnCloneVariant.Size = new System.Drawing.Size(161, 38);
             this.btnCloneVariant.TabIndex = 27;
             this.btnCloneVariant.Text = "Clone selected";
             this.btnCloneVariant.UseVisualStyleBackColor = true;
