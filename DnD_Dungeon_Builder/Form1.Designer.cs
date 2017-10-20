@@ -144,7 +144,7 @@
             // 
             // btnComponentManager
             // 
-            this.btnComponentManager.Location = new System.Drawing.Point(765, 9);
+            this.btnComponentManager.Location = new System.Drawing.Point(505, 7);
             this.btnComponentManager.Name = "btnComponentManager";
             this.btnComponentManager.Size = new System.Drawing.Size(127, 62);
             this.btnComponentManager.TabIndex = 11;
