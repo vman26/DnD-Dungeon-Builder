@@ -17,10 +17,14 @@ namespace DnD_Dungeon_Builder
         Color isoBackgroundColor;
 
         ComponentManager componentManager;
+        Point nullPoint = new Point(-9999, -9999);
+        Point selectedTile;
 
         public Form1()
         {
             InitializeComponent();
+
+            selectedTile = nullPoint;
 
             componentManager = new ComponentManager();
 
@@ -104,16 +108,6 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void gridPb_MouseDown(object sender, MouseEventArgs e)
-        {
-            Point selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
-
-            if (Enumerable.Range(0, map.Columns).Contains(selectedTile.X) && Enumerable.Range(0, map.Rows).Contains(selectedTile.Y))
-            {
-                redrawTiles(selectedTile.X, selectedTile.Y);
-            }
-        }
-
         private void btnNewMap_Click(object sender, EventArgs e)
         {
             using (CreateMapForm form = new CreateMapForm())
@@ -140,10 +134,17 @@ namespace DnD_Dungeon_Builder
             refreshScreen();
         }
 
-        private void refreshScreen()
+        private void refreshScreen(bool redraw = true)
         {
-            resizePanels();
-            redrawTiles();
+            if (redraw)
+            {
+                resizePanels();
+                redrawTiles();
+                selectedTile = nullPoint;
+            }
+            cbComponents.Enabled = (selectedTile != nullPoint);
+            cbVariants.Enabled = (selectedTile != nullPoint);
+            btnNoneComponent.Enabled = (selectedTile != nullPoint);
         }
 
         private void btnAddColumn_Click(object sender, EventArgs e)
@@ -195,19 +196,56 @@ namespace DnD_Dungeon_Builder
 
         private void cbComponents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbComponents.SelectedItem is Component)
+            if (selectedTile != nullPoint)
             {
-                Component component = cbComponents.SelectedItem as Component;
-                cbVariants.DataSource = component.Components;
-                cbVariants.DisplayMember = "Name";
-            }
-            else
-            {
-                cbVariants.DataSource = null;
+                if (cbComponents.SelectedItem is Component)
+                {
+                    Component component = cbComponents.SelectedItem as Component;
+                    cbVariants.DataSource = component.Components;
+                    cbVariants.DisplayMember = "Name";
+                    int variantCount = cbVariants.Items.Count;
+                    variantCount = (variantCount > 0) ? 1 : 0;
+                    cbVariants.SelectedIndex = variantCount - 1;
+                    cbVariants_SelectedIndexChanged(cbVariants, new EventArgs());
+                }
+                else
+                {
+                    cbVariants.DataSource = null;
+                }
             }
         }
 
         private void cbVariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                if (cbVariants.SelectedItem is Component)
+                {
+                    ComponentVariant component = cbVariants.SelectedItem as ComponentVariant;
+                }
+            }
+        }
+
+        private void gridPb_MouseDown(object sender, MouseEventArgs e)
+        {
+            selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
+
+            if (Enumerable.Range(0, map.Columns).Contains(selectedTile.X) && Enumerable.Range(0, map.Rows).Contains(selectedTile.Y))
+            {
+                redrawTiles(selectedTile.X, selectedTile.Y);
+                refreshScreen(false);
+                int componentCount = cbComponents.Items.Count;
+                componentCount = (componentCount > 0) ? 1 : 0;
+                cbComponents.SelectedIndex = componentCount - 1;
+                cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
+            }
+            else
+            {
+                selectedTile = nullPoint;
+            }
+        }
+
+        private void btnNoneComponent_Click(object sender, EventArgs e)
         {
 
         }

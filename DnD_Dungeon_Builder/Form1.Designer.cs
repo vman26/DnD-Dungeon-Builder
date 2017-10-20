@@ -46,6 +46,7 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
+            this.btnNoneComponent = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -96,6 +97,7 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.btnNoneComponent);
             this.controlPanel.Controls.Add(this.cbVariants);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.cbComponents);
@@ -240,6 +242,16 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
+            // btnNoneComponent
+            // 
+            this.btnNoneComponent.Location = new System.Drawing.Point(769, 23);
+            this.btnNoneComponent.Name = "btnNoneComponent";
+            this.btnNoneComponent.Size = new System.Drawing.Size(49, 46);
+            this.btnNoneComponent.TabIndex = 15;
+            this.btnNoneComponent.Text = "None";
+            this.btnNoneComponent.UseVisualStyleBackColor = true;
+            this.btnNoneComponent.Click += new System.EventHandler(this.btnNoneComponent_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,6 +295,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbComponents;
         private System.Windows.Forms.ComboBox cbVariants;
+        private System.Windows.Forms.Button btnNoneComponent;
     }
 }
 
