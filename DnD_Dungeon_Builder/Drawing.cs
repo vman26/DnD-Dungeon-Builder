@@ -17,7 +17,7 @@ namespace DnD_Dungeon_Builder
 
         public Drawing Clone()
         {
-            return new Drawing((Bitmap)TwoDView.Clone(), (Bitmap)ThreeDView.Clone(), Position);
+            return new Drawing((Bitmap)TwoDView?.Clone(), (Bitmap)ThreeDView?.Clone(), Position);
         }
 
         public void SetPosition(Position position)
