@@ -168,6 +168,7 @@ namespace DnD_Dungeon_Builder
                     {
                         lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
                         lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
+                        updateInfo(selectedVariant);
                     }
                 }
             }
@@ -190,14 +191,7 @@ namespace DnD_Dungeon_Builder
                 selectedComponent = null;
                 lbComponentVariants.DataSource = null;
                 lbComponentVariants.Items.Clear();
-                if (lbComponents.Items.Count > 0)
-                {
-                    btnRemoveComponent.Enabled = true;
-                }
-                else
-                {
-                    btnRemoveComponent.Enabled = false;
-                }
+                updateInfo(selectedVariant);
             }
         }
 
@@ -219,16 +213,9 @@ namespace DnD_Dungeon_Builder
                         {
                             lbComponentVariants.SelectedIndex = lbComponentVariants.Items.Count - 1;
                             lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
+                            updateInfo(selectedVariant);
                         }
                     }
-                }
-                if (lbComponentVariants.Items.Count > 0)
-                {
-                    btnRemoveVariant.Enabled = true;
-                }
-                else
-                {
-                    btnRemoveVariant.Enabled = false;
                 }
             }
         }
@@ -239,14 +226,7 @@ namespace DnD_Dungeon_Builder
             {
                 selectedComponent.RemoveComponent(lbComponentVariants.SelectedItem as ComponentVariant);
                 selectedVariant = null;
-                if (lbComponentVariants.Items.Count > 0)
-                {
-                    btnRemoveVariant.Enabled = true;
-                }
-                else
-                {
-                    btnRemoveVariant.Enabled = false;
-                }
+                updateInfo(selectedVariant);
             }
         }
 
@@ -272,14 +252,6 @@ namespace DnD_Dungeon_Builder
                                 lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
                             }
                         }
-                    }
-                    if (lbComponentVariants.Items.Count > 0)
-                    {
-                        btnRemoveVariant.Enabled = true;
-                    }
-                    else
-                    {
-                        btnRemoveVariant.Enabled = false;
                     }
                 }
             }
@@ -315,7 +287,9 @@ namespace DnD_Dungeon_Builder
 
         private void updateInfo(ComponentVariant component = null)
         {
-            if(component == null)
+            btnRemoveVariant.Enabled = (lbComponentVariants.Items.Count > 0);
+            btnRemoveComponent.Enabled = (lbComponents.Items.Count > 0);
+            if (component == null)
             {
                 lblComponentName.Text = "No component selected";
 
@@ -327,9 +301,7 @@ namespace DnD_Dungeon_Builder
                 pbSouthIsometric.Image = null;
                 pbWest2D.Image = null;
                 pbWestIsometric.Image = null;
-
-                btnRemoveComponent.Enabled = false;
-                btnRemoveVariant.Enabled = false;
+                
                 btnNorthEdit.Enabled = false;
                 btnEastEdit.Enabled = false;
                 btnSouthEdit.Enabled = false;
@@ -348,9 +320,7 @@ namespace DnD_Dungeon_Builder
             pbSouthIsometric.Image = component.GetDrawing(Position.South)?.ThreeDView;
             pbWest2D.Image = component.GetDrawing(Position.West)?.TwoDView;
             pbWestIsometric.Image = component.GetDrawing(Position.West)?.ThreeDView;
-
-            btnRemoveComponent.Enabled = true;
-            btnRemoveVariant.Enabled = true;
+            
             btnNorthEdit.Enabled = true;
             btnEastEdit.Enabled = true;
             btnSouthEdit.Enabled = true;
