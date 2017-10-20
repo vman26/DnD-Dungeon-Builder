@@ -13,6 +13,7 @@ namespace DnD_Dungeon_Builder
         bool isSaved = true;
         Point lastPoint = Point.Empty; // Point.Empty represents null for a Point object
         Point keptPoint = Point.Empty;
+        Point rightClick = Point.Empty;
 
         bool isMouseDown = false; // This is used to evaluate whether our mousebutton is down or not
         bool isOffset = false;
@@ -81,11 +82,50 @@ namespace DnD_Dungeon_Builder
             pbDrawColor.BackColor = Color.Black;
             pbFillColor.BackColor = Color.White;
 
+            
+            pbDrawing2D.ContextMenu = createContextMenu(pbDrawing2D.Name);
+            pbDrawingIsometric.ContextMenu = createContextMenu(pbDrawingIsometric.Name);
+        }
+
+        private ContextMenu createContextMenu(string pictureboxName)
+        {
             ContextMenu cm = new ContextMenu();
-            cm.MenuItems.Add("Offset start", new EventHandler(SetOffset_Click));
-            cm.MenuItems.Add("Item 2");
-            pbDrawing2D.ContextMenu = cm;
-            pbDrawingIsometric.ContextMenu = cm;
+            MenuItem item = new MenuItem("Offset start", new EventHandler(SetOffset_Click))
+            {
+                Name = pictureboxName
+            };
+            cm.MenuItems.Add(item);
+            item = new MenuItem("Pipette", new EventHandler(Pipette_Click))
+            {
+                Name = pictureboxName
+            };
+            cm.MenuItems.Add(item);
+            
+            return cm;
+        }
+
+        private void Pipette_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp = null;
+            if ((sender as MenuItem).Name == pbDrawing2D.Name)
+            {
+                bmp = (Bitmap)pbDrawing2D.Image;
+            }
+            if ((sender as MenuItem).Name == pbDrawingIsometric.Name)
+            {
+                bmp = (Bitmap)pbDrawingIsometric.Image;
+            }
+            Color targetColor = bmp.GetPixel(rightClick.X, rightClick.Y);
+
+            if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
+            {
+                pbDrawColor.BackColor = targetColor;
+            }
+
+            if (rbFill.Checked)
+            {
+                pbFillColor.BackColor = targetColor;
+            }
         }
 
         private void SetOffset_Click(object sender, EventArgs e)
@@ -153,6 +193,10 @@ namespace DnD_Dungeon_Builder
                     }
                 }
                 contentChanged();
+            }
+            else if(e.Button == MouseButtons.Right)
+            {
+                rightClick = e.Location;
             }
         }
 
