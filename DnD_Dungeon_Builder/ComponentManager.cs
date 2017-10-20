@@ -30,6 +30,15 @@ namespace DnD_Dungeon_Builder
             return false;
         }
 
+        public void LoadComponents(BindingList<Component> components)
+        {
+            Components.Clear();
+            foreach (Component component in components)
+            {
+                Components.Add(component);
+            }
+        }
+
         public Component GetComponent(string name)
         {
             foreach (Component c in Components)

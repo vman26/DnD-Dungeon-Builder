@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace DnD_Dungeon_Builder
 {
+    [Serializable]
     public class Component
     {
         public string Name { get; private set; }

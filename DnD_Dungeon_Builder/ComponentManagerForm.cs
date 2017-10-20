@@ -1,5 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
@@ -495,12 +499,24 @@ namespace DnD_Dungeon_Builder
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new FileStream("Components.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                formatter.Serialize(stream, componentManager.Components);
+            }
 
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new FileStream("Components.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                BindingList<Component> obj = (BindingList<Component>)formatter.Deserialize(stream);
+                componentManager.LoadComponents(obj);
+                lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
+                lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
+            }
         }
     }
 }

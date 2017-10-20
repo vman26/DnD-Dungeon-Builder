@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace DnD_Dungeon_Builder
 {
+    [Serializable]
     public class Drawing
     {
         public Bitmap TwoDView { get; private set; }

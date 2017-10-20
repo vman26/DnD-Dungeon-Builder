@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DnD_Dungeon_Builder
 {
+    [Serializable]
     public class ComponentVariant
     {
         public string Name { get; private set; }
