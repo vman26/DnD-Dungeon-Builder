@@ -40,6 +40,9 @@ namespace DnD_Dungeon_Builder
             pbSouth2D.ContextMenu = createContextMenu(Position.South);
             pbWest2D.ContextMenu = createContextMenu(Position.West);
 
+            lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
+            lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
+
         }
 
         private ContextMenu createContextMenu(Position position)
@@ -499,24 +502,29 @@ namespace DnD_Dungeon_Builder
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IFormatter formatter = new BinaryFormatter();
-            using (Stream stream = new FileStream("Components.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            using (StringInputForm form = new StringInputForm())
             {
-                formatter.Serialize(stream, componentManager.Components);
+                form.Parent = Parent;
+                form.StartPosition = FormStartPosition.CenterParent;
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        componentManager.SaveComponentToFile(selectedComponent, form.InputText);
+                    }
+                    catch(IOException)
+                    {
+                        MessageBox.Show("The given filename already exists.");
+                    }
+                }
             }
-
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IFormatter formatter = new BinaryFormatter();
-            using (Stream stream = new FileStream("Components.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                BindingList<Component> obj = (BindingList<Component>)formatter.Deserialize(stream);
-                componentManager.LoadComponents(obj);
-                lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
-                lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
-            }
+            componentManager.LoadComponentsFromFile();
+            lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
+            lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
         }
     }
 }

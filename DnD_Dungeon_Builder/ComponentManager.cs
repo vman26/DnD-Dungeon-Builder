@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DnD_Dungeon_Builder
 {
@@ -10,6 +14,7 @@ namespace DnD_Dungeon_Builder
         public ComponentManager()
         {
             Components = new BindingList<Component>();
+            LoadComponentsFromFile();
         }
 
         public bool AddNewComponent(string name)
@@ -30,13 +35,12 @@ namespace DnD_Dungeon_Builder
             return false;
         }
 
-        public void LoadComponents(BindingList<Component> components)
+        public void LoadComponent(Component component)
         {
-            Components.Clear();
-            foreach (Component component in components)
-            {
-                Components.Add(component);
-            }
+            if (Components.Any(c => c.Name == component.Name))
+                return;
+            
+            Components.Add(component);
         }
 
         public Component GetComponent(string name)
@@ -49,6 +53,43 @@ namespace DnD_Dungeon_Builder
                 }
             }
             return null;
+        }
+        
+        public void SaveComponentToFile(Component component, string fileName)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new FileStream("Components/" + fileName + ".bin", FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                formatter.Serialize(stream, component);
+            }
+        }
+
+        public void LoadComponentsFromFile()
+        {
+            Components.Clear();
+            Console.WriteLine("Loading Files:");
+            IFormatter formatter = new BinaryFormatter();
+            string path = "Components";
+            foreach (string file in Directory.GetFiles(path))
+            {
+                Console.WriteLine(file);
+                using (Stream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    try
+                    {
+                        Component obj = (Component)formatter.Deserialize(stream);
+                        LoadComponent(obj);
+                    }
+                    catch(InvalidCastException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    catch(SerializationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
     }
 }
