@@ -157,11 +157,17 @@ namespace DnD_Dungeon_Builder
                 {
                     lblComponentSelected.Text = "None";
                     lblComponentSelected.Text = "None";
+                    int componentCount = cbComponents.Items.Count;
+                    componentCount = (componentCount > 0) ? 1 : 0;
+                    cbComponents.SelectedIndex = componentCount - 1;
+                    cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
                 }
                 else
                 {
-                    lblComponentSelected.Text = selectedTileVariant.Parent.Name;
-                    lblComponentSelected.Text = selectedTileVariant.Name;
+                    lblComponentSelected.Text = selectedTileVariant.Parent?.Name;
+                    lblVariantSelected.Text = selectedTileVariant.Name;
+                    cbComponents.SelectedItem = selectedTileVariant.Parent;
+                    cbVariants.SelectedItem = selectedTileVariant;
                 }
             }
         }
@@ -241,6 +247,8 @@ namespace DnD_Dungeon_Builder
                 if (cbVariants.SelectedItem is ComponentVariant)
                 {
                     ComponentVariant component = cbVariants.SelectedItem as ComponentVariant;
+                    map.AddObject(selectedTile.X, selectedTile.Y, component);
+                    refreshScreen(false);
                 }
             }
         }
@@ -250,6 +258,7 @@ namespace DnD_Dungeon_Builder
             if (selectedTile != nullPoint)
             {
                 map.RemoveObject(selectedTile.X, selectedTile.Y);
+                refreshScreen(false);
             }
         }
 
@@ -261,10 +270,6 @@ namespace DnD_Dungeon_Builder
             {
                 redrawTiles(selectedTile.X, selectedTile.Y);
                 refreshScreen(false);
-                int componentCount = cbComponents.Items.Count;
-                componentCount = (componentCount > 0) ? 1 : 0;
-                cbComponents.SelectedIndex = componentCount - 1;
-                cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
             }
             else
             {

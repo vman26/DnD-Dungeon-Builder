@@ -29,6 +29,11 @@ namespace DnD_Dungeon_Builder
             DrawPosition = Position.North;
         }
 
+        public void Update(Component parent)
+        {
+            Parent = parent;
+        }
+
         public void RotateDrawPosition(Rotate rotate = Rotate.Clockwise)
         {
             int rotation = (int)DrawPosition;

@@ -576,7 +576,7 @@ namespace DnD_Dungeon_Builder
             {
                 try
                 {
-                    componentManager.SaveComponentToFile(selectedComponent, selectedComponent.Name);
+                    componentManager.SaveComponentToFile(selectedComponent);
                 }
                 catch (IOException)
                 {
