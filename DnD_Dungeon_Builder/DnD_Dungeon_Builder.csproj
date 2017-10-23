@@ -79,6 +79,7 @@
     <Compile Include="ObjectDrawFrom.Designer.cs">
       <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="PictureBoxManager.cs" />
     <Compile Include="StringInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
