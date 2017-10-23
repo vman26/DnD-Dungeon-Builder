@@ -12,16 +12,19 @@ namespace DnD_Dungeon_Builder
         public int Rows { get { return rows; } }
         public int Columns { get { return cols; } }
 
+        private Control parent;
+
         private GridType type;
         private Form form;
         int rows, cols;
 
-        public PictureBoxManager(int cols, int rows, GridType type, Form form)
+        public PictureBoxManager(int cols, int rows, GridType type, Form form, Control parent = null)
         {
             this.cols = cols;
             this.rows = rows;
             this.type = type;
             this.form = form;
+            this.parent = parent;
 
             initMap();
         }
@@ -152,13 +155,20 @@ namespace DnD_Dungeon_Builder
 
         public void Draw(int xTiles, int yTiles, int tileSize)
         {
+            Point offset;
+
+            if (parent != null)
+                offset = parent.Location;
+            else
+                offset = Point.Empty;
+
             if (type == GridType.TwoDimensional)
             {
                 for (int x = 0; x < xTiles; x++)
                 {
                     for (var y = 0; y < yTiles; y++)
                     {
-                        Point location = new Point(x * tileSize, y * tileSize);
+                        Point location = new Point(x * tileSize + offset.X, y * tileSize + offset.Y);
                         Size size = new Size(tileSize, tileSize);
                         PictureBox pb = GetObject(x, y);
                         pb.Location = location;
@@ -191,7 +201,7 @@ namespace DnD_Dungeon_Builder
                         if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
                         ry += bitmapOffset / 2;
 
-                        Point location = new Point(rx - IsoW, (ry + IsoH * 2) - (IsoW * 2));
+                        Point location = new Point(rx - IsoW + offset.X, (ry + IsoH * 2) - (IsoW * 2) + offset.Y);
                         Size size = new Size(IsoW * 2, IsoW * 2);
                         PictureBox pb = GetObject(x, y);
                         pb.Location = location;
