@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DnD_Dungeon_Builder
 {
@@ -15,9 +12,9 @@ namespace DnD_Dungeon_Builder
         public int Columns { get { return cols; } }
         public string Name { get; private set; }
 
-        public Map(int columns, int rows, string name)
+        public Map(int cols, int rows, string name)
         {
-            this.cols = columns;
+            this.cols = cols;
             this.rows = rows;
             this.Name = name;
 
@@ -95,6 +92,11 @@ namespace DnD_Dungeon_Builder
                 throw new IndexOutOfRangeException("The given y is not within range of the map!");
             }
             grid[x][y] = tObject;
+        }
+
+        public void RemoveObject(int x, int y)
+        {
+            grid[x][y] = default(T);
         }
 
         public override string ToString()

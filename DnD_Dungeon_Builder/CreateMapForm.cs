@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
@@ -19,6 +12,8 @@ namespace DnD_Dungeon_Builder
         public CreateMapForm()
         {
             InitializeComponent();
+
+            ActiveControl = tbMapName;
         }
 
         private void btnCreateMap_Click(object sender, EventArgs e)
@@ -40,6 +35,24 @@ namespace DnD_Dungeon_Builder
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void tbMapName_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Enter:
+                    btnCreateMap.PerformClick();
+                    break;
+                case Keys.Up:
+                    nupXtiles.Value++;
+                    nupYtiles.Value++;
+                    break;
+                case Keys.Down:
+                    nupXtiles.Value--;
+                    nupYtiles.Value--;
+                    break;
+            }
         }
     }
 }

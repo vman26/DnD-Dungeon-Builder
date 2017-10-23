@@ -47,6 +47,14 @@
   <ItemGroup>
     <Compile Include="BitmapBackup.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="ComponentManager.cs" />
+    <Compile Include="ComponentManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComponentManagerForm.Designer.cs">
+      <DependentUpon>ComponentManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentVariant.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="CreateMapForm.cs">
       <SubType>Form</SubType>
@@ -55,6 +63,7 @@
       <DependentUpon>CreateMapForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Draw.cs" />
+    <Compile Include="Drawing.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -70,6 +79,12 @@
     <Compile Include="ObjectDrawFrom.Designer.cs">
       <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="StringInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringInputForm.Designer.cs">
+      <DependentUpon>StringInputForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="OffsetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +93,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ComponentManagerForm.resx">
+      <DependentUpon>ComponentManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateMapForm.resx">
       <DependentUpon>CreateMapForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectDrawFrom.resx">
       <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StringInputForm.resx">
+      <DependentUpon>StringInputForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OffsetForm.resx">
       <DependentUpon>OffsetForm.cs</DependentUpon>

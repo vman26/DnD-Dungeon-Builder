@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
@@ -14,16 +9,29 @@ namespace DnD_Dungeon_Builder
     {
         int tileSize = 40;
 
-        Map<int> map;
+        Map<ComponentVariant> map;
 
         Bitmap GridDrawArea;
         Bitmap IsometricDrawArea;
 
         Color isoBackgroundColor;
 
+        ComponentManager componentManager;
+        Point nullPoint = new Point(-9999, -9999);
+        Point selectedTile;
+
         public Form1()
         {
             InitializeComponent();
+
+            selectedTile = nullPoint;
+
+            componentManager = new ComponentManager();
+
+            //bindingSource1.DataSource = countries;
+
+            cbComponents.DataSource = componentManager.Components;
+            cbComponents.DisplayMember = "Name";
 
             GridDrawArea = new Bitmap(gridPb.Size.Width, gridPb.Size.Height);
             gridPb.Image = GridDrawArea;
@@ -100,16 +108,6 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void gridPb_MouseDown(object sender, MouseEventArgs e)
-        {
-            Point selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
-
-            if (Enumerable.Range(0, map.Columns).Contains(selectedTile.X) && Enumerable.Range(0, map.Rows).Contains(selectedTile.Y))
-            {
-                redrawTiles(selectedTile.X, selectedTile.Y);
-            }
-        }
-
         private void btnNewMap_Click(object sender, EventArgs e)
         {
             using (CreateMapForm form = new CreateMapForm())
@@ -118,7 +116,7 @@ namespace DnD_Dungeon_Builder
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    map = new Map<int>(form.Xtiles, form.Ytiles, form.MapName);
+                    map = new Map<ComponentVariant>(form.Xtiles, form.Ytiles, form.MapName);
                     refreshScreen();
                 }
             }
@@ -136,10 +134,17 @@ namespace DnD_Dungeon_Builder
             refreshScreen();
         }
 
-        private void refreshScreen()
+        private void refreshScreen(bool redraw = true)
         {
-            resizePanels();
-            redrawTiles();
+            if (redraw)
+            {
+                resizePanels();
+                redrawTiles();
+                selectedTile = nullPoint;
+            }
+            cbComponents.Enabled = (selectedTile != nullPoint);
+            cbVariants.Enabled = (selectedTile != nullPoint);
+            btnNoneComponent.Enabled = (selectedTile != nullPoint);
         }
 
         private void btnAddColumn_Click(object sender, EventArgs e)
@@ -179,13 +184,72 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        private void btnDrawObject_Click(object sender, EventArgs e)
+        private void btnComponentManager_Click(object sender, EventArgs e)
         {
-            using (ObjectDrawFrom form = new ObjectDrawFrom())
+            using (ComponentManagerForm form = new ComponentManagerForm(componentManager))
             {
-                form.Parent = this.Parent;
+                form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog();
+            }
+        }
+
+        private void cbComponents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                if (cbComponents.SelectedItem is Component)
+                {
+                    Component component = cbComponents.SelectedItem as Component;
+                    cbVariants.DataSource = component.Components;
+                    cbVariants.DisplayMember = "Name";
+                    int variantCount = cbVariants.Items.Count;
+                    variantCount = (variantCount > 0) ? 1 : 0;
+                    cbVariants.SelectedIndex = variantCount - 1;
+                    cbVariants_SelectedIndexChanged(cbVariants, new EventArgs());
+                }
+                else
+                {
+                    cbVariants.DataSource = null;
+                }
+            }
+        }
+
+        private void cbVariants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                if (cbVariants.SelectedItem is Component)
+                {
+                    ComponentVariant component = cbVariants.SelectedItem as ComponentVariant;
+                }
+            }
+        }
+
+        private void btnNoneComponent_Click(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                map.RemoveObject(selectedTile.X, selectedTile.Y);
+            }
+        }
+
+        private void gridPb_MouseDown(object sender, MouseEventArgs e)
+        {
+            selectedTile = Mouse.Calculate2DGridPosition(gridPb.Size, new Size(map.Columns, map.Rows), e.Location);
+
+            if (Enumerable.Range(0, map.Columns).Contains(selectedTile.X) && Enumerable.Range(0, map.Rows).Contains(selectedTile.Y))
+            {
+                redrawTiles(selectedTile.X, selectedTile.Y);
+                refreshScreen(false);
+                int componentCount = cbComponents.Items.Count;
+                componentCount = (componentCount > 0) ? 1 : 0;
+                cbComponents.SelectedIndex = componentCount - 1;
+                cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
+            }
+            else
+            {
+                selectedTile = nullPoint;
             }
         }
     }

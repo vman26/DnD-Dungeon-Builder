@@ -88,6 +88,7 @@
             this.tbMapName.Name = "tbMapName";
             this.tbMapName.Size = new System.Drawing.Size(221, 20);
             this.tbMapName.TabIndex = 3;
+            this.tbMapName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapName_KeyDown);
             // 
             // label2
             // 

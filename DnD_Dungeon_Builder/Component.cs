@@ -1,65 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DnD_Dungeon_Builder
 {
-    class Component
+    [Serializable]
+    public class Component
     {
-        public Drawing[] Drawings { get; private set; }
+        public string Name { get; private set; }
+        public BindingList<ComponentVariant> Components { get; private set; }
 
-        public Component()
+        public Component(string name)
         {
-            Drawings = new Drawing[4] { null, null, null, null };
+            Name = name;
+            Components = new BindingList<ComponentVariant>();
         }
 
-        public void AddDrawing(Drawing drawing)
+        public bool AddComponent(string name, Drawing[] drawing = null)
         {
-            if (drawing == null) throw new ArgumentNullException("The drawing cannot be null.");
+            if (Components.Any(c => c.Name == name))
+                return false;
 
-            switch (drawing.Position)
-            {
-                case Position.North:
-                    Drawings[0] = drawing;
-                    break;
-                case Position.East:
-                    Drawings[1] = drawing;
-                    break;
-                case Position.South:
-                    Drawings[2] = drawing;
-                    break;
-                case Position.West:
-                    Drawings[3] = drawing;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Given position does not exist in the Drawing context.");
-            }
+            Components.Add(new ComponentVariant(name, drawing));
+            return true;
         }
 
-        public Drawing GetDrawing(Position position)
+        public void ChangeDrawing(ComponentVariant componentVariant, Drawing drawing)
         {
-            Drawing drawing = null;
-            switch (drawing.Position)
+            componentVariant.AddDrawing(drawing);
+        }
+
+        public ComponentVariant GetComponent(string name)
+        {
+            foreach (ComponentVariant cv in Components)
             {
-                case Position.North:
-                    drawing = Drawings[0];
-                    break;
-                case Position.East:
-                    drawing = Drawings[1];
-                    break;
-                case Position.South:
-                    drawing = Drawings[2];
-                    break;
-                case Position.West:
-                    drawing = Drawings[3];
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Given position does not exist in the Drawing context.");
+                if (name == cv.Name)
+                {
+                    return cv;
+                }
             }
-            return drawing;
+            return null;
+        }
+
+        public Drawing GetDrawing(ComponentVariant componentVariant, Position position)
+        {
+            return componentVariant.GetDrawing(position);
+        }
+
+        public bool RemoveComponent(ComponentVariant component)
+        {
+            if (Components.Remove(component))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

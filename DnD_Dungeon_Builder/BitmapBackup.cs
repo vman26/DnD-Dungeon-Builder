@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
 {
-    class BitmapBackup
+    public class BitmapBackup
     {
         public PictureBox PictureBox { get; private set; }
         public Bitmap Bitmap { get; private set; }
@@ -19,7 +17,7 @@ namespace DnD_Dungeon_Builder
         public BitmapBackup(PictureBox pictureBox)
         {
             PictureBox = pictureBox;
-            if (pictureBox.Image != null)
+            if (pictureBox?.Image != null)
                 Bitmap = (Bitmap)pictureBox.Image.Clone();
             else
                 throw new ArgumentNullException("The picturebox given has no image to backup.");

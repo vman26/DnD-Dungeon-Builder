@@ -33,6 +33,10 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.cbVariants = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbComponents = new System.Windows.Forms.ComboBox();
+            this.btnComponentManager = new System.Windows.Forms.Button();
             this.btnBackgroundColor = new System.Windows.Forms.Button();
             this.btnAddColumnAndRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
@@ -42,7 +46,7 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
-            this.btnDrawObject = new System.Windows.Forms.Button();
+            this.btnNoneComponent = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -93,7 +97,11 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.controlPanel.Controls.Add(this.btnDrawObject);
+            this.controlPanel.Controls.Add(this.btnNoneComponent);
+            this.controlPanel.Controls.Add(this.cbVariants);
+            this.controlPanel.Controls.Add(this.label1);
+            this.controlPanel.Controls.Add(this.cbComponents);
+            this.controlPanel.Controls.Add(this.btnComponentManager);
             this.controlPanel.Controls.Add(this.btnBackgroundColor);
             this.controlPanel.Controls.Add(this.btnAddColumnAndRow);
             this.controlPanel.Controls.Add(this.btnAddRow);
@@ -106,6 +114,45 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // cbVariants
+            // 
+            this.cbVariants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVariants.FormattingEnabled = true;
+            this.cbVariants.Location = new System.Drawing.Point(641, 48);
+            this.cbVariants.Name = "cbVariants";
+            this.cbVariants.Size = new System.Drawing.Size(121, 21);
+            this.cbVariants.TabIndex = 14;
+            this.cbVariants.SelectedIndexChanged += new System.EventHandler(this.cbVariants_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(638, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Components:";
+            // 
+            // cbComponents
+            // 
+            this.cbComponents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbComponents.FormattingEnabled = true;
+            this.cbComponents.Location = new System.Drawing.Point(641, 23);
+            this.cbComponents.Name = "cbComponents";
+            this.cbComponents.Size = new System.Drawing.Size(121, 21);
+            this.cbComponents.TabIndex = 12;
+            this.cbComponents.SelectedIndexChanged += new System.EventHandler(this.cbComponents_SelectedIndexChanged);
+            // 
+            // btnComponentManager
+            // 
+            this.btnComponentManager.Location = new System.Drawing.Point(505, 7);
+            this.btnComponentManager.Name = "btnComponentManager";
+            this.btnComponentManager.Size = new System.Drawing.Size(127, 62);
+            this.btnComponentManager.TabIndex = 11;
+            this.btnComponentManager.Text = "Component manager";
+            this.btnComponentManager.UseVisualStyleBackColor = true;
+            this.btnComponentManager.Click += new System.EventHandler(this.btnComponentManager_Click);
             // 
             // btnBackgroundColor
             // 
@@ -195,15 +242,15 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // btnDrawObject
+            // btnNoneComponent
             // 
-            this.btnDrawObject.Location = new System.Drawing.Point(505, 7);
-            this.btnDrawObject.Name = "btnDrawObject";
-            this.btnDrawObject.Size = new System.Drawing.Size(127, 62);
-            this.btnDrawObject.TabIndex = 11;
-            this.btnDrawObject.Text = "Draw object";
-            this.btnDrawObject.UseVisualStyleBackColor = true;
-            this.btnDrawObject.Click += new System.EventHandler(this.btnDrawObject_Click);
+            this.btnNoneComponent.Location = new System.Drawing.Point(769, 23);
+            this.btnNoneComponent.Name = "btnNoneComponent";
+            this.btnNoneComponent.Size = new System.Drawing.Size(49, 46);
+            this.btnNoneComponent.TabIndex = 15;
+            this.btnNoneComponent.Text = "None";
+            this.btnNoneComponent.UseVisualStyleBackColor = true;
+            this.btnNoneComponent.Click += new System.EventHandler(this.btnNoneComponent_Click);
             // 
             // Form1
             // 
@@ -244,7 +291,11 @@
         private System.Windows.Forms.Button btnAddColumnAndRow;
         private System.Windows.Forms.Button btnBackgroundColor;
         private System.Windows.Forms.ColorDialog cdBackgroud;
-        private System.Windows.Forms.Button btnDrawObject;
+        private System.Windows.Forms.Button btnComponentManager;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbComponents;
+        private System.Windows.Forms.ComboBox cbVariants;
+        private System.Windows.Forms.Button btnNoneComponent;
     }
 }
 

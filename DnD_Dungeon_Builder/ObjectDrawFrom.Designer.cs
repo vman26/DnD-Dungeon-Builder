@@ -50,6 +50,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.rbEraser = new System.Windows.Forms.RadioButton();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnRedo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawingIsometric)).BeginInit();
@@ -62,8 +63,7 @@
             // 
             // pbDrawing2D
             // 
-            this.pbDrawing2D.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbDrawing2D.Location = new System.Drawing.Point(299, 326);
+            this.pbDrawing2D.Location = new System.Drawing.Point(246, 326);
             this.pbDrawing2D.Name = "pbDrawing2D";
             this.pbDrawing2D.Size = new System.Drawing.Size(50, 48);
             this.pbDrawing2D.TabIndex = 0;
@@ -86,14 +86,13 @@
             // 
             this.pbGrid2D.Location = new System.Drawing.Point(12, 88);
             this.pbGrid2D.Name = "pbGrid2D";
-            this.pbGrid2D.Size = new System.Drawing.Size(650, 524);
+            this.pbGrid2D.Size = new System.Drawing.Size(525, 525);
             this.pbGrid2D.TabIndex = 2;
             this.pbGrid2D.TabStop = false;
             // 
             // pbDrawingIsometric
             // 
-            this.pbDrawingIsometric.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbDrawingIsometric.Location = new System.Drawing.Point(974, 326);
+            this.pbDrawingIsometric.Location = new System.Drawing.Point(788, 326);
             this.pbDrawingIsometric.Name = "pbDrawingIsometric";
             this.pbDrawingIsometric.Size = new System.Drawing.Size(50, 48);
             this.pbDrawingIsometric.TabIndex = 3;
@@ -104,9 +103,9 @@
             // 
             // pbGridIsometric
             // 
-            this.pbGridIsometric.Location = new System.Drawing.Point(668, 88);
+            this.pbGridIsometric.Location = new System.Drawing.Point(543, 88);
             this.pbGridIsometric.Name = "pbGridIsometric";
-            this.pbGridIsometric.Size = new System.Drawing.Size(650, 524);
+            this.pbGridIsometric.Size = new System.Drawing.Size(525, 525);
             this.pbGridIsometric.TabIndex = 4;
             this.pbGridIsometric.TabStop = false;
             // 
@@ -168,7 +167,7 @@
             // 
             // btnUndo
             // 
-            this.btnUndo.Location = new System.Drawing.Point(1216, 12);
+            this.btnUndo.Location = new System.Drawing.Point(856, 12);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(103, 70);
             this.btnUndo.TabIndex = 15;
@@ -290,7 +289,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(1097, 12);
+            this.btnSave.Location = new System.Drawing.Point(737, 12);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(113, 70);
             this.btnSave.TabIndex = 25;
@@ -298,11 +297,22 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // btnRedo
+            // 
+            this.btnRedo.Location = new System.Drawing.Point(965, 12);
+            this.btnRedo.Name = "btnRedo";
+            this.btnRedo.Size = new System.Drawing.Size(103, 70);
+            this.btnRedo.TabIndex = 26;
+            this.btnRedo.Text = "Redo";
+            this.btnRedo.UseVisualStyleBackColor = true;
+            this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
+            // 
             // ObjectDrawFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1331, 616);
+            this.ClientSize = new System.Drawing.Size(1078, 616);
+            this.Controls.Add(this.btnRedo);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rbEraser);
             this.Controls.Add(this.nupEraserWidth);
@@ -324,8 +334,12 @@
             this.Controls.Add(this.pbDrawing2D);
             this.Controls.Add(this.pbGrid2D);
             this.Controls.Add(this.btnClear2D);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ObjectDrawFrom";
             this.Text = "ObjectDraw";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ObjectDrawFrom_FormClosing);
             this.Load += new System.EventHandler(this.ObjectDrawFrom_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).EndInit();
@@ -364,5 +378,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton rbEraser;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnRedo;
     }
 }

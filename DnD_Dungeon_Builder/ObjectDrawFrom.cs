@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
 {
     public partial class ObjectDrawFrom : Form
     {
+        bool isChanged = false;
+        bool isSaved = true;
         Point lastPoint = Point.Empty; // Point.Empty represents null for a Point object
         Point keptPoint = Point.Empty;
+        Point rightClick = Point.Empty;
 
         bool isMouseDown = false; // This is used to evaluate whether our mousebutton is down or not
         bool isOffset = false;
@@ -23,15 +22,31 @@ namespace DnD_Dungeon_Builder
         Bitmap grid2D;
         Bitmap gridIsometric;
 
-        List<BitmapBackup> bitmapBackup;
+        List<BitmapBackup> undoBitmapBackup;
+        List<BitmapBackup> redoBitmapBackup;
 
         public Bitmap TwoDimensional { get; private set; }
         public Bitmap Isometric { get; private set; }
+        public Drawing Drawing { get; private set; }
 
-        public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
+        Position Position = Position.NotSet;
+
+        public ObjectDrawFrom(Drawing drawing, Position position = Position.NotSet)
+            : this(drawing?.TwoDView, drawing?.ThreeDView)
+        {
+            Text = "Edit: " + position.ToString();
+            Position = position;
+        }
+
+            public ObjectDrawFrom(Bitmap twoDimensional = null, Bitmap isometric = null)
         {
             InitializeComponent();
-            bitmapBackup = new List<BitmapBackup>();
+
+            btnUndo.Enabled = false;
+            btnRedo.Enabled = false;
+
+            undoBitmapBackup = new List<BitmapBackup>();
+            redoBitmapBackup = new List<BitmapBackup>();
 
             grid2D = new Bitmap(pbGrid2D.Width, pbGrid2D.Height);
             pbGrid2D.Image = grid2D;
@@ -60,18 +75,57 @@ namespace DnD_Dungeon_Builder
             else
             {
                 // Set default clean image
-                clearDrawings();
+                clearDrawings(createBackup:false);
             }
 
             rbDraw.Checked = true;
             pbDrawColor.BackColor = Color.Black;
             pbFillColor.BackColor = Color.White;
 
+            
+            pbDrawing2D.ContextMenu = createContextMenu(pbDrawing2D.Name);
+            pbDrawingIsometric.ContextMenu = createContextMenu(pbDrawingIsometric.Name);
+        }
+
+        private ContextMenu createContextMenu(string pictureboxName)
+        {
             ContextMenu cm = new ContextMenu();
-            cm.MenuItems.Add("Offset start", new EventHandler(SetOffset_Click));
-            cm.MenuItems.Add("Item 2");
-            pbDrawing2D.ContextMenu = cm;
-            pbDrawingIsometric.ContextMenu = cm;
+            MenuItem item = new MenuItem("Offset start", new EventHandler(SetOffset_Click))
+            {
+                Name = pictureboxName
+            };
+            cm.MenuItems.Add(item);
+            item = new MenuItem("Pipette", new EventHandler(Pipette_Click))
+            {
+                Name = pictureboxName
+            };
+            cm.MenuItems.Add(item);
+            
+            return cm;
+        }
+
+        private void Pipette_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp = null;
+            if ((sender as MenuItem).Name == pbDrawing2D.Name)
+            {
+                bmp = (Bitmap)pbDrawing2D.Image;
+            }
+            if ((sender as MenuItem).Name == pbDrawingIsometric.Name)
+            {
+                bmp = (Bitmap)pbDrawingIsometric.Image;
+            }
+            Color targetColor = bmp.GetPixel(rightClick.X, rightClick.Y);
+
+            if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
+            {
+                pbDrawColor.BackColor = targetColor;
+            }
+
+            if (rbFill.Checked)
+            {
+                pbFillColor.BackColor = targetColor;
+            }
         }
 
         private void SetOffset_Click(object sender, EventArgs e)
@@ -90,14 +144,25 @@ namespace DnD_Dungeon_Builder
 
         private void ObjectDrawFrom_Load(object sender, EventArgs e)
         {
-            Draw.DrawGridTiles(ref grid2D);
-            Draw.DrawIsometricTiles(ref gridIsometric);
+            Draw.DrawGridTiles(ref grid2D, Position);
+            Draw.DrawIsometricTiles(ref gridIsometric, Position);
+        }
+
+        private void contentChanged()
+        {
+            isSaved = false;
+            if (!Text.Contains("*"))
+                Text += "*";
+            isChanged = true;
         }
 
         private void pbDrawing_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
+                redoBitmapBackup = new List<BitmapBackup>();
+                btnRedo.Enabled = false;
+
                 backup(sender as PictureBox);
 
                 if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked || rbEraser.Checked)
@@ -127,6 +192,11 @@ namespace DnD_Dungeon_Builder
                         }
                     }
                 }
+                contentChanged();
+            }
+            else if(e.Button == MouseButtons.Right)
+            {
+                rightClick = e.Location;
             }
         }
 
@@ -164,7 +234,7 @@ namespace DnD_Dungeon_Builder
                         }
                         if (rbLine.Checked || rbRectangle.Checked || rbCircle.Checked)
                         {
-                            drawing = (Bitmap)bitmapBackup.Last().Bitmap.Clone();
+                            drawing = (Bitmap)undoBitmapBackup.Last().Bitmap.Clone();
                             drawingBox.Image = drawing;
                             using (Graphics g = Graphics.FromImage(drawing))
                             {
@@ -196,14 +266,15 @@ namespace DnD_Dungeon_Builder
             clearDrawings(1);
         }
 
-        private void clearDrawings(int drawing=0)
+        private void clearDrawings(int drawing = 0, bool createBackup = true)
         {
             Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
 
             switch(drawing)
             {
                 case 0:
-                    backup(new PictureBox[]{ pbDrawing2D, pbDrawingIsometric });
+                    if(createBackup)
+                        backup(new PictureBox[]{ pbDrawing2D, pbDrawingIsometric });
                     break;
                 case 1:
                     backup(pbDrawing2D);
@@ -222,6 +293,7 @@ namespace DnD_Dungeon_Builder
                 bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
                 pbDrawingIsometric.Image = bmp;
             }
+            contentChanged();
             Invalidate();
         }
 
@@ -229,9 +301,10 @@ namespace DnD_Dungeon_Builder
 
         private void loadDrawings(Bitmap twoDimensional, Bitmap isometric = null)
         {
-            pbDrawing2D.Image = twoDimensional;
-            Bitmap bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
-            pbDrawingIsometric.Image = (isometric != null) ? isometric : bmp;
+            Bitmap bmp = new Bitmap(pbDrawing2D.Width, pbDrawing2D.Height);
+            pbDrawing2D.Image = (twoDimensional != null) ? (Bitmap)twoDimensional.Clone() : bmp;
+            bmp = new Bitmap(pbDrawingIsometric.Width, pbDrawingIsometric.Height);
+            pbDrawingIsometric.Image = (isometric != null) ? (Bitmap)isometric.Clone() : bmp;
             Invalidate();
         }
 
@@ -281,22 +354,67 @@ namespace DnD_Dungeon_Builder
         private void backup(PictureBox pictureBox)
         {
             if (pictureBox.Image != null)
-                bitmapBackup.Add(new BitmapBackup(pictureBox));
+            {
+                undoBitmapBackup.Add(new BitmapBackup(pictureBox));
+                btnUndo.Enabled = true;
+            }
         }
 
         private void backup(PictureBox[] pictureBoxes)
         {
             if (pictureBoxes != null)
-                bitmapBackup.Add(new BitmapBackup(pictureBoxes));
+            {
+                undoBitmapBackup.Add(new BitmapBackup(pictureBoxes));
+                btnUndo.Enabled = true;
+            }
         }
 
         private void undo()
         {
-            if (bitmapBackup.Count > 0)
+            if (undoBitmapBackup.Count > 0)
             {
-                BitmapBackup backup = bitmapBackup.Last();
+                contentChanged();
+                BitmapBackup backup = undoBitmapBackup.Last();
+                if (backup.PictureBoxes != null)
+                {
+                    redoBitmapBackup.Add(new BitmapBackup(backup.PictureBoxes.ToArray()));
+                }
+                else
+                {
+                    redoBitmapBackup.Add(new BitmapBackup(backup.PictureBox));
+                }
+                btnRedo.Enabled = true;
                 backup.Restore();
-                bitmapBackup.Remove(backup);
+                undoBitmapBackup.Remove(backup);
+                if (undoBitmapBackup.Count <= 0)
+                {
+                    btnUndo.Enabled = false;
+                }
+                Invalidate();
+            }
+        }
+
+        private void redo()
+        {
+            if (redoBitmapBackup.Count > 0)
+            {
+                contentChanged();
+                BitmapBackup backup = redoBitmapBackup.Last();
+                if (backup.PictureBoxes != null)
+                {
+                    undoBitmapBackup.Add(new BitmapBackup(backup.PictureBoxes.ToArray()));
+                }
+                else
+                {
+                    undoBitmapBackup.Add(new BitmapBackup(backup.PictureBox));
+                }
+                btnUndo.Enabled = true;
+                backup.Restore();
+                redoBitmapBackup.Remove(backup);
+                if (redoBitmapBackup.Count <= 0)
+                {
+                    btnRedo.Enabled = false;
+                }
                 Invalidate();
             }
         }
@@ -313,9 +431,45 @@ namespace DnD_Dungeon_Builder
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            TwoDimensional = (Bitmap)pbDrawing2D.Image;
-            Isometric = (Bitmap)pbDrawingIsometric.Image;
-            DialogResult = DialogResult.OK;
+            save();
+        }
+
+        private void save()
+        {
+            isSaved = true;
+            Text = Text.Substring(0, Text.IndexOf("*"));
+            TwoDimensional = (Bitmap)pbDrawing2D.Image.Clone();
+            Isometric = (Bitmap)pbDrawingIsometric.Image.Clone();
+
+            Drawing = new Drawing(TwoDimensional, Isometric);
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e)
+        {
+            redo();
+        }
+
+        private void ObjectDrawFrom_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isChanged)
+            {
+                DialogResult = DialogResult.Cancel;
+                return;
+            }
+            if (isSaved)
+            {
+                DialogResult = DialogResult.OK;
+                return;
+            }
+            else
+            {
+                if (MessageBox.Show("Do you want to save all changes before exiting?","Save?",MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    save();
+                    DialogResult = DialogResult.OK;
+                    return;
+                }
+            }
         }
     }
 }
