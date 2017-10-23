@@ -173,5 +173,33 @@ namespace DnD_Dungeon_Builder
             return gp;
 
         }
+
+
+        public static Bitmap CombineImages(Size bitmapSize, params Bitmap[] layers)
+        {
+            //a holder for the result
+            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height);
+
+            //use a graphics object to draw the resized image into the bitmap
+            using (Graphics graphics = Graphics.FromImage(result))
+            {
+                //set the resize quality modes to high quality
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                //draw the images into the target bitmap
+                Point location = Point.Empty;
+                Rectangle r = new Rectangle(location, result.Size);
+                foreach (Bitmap bitmap in layers)
+                {
+                    bitmap.MakeTransparent();
+                    graphics.DrawImage(bitmap, r);
+                }
+            }
+
+            //return the resulting bitmap
+            result.MakeTransparent();
+            return result;
+        }
     }
 }

@@ -155,7 +155,7 @@ namespace DnD_Dungeon_Builder
                 redrawTiles();
                 selectedTile = nullPoint;
             }
-
+            
             if (map != null)
             {
                 for (int x = 0; x < map.Columns; x++)
@@ -166,6 +166,7 @@ namespace DnD_Dungeon_Builder
                         pbManager2D.AddObject(x, y, drawing?.TwoDView);
                         pbManagerIsometric.AddObject(x, y, drawing?.ThreeDView);
                         Invalidate();
+                        //gridPb.Image = Draw.CombineImages(gridPb.Size, GridDrawArea, pbManager2D.CombineImages(gridPb.Size));
                     }
                 }
             }

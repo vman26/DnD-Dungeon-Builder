@@ -36,3 +36,6 @@ E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dun
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.ComponentManagerForm.resources
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.StringInputForm.resources
 C:\Users\qmvel\source\repos\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.Form2.resources
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.ComponentManagerForm.resources
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.Form2.resources
+E:\Bibliotheek\Documents\Visual Studio 2015\Projects\DnD-Dungeon-Builder\DnD_Dungeon_Builder\obj\Debug\DnD_Dungeon_Builder.StringInputForm.resources
