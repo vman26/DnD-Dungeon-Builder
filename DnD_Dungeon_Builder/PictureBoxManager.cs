@@ -30,7 +30,13 @@ namespace DnD_Dungeon_Builder
         {
             ClickThroughPictureBox pb = new ClickThroughPictureBox();
             pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            form.Controls.Add(pb);
             return pb;
+        }
+
+        private void removePictureBox(ClickThroughPictureBox pb)
+        {
+            form.Controls.Remove(pb);
         }
 
         private void initMap()
@@ -44,6 +50,7 @@ namespace DnD_Dungeon_Builder
                     grid[col].Add(newPictureBox());
                 }
             }
+            form.Invalidate();
         }
 
         public void AddColumn()
@@ -54,6 +61,7 @@ namespace DnD_Dungeon_Builder
                 grid[grid.Count - 1].Add(newPictureBox());
             }
             cols++;
+            form.Invalidate();
         }
 
         public void AddRow()
@@ -63,6 +71,7 @@ namespace DnD_Dungeon_Builder
                 column.Add(newPictureBox());
             }
             rows++;
+            form.Invalidate();
         }
 
         public void DeleteColumn(int columnIndex)
@@ -73,6 +82,7 @@ namespace DnD_Dungeon_Builder
             }
             grid.RemoveAt(columnIndex);
             cols--;
+            form.Invalidate();
         }
 
         public void DeleteRow(int rowIndex)
@@ -86,6 +96,7 @@ namespace DnD_Dungeon_Builder
                 grid.RemoveAt(rowIndex);
             }
             rows--;
+            form.Invalidate();
         }
 
         public void ClearMap()
@@ -104,6 +115,7 @@ namespace DnD_Dungeon_Builder
                 throw new IndexOutOfRangeException("The given y is not within range of the map!");
             }
             grid[x][y].Image = (Bitmap)tObject.Clone();
+            grid[x][y].Invalidate();
         }
 
         public PictureBox GetObject(int x, int y)
@@ -134,7 +146,8 @@ namespace DnD_Dungeon_Builder
 
         public void RemoveObject(int x, int y)
         {
-            grid[x][y].Image = null;
+            GetObject(x, y).Image = null;
+            grid[x][y].Invalidate();
         }
 
         public void Draw(int xTiles, int yTiles, int tileSize)
@@ -191,6 +204,7 @@ namespace DnD_Dungeon_Builder
                     }
                 }
             }
+            form.Invalidate();
         }
     }
 }
