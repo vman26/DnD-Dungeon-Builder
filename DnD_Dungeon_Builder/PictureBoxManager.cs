@@ -7,16 +7,21 @@ namespace DnD_Dungeon_Builder
 {
     public class PictureBoxManager
     {
-        int rows, cols;
         List<List<ClickThroughPictureBox>> grid;
         public List<List<ClickThroughPictureBox>> Grid { get { return grid; } }
         public int Rows { get { return rows; } }
         public int Columns { get { return cols; } }
 
-        public PictureBoxManager(int cols, int rows)
+        private GridType type;
+        private Form form;
+        int rows, cols;
+
+        public PictureBoxManager(int cols, int rows, GridType type, Form form)
         {
             this.cols = cols;
             this.rows = rows;
+            this.type = type;
+            this.form = form;
 
             initMap();
         }
@@ -132,9 +137,60 @@ namespace DnD_Dungeon_Builder
             grid[x][y].Image = null;
         }
 
-        public void Draw()
+        public void Draw(int xTiles, int yTiles, int tileSize)
         {
+            if (type == GridType.TwoDimensional)
+            {
+                for (int x = 0; x < xTiles; x++)
+                {
+                    for (var y = 0; y < yTiles; y++)
+                    {
+                        Point location = new Point(x * tileSize, y * tileSize);
+                        Size size = new Size(tileSize, tileSize);
+                        PictureBox pb = GetObject(x, y);
+                        pb.Location = location;
+                        pb.Size = size;
 
+                        //g.DrawRectangle(pen, Xi * tileSize, Yi * tileSize, tileSize, tileSize);
+                    }
+                }
+            }
+            else if (type == GridType.Isometric)
+            {
+                int bitmapOffset = 100;
+                Size bitmapSize = new Size(tileSize * xTiles * 2 + bitmapOffset, tileSize * yTiles + bitmapOffset);
+
+                if (yTiles - xTiles > 0) bitmapSize.Width += ((yTiles - xTiles) * tileSize * 2);
+                if (xTiles - yTiles > 0) bitmapSize.Height += (int)Math.Floor((xTiles - yTiles) * tileSize * 0.5);
+
+                var IsoW = tileSize; // cell width
+                var IsoH = tileSize / 2; // cell height
+                var IsoX = bitmapSize.Width / 2;
+                var IsoY = 0;
+
+                for (var y = 0; y < yTiles; y++)
+                {
+                    for (var x = 0; x < xTiles; x++)
+                    {
+                        var rx = Coordinate.IsoToScreenX(x, y, IsoX, IsoW);
+                        var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
+
+                        if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
+                        ry += bitmapOffset / 2;
+
+                        Point location = new Point(rx - IsoW, (ry + IsoH * 2) - (IsoW * 2));
+                        Size size = new Size(IsoW * 2, IsoW * 2);
+                        PictureBox pb = GetObject(x, y);
+                        pb.Location = location;
+                        pb.Size = size;
+
+                        /*g.DrawLine(pen, rx, ry, rx - IsoW, ry + IsoH);
+                        g.DrawLine(pen, rx - IsoW, ry + IsoH, rx, ry + IsoH * 2);
+                        g.DrawLine(pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
+                        g.DrawLine(pen, rx + IsoW, ry + IsoH, rx, ry);*/
+                    }
+                }
+            }
         }
     }
 }
