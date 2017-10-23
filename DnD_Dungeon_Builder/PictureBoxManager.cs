@@ -16,7 +16,24 @@ namespace DnD_Dungeon_Builder
 
         private GridType type;
         private Form form;
-        int rows, cols;
+        private int rows, cols;
+        private Point offset
+        {
+            get
+            {
+                Point tmp = Point.Empty;
+                if (parent != null)
+                {
+                    Control p = parent;
+                    while (p != null && !(p is Form))
+                    {
+                        tmp.Offset(p.Location);
+                        p = p.Parent;
+                    }
+                }
+                return tmp;
+            }
+        }
 
         public PictureBoxManager(int cols, int rows, GridType type, Form form, Control parent = null)
         {
@@ -26,14 +43,21 @@ namespace DnD_Dungeon_Builder
             this.form = form;
             this.parent = parent;
 
+            
+
             initMap();
         }
 
         private ClickThroughPictureBox newPictureBox()
         {
-            ClickThroughPictureBox pb = new ClickThroughPictureBox();
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            ClickThroughPictureBox pb = new ClickThroughPictureBox
+            {
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Parent = parent,
+                BackColor = Color.Transparent,
+            };
             form.Controls.Add(pb);
+            pb.BringToFront();
             return pb;
         }
 
@@ -117,7 +141,7 @@ namespace DnD_Dungeon_Builder
             {
                 throw new IndexOutOfRangeException("The given y is not within range of the map!");
             }
-            grid[x][y].Image = (Bitmap)tObject.Clone();
+            grid[x][y].Image = (Bitmap)tObject?.Clone();
             grid[x][y].Invalidate();
         }
 
@@ -155,13 +179,6 @@ namespace DnD_Dungeon_Builder
 
         public void Draw(int xTiles, int yTiles, int tileSize)
         {
-            Point offset;
-
-            if (parent != null)
-                offset = parent.Location;
-            else
-                offset = Point.Empty;
-
             if (type == GridType.TwoDimensional)
             {
                 for (int x = 0; x < xTiles; x++)
@@ -215,6 +232,40 @@ namespace DnD_Dungeon_Builder
                 }
             }
             form.Invalidate();
+        }
+
+        public Bitmap CombineImages(Size bitmapSize)
+        {
+            //a holder for the result
+            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height);
+
+            //use a graphics object to draw the resized image into the bitmap
+            using (Graphics graphics = Graphics.FromImage(result))
+            {
+                //set the resize quality modes to high quality
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                //draw the images into the target bitmap
+                for (int x = 0; x < cols; x++)
+                {
+                    for (var y = 0; y < rows; y++)
+                    {
+                        PictureBox pb = grid[x][y];
+                        if (pb.Image != null)
+                        {
+                            Point location = pb.Location;
+                            location.Offset(-offset.X, -offset.Y);
+                            Rectangle r = new Rectangle(location, pb.Size);
+                            graphics.DrawImage(pb.Image, r);
+                        }
+                    }
+                }
+            }
+
+            //return the resulting bitmap
+            result.MakeTransparent();
+            return result;
         }
     }
 }

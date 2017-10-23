@@ -17,6 +17,9 @@ namespace DnD_Dungeon_Builder
         Color isoBackgroundColor;
 
         ComponentManager componentManager;
+        PictureBoxManager pbManager2D;
+        PictureBoxManager pbManagerIsometric;
+
         Point nullPoint = new Point(-9999, -9999);
         Point selectedTile;
 
@@ -102,9 +105,17 @@ namespace DnD_Dungeon_Builder
             {
                 Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
                 CenterPictureBox(gridPb, GridDrawArea);
+                if (pbManager2D != null)
+                {
+                    pbManager2D.Draw(map.Columns, map.Rows, tileSize);
+                }
 
                 Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, isoBackgroundColor, selectedTileX, selectedTileY);
                 CenterPictureBox(isometricPb, IsometricDrawArea);
+                if (pbManagerIsometric != null)
+                {
+                    pbManagerIsometric.Draw(map.Columns, map.Rows, tileSize);
+                }
             }
         }
 
@@ -112,11 +123,13 @@ namespace DnD_Dungeon_Builder
         {
             using (CreateMapForm form = new CreateMapForm())
             {
-                form.Parent = this.Parent;
+                form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     map = new Map<ComponentVariant>(form.Xtiles, form.Ytiles, form.MapName);
+                    pbManager2D = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.TwoDimensional, this, gridPb);
+                    pbManagerIsometric = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.Isometric, this, isometricPb);
                     refreshScreen();
                 }
             }
@@ -142,6 +155,21 @@ namespace DnD_Dungeon_Builder
                 redrawTiles();
                 selectedTile = nullPoint;
             }
+
+            if (map != null)
+            {
+                for (int x = 0; x < map.Columns; x++)
+                {
+                    for (int y = 0; y < map.Rows; y++)
+                    {
+                        Drawing drawing = map.GetObject(x, y)?.GetDrawing(Position.North);
+                        pbManager2D.AddObject(x, y, drawing?.TwoDView);
+                        pbManagerIsometric.AddObject(x, y, drawing?.ThreeDView);
+                        Invalidate();
+                    }
+                }
+            }
+
             changeInfo();
         }
 
@@ -177,6 +205,8 @@ namespace DnD_Dungeon_Builder
             if (map != null)
             {
                 map.AddColumn();
+                pbManager2D?.AddColumn();
+                pbManagerIsometric?.AddColumn();
                 refreshScreen();
             }
         }
@@ -186,6 +216,8 @@ namespace DnD_Dungeon_Builder
             if (map != null)
             {
                 map.AddRow();
+                pbManager2D?.AddRow();
+                pbManagerIsometric?.AddRow();
                 refreshScreen();
             }
         }
@@ -196,6 +228,10 @@ namespace DnD_Dungeon_Builder
             {
                 map.AddColumn();
                 map.AddRow();
+                pbManager2D?.AddColumn();
+                pbManager2D?.AddRow();
+                pbManagerIsometric?.AddColumn();
+                pbManagerIsometric?.AddRow();
                 refreshScreen();
             }
         }
@@ -275,6 +311,12 @@ namespace DnD_Dungeon_Builder
             {
                 selectedTile = nullPoint;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 form = new Form2(pbManagerIsometric.CombineImages(isometricPb.Size));
+            form.Show();
         }
     }
 }

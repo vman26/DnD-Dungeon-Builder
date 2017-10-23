@@ -33,6 +33,9 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.lblVariantSelected = new System.Windows.Forms.Label();
+            this.lblComponentSelected = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnNoneComponent = new System.Windows.Forms.Button();
             this.cbVariants = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,9 +50,7 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblComponentSelected = new System.Windows.Forms.Label();
-            this.lblVariantSelected = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -100,6 +101,7 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.button1);
             this.controlPanel.Controls.Add(this.lblVariantSelected);
             this.controlPanel.Controls.Add(this.lblComponentSelected);
             this.controlPanel.Controls.Add(this.label3);
@@ -120,6 +122,33 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // lblVariantSelected
+            // 
+            this.lblVariantSelected.AutoSize = true;
+            this.lblVariantSelected.Location = new System.Drawing.Point(824, 51);
+            this.lblVariantSelected.Name = "lblVariantSelected";
+            this.lblVariantSelected.Size = new System.Drawing.Size(33, 13);
+            this.lblVariantSelected.TabIndex = 18;
+            this.lblVariantSelected.Text = "None";
+            // 
+            // lblComponentSelected
+            // 
+            this.lblComponentSelected.AutoSize = true;
+            this.lblComponentSelected.Location = new System.Drawing.Point(824, 26);
+            this.lblComponentSelected.Name = "lblComponentSelected";
+            this.lblComponentSelected.Size = new System.Drawing.Size(33, 13);
+            this.lblComponentSelected.TabIndex = 17;
+            this.lblComponentSelected.Text = "None";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(824, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(159, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Current component selected tile:";
             // 
             // btnNoneComponent
             // 
@@ -258,32 +287,15 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // label3
+            // button1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(824, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(159, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Current component selected tile:";
-            // 
-            // lblComponentSelected
-            // 
-            this.lblComponentSelected.AutoSize = true;
-            this.lblComponentSelected.Location = new System.Drawing.Point(824, 26);
-            this.lblComponentSelected.Name = "lblComponentSelected";
-            this.lblComponentSelected.Size = new System.Drawing.Size(33, 13);
-            this.lblComponentSelected.TabIndex = 17;
-            this.lblComponentSelected.Text = "None";
-            // 
-            // lblVariantSelected
-            // 
-            this.lblVariantSelected.AutoSize = true;
-            this.lblVariantSelected.Location = new System.Drawing.Point(824, 51);
-            this.lblVariantSelected.Name = "lblVariantSelected";
-            this.lblVariantSelected.Size = new System.Drawing.Size(33, 13);
-            this.lblVariantSelected.TabIndex = 18;
-            this.lblVariantSelected.Text = "None";
+            this.button1.Location = new System.Drawing.Point(1001, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -332,6 +344,7 @@
         private System.Windows.Forms.Label lblVariantSelected;
         private System.Windows.Forms.Label lblComponentSelected;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
