@@ -84,6 +84,19 @@ namespace DnD_Dungeon_Builder
             initMap();
         }
 
+        public void AddObject(int x, int y, T tObject)
+        {
+            if (!(x >= 0 && x < grid.Count))
+            {
+                throw new IndexOutOfRangeException("The given x is not within range of the map!");
+            }
+            if (!(y >= 0 && y < grid[x].Count))
+            {
+                throw new IndexOutOfRangeException("The given y is not within range of the map!");
+            }
+            grid[x][y] = tObject;
+        }
+
         public override string ToString()
         {
             return Name;

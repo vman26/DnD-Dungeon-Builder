@@ -33,6 +33,7 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.btnBackgroundColor = new System.Windows.Forms.Button();
             this.btnAddColumnAndRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
             this.btnAddColumn = new System.Windows.Forms.Button();
@@ -40,8 +41,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
+            this.btnDrawObject = new System.Windows.Forms.Button();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -92,7 +93,8 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.controlPanel.Controls.Add(this.button1);
+            this.controlPanel.Controls.Add(this.btnDrawObject);
+            this.controlPanel.Controls.Add(this.btnBackgroundColor);
             this.controlPanel.Controls.Add(this.btnAddColumnAndRow);
             this.controlPanel.Controls.Add(this.btnAddRow);
             this.controlPanel.Controls.Add(this.btnAddColumn);
@@ -104,6 +106,16 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // btnBackgroundColor
+            // 
+            this.btnBackgroundColor.Location = new System.Drawing.Point(373, 7);
+            this.btnBackgroundColor.Name = "btnBackgroundColor";
+            this.btnBackgroundColor.Size = new System.Drawing.Size(127, 62);
+            this.btnBackgroundColor.TabIndex = 10;
+            this.btnBackgroundColor.Text = "Pick background color";
+            this.btnBackgroundColor.UseVisualStyleBackColor = true;
+            this.btnBackgroundColor.Click += new System.EventHandler(this.btnBackgroundColor_Click);
             // 
             // btnAddColumnAndRow
             // 
@@ -183,15 +195,15 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // button1
+            // btnDrawObject
             // 
-            this.button1.Location = new System.Drawing.Point(373, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 62);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Pick background color";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnDrawObject.Location = new System.Drawing.Point(505, 7);
+            this.btnDrawObject.Name = "btnDrawObject";
+            this.btnDrawObject.Size = new System.Drawing.Size(127, 62);
+            this.btnDrawObject.TabIndex = 11;
+            this.btnDrawObject.Text = "Draw object";
+            this.btnDrawObject.UseVisualStyleBackColor = true;
+            this.btnDrawObject.Click += new System.EventHandler(this.btnDrawObject_Click);
             // 
             // Form1
             // 
@@ -230,8 +242,9 @@
         private System.Windows.Forms.Button btnAddRow;
         private System.Windows.Forms.Button btnAddColumn;
         private System.Windows.Forms.Button btnAddColumnAndRow;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnBackgroundColor;
         private System.Windows.Forms.ColorDialog cdBackgroud;
+        private System.Windows.Forms.Button btnDrawObject;
     }
 }
 

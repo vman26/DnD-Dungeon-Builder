@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmapBackup.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="CreateMapForm.cs">
       <SubType>Form</SubType>
@@ -62,6 +64,18 @@
     </Compile>
     <Compile Include="Map.cs" />
     <Compile Include="Mouse.cs" />
+    <Compile Include="ObjectDrawFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectDrawFrom.Designer.cs">
+      <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OffsetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OffsetForm.Designer.cs">
+      <DependentUpon>OffsetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CreateMapForm.resx">
@@ -69,6 +83,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectDrawFrom.resx">
+      <DependentUpon>ObjectDrawFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OffsetForm.resx">
+      <DependentUpon>OffsetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
