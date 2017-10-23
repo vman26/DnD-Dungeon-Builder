@@ -94,6 +94,19 @@ namespace DnD_Dungeon_Builder
             grid[x][y] = tObject;
         }
 
+        public T GetObject(int x, int y)
+        {
+            if (!(x >= 0 && x < grid.Count))
+            {
+                throw new IndexOutOfRangeException("The given x is not within range of the map!");
+            }
+            if (!(y >= 0 && y < grid[x].Count))
+            {
+                throw new IndexOutOfRangeException("The given y is not within range of the map!");
+            }
+            return grid[x][y];
+        }
+
         public void RemoveObject(int x, int y)
         {
             grid[x][y] = default(T);

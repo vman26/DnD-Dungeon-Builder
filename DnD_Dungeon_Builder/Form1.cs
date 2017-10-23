@@ -142,9 +142,28 @@ namespace DnD_Dungeon_Builder
                 redrawTiles();
                 selectedTile = nullPoint;
             }
+            changeInfo();
+        }
+
+        private void changeInfo()
+        {
             cbComponents.Enabled = (selectedTile != nullPoint);
             cbVariants.Enabled = (selectedTile != nullPoint);
             btnNoneComponent.Enabled = (selectedTile != nullPoint);
+            if (selectedTile != nullPoint)
+            {
+                ComponentVariant selectedTileVariant = map.GetObject(selectedTile.X, selectedTile.Y);
+                if (selectedTileVariant == null)
+                {
+                    lblComponentSelected.Text = "None";
+                    lblComponentSelected.Text = "None";
+                }
+                else
+                {
+                    lblComponentSelected.Text = selectedTileVariant.Parent.Name;
+                    lblComponentSelected.Text = selectedTileVariant.Name;
+                }
+            }
         }
 
         private void btnAddColumn_Click(object sender, EventArgs e)
@@ -219,7 +238,7 @@ namespace DnD_Dungeon_Builder
         {
             if (selectedTile != nullPoint)
             {
-                if (cbVariants.SelectedItem is Component)
+                if (cbVariants.SelectedItem is ComponentVariant)
                 {
                     ComponentVariant component = cbVariants.SelectedItem as ComponentVariant;
                 }

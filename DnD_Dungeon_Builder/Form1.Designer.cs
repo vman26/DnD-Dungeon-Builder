@@ -33,6 +33,7 @@
             this.isometricPanel = new System.Windows.Forms.Panel();
             this.isometricPb = new System.Windows.Forms.PictureBox();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.btnNoneComponent = new System.Windows.Forms.Button();
             this.cbVariants = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbComponents = new System.Windows.Forms.ComboBox();
@@ -46,7 +47,9 @@
             this.nupTileSize = new System.Windows.Forms.NumericUpDown();
             this.btnNewMap = new System.Windows.Forms.Button();
             this.cdBackgroud = new System.Windows.Forms.ColorDialog();
-            this.btnNoneComponent = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblComponentSelected = new System.Windows.Forms.Label();
+            this.lblVariantSelected = new System.Windows.Forms.Label();
             this.gridPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPb)).BeginInit();
             this.isometricPanel.SuspendLayout();
@@ -97,6 +100,9 @@
             // 
             this.controlPanel.AutoScroll = true;
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.controlPanel.Controls.Add(this.lblVariantSelected);
+            this.controlPanel.Controls.Add(this.lblComponentSelected);
+            this.controlPanel.Controls.Add(this.label3);
             this.controlPanel.Controls.Add(this.btnNoneComponent);
             this.controlPanel.Controls.Add(this.cbVariants);
             this.controlPanel.Controls.Add(this.label1);
@@ -114,6 +120,16 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(1264, 75);
             this.controlPanel.TabIndex = 2;
+            // 
+            // btnNoneComponent
+            // 
+            this.btnNoneComponent.Location = new System.Drawing.Point(769, 23);
+            this.btnNoneComponent.Name = "btnNoneComponent";
+            this.btnNoneComponent.Size = new System.Drawing.Size(49, 46);
+            this.btnNoneComponent.TabIndex = 15;
+            this.btnNoneComponent.Text = "None";
+            this.btnNoneComponent.UseVisualStyleBackColor = true;
+            this.btnNoneComponent.Click += new System.EventHandler(this.btnNoneComponent_Click);
             // 
             // cbVariants
             // 
@@ -242,15 +258,32 @@
             this.btnNewMap.UseVisualStyleBackColor = true;
             this.btnNewMap.Click += new System.EventHandler(this.btnNewMap_Click);
             // 
-            // btnNoneComponent
+            // label3
             // 
-            this.btnNoneComponent.Location = new System.Drawing.Point(769, 23);
-            this.btnNoneComponent.Name = "btnNoneComponent";
-            this.btnNoneComponent.Size = new System.Drawing.Size(49, 46);
-            this.btnNoneComponent.TabIndex = 15;
-            this.btnNoneComponent.Text = "None";
-            this.btnNoneComponent.UseVisualStyleBackColor = true;
-            this.btnNoneComponent.Click += new System.EventHandler(this.btnNoneComponent_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(824, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(159, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Current component selected tile:";
+            // 
+            // lblComponentSelected
+            // 
+            this.lblComponentSelected.AutoSize = true;
+            this.lblComponentSelected.Location = new System.Drawing.Point(824, 26);
+            this.lblComponentSelected.Name = "lblComponentSelected";
+            this.lblComponentSelected.Size = new System.Drawing.Size(33, 13);
+            this.lblComponentSelected.TabIndex = 17;
+            this.lblComponentSelected.Text = "None";
+            // 
+            // lblVariantSelected
+            // 
+            this.lblVariantSelected.AutoSize = true;
+            this.lblVariantSelected.Location = new System.Drawing.Point(824, 51);
+            this.lblVariantSelected.Name = "lblVariantSelected";
+            this.lblVariantSelected.Size = new System.Drawing.Size(33, 13);
+            this.lblVariantSelected.TabIndex = 18;
+            this.lblVariantSelected.Text = "None";
             // 
             // Form1
             // 
@@ -296,6 +329,9 @@
         private System.Windows.Forms.ComboBox cbComponents;
         private System.Windows.Forms.ComboBox cbVariants;
         private System.Windows.Forms.Button btnNoneComponent;
+        private System.Windows.Forms.Label lblVariantSelected;
+        private System.Windows.Forms.Label lblComponentSelected;
+        private System.Windows.Forms.Label label3;
     }
 }
 

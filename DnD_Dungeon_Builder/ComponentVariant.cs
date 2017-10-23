@@ -12,10 +12,12 @@ namespace DnD_Dungeon_Builder
         public string Name { get; private set; }
         public Drawing[] Drawings { get; private set; }
         public Position DrawPosition { get; private set; }
+        public Component Parent { get; private set; }
 
-        public ComponentVariant(string name, Drawing[] drawing = null)
+        public ComponentVariant(string name, Component parent, Drawing[] drawing = null)
         {
             Name = name;
+            Parent = parent;
             Drawings = new Drawing[4] { null, null, null, null };
             if (drawing != null)
             {

@@ -22,7 +22,7 @@ namespace DnD_Dungeon_Builder
             if (Components.Any(c => c.Name == name))
                 return false;
 
-            Components.Add(new ComponentVariant(name, drawing));
+            Components.Add(new ComponentVariant(name, this, drawing));
             return true;
         }
 
