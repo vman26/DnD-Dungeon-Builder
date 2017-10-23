@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapBackup.cs" />
+    <Compile Include="ClickThroughPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Component.cs" />
     <Compile Include="ComponentManager.cs" />
     <Compile Include="ComponentManagerForm.cs">

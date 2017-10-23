@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
@@ -10,8 +8,8 @@ namespace DnD_Dungeon_Builder
     public class PictureBoxManager
     {
         int rows, cols;
-        List<List<PictureBox>> grid;
-        public List<List<PictureBox>> Grid { get { return grid; } }
+        List<List<ClickThroughPictureBox>> grid;
+        public List<List<ClickThroughPictureBox>> Grid { get { return grid; } }
         public int Rows { get { return rows; } }
         public int Columns { get { return cols; } }
 
@@ -23,34 +21,41 @@ namespace DnD_Dungeon_Builder
             initMap();
         }
 
+        private ClickThroughPictureBox newPictureBox()
+        {
+            ClickThroughPictureBox pb = new ClickThroughPictureBox();
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            return pb;
+        }
+
         private void initMap()
         {
-            grid = new List<List<PictureBox>>();
+            grid = new List<List<ClickThroughPictureBox>>();
             for (int col = 0; col < cols; col++)
             {
-                grid.Add(new List<PictureBox>());
+                grid.Add(new List<ClickThroughPictureBox>());
                 for (int row = 0; row < rows; row++)
                 {
-                    grid[col].Add(null);
+                    grid[col].Add(newPictureBox());
                 }
             }
         }
 
         public void AddColumn()
         {
-            grid.Add(new List<PictureBox>());
+            grid.Add(new List<ClickThroughPictureBox>());
             for (int row = 0; row < rows; row++)
             {
-                grid[grid.Count - 1].Add(null);
+                grid[grid.Count - 1].Add(newPictureBox());
             }
             cols++;
         }
 
         public void AddRow()
         {
-            foreach (List<PictureBox> column in grid)
+            foreach (List<ClickThroughPictureBox> column in grid)
             {
-                column.Add(null);
+                column.Add(newPictureBox());
             }
             rows++;
         }
@@ -67,7 +72,7 @@ namespace DnD_Dungeon_Builder
 
         public void DeleteRow(int rowIndex)
         {
-            foreach (List<PictureBox> row in grid)
+            foreach (List<ClickThroughPictureBox> row in grid)
             {
                 if (!(rowIndex >= 0 && rowIndex < row.Count))
                 {
@@ -83,7 +88,7 @@ namespace DnD_Dungeon_Builder
             initMap();
         }
 
-        public void AddObject(int x, int y, PictureBox tObject)
+        public void AddObject(int x, int y, Bitmap tObject)
         {
             if (!(x >= 0 && x < grid.Count))
             {
@@ -93,7 +98,7 @@ namespace DnD_Dungeon_Builder
             {
                 throw new IndexOutOfRangeException("The given y is not within range of the map!");
             }
-            grid[x][y] = tObject;
+            grid[x][y].Image = (Bitmap)tObject.Clone();
         }
 
         public PictureBox GetObject(int x, int y)
@@ -109,9 +114,27 @@ namespace DnD_Dungeon_Builder
             return grid[x][y];
         }
 
+        public List<PictureBox> GetObjects()
+        {
+            List<PictureBox> pbList = new List<PictureBox>();
+            foreach (List<ClickThroughPictureBox> row in grid)
+            {
+                foreach (ClickThroughPictureBox pb in row)
+                {
+                    pbList.Add(pb);
+                }
+            }
+            return pbList;
+        }
+
         public void RemoveObject(int x, int y)
         {
-            grid[x][y] = null;
+            grid[x][y].Image = null;
+        }
+
+        public void Draw()
+        {
+
         }
     }
 }
