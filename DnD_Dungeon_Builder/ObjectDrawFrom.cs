@@ -439,7 +439,9 @@ namespace DnD_Dungeon_Builder
             isSaved = true;
             Text = Text.Substring(0, Text.IndexOf("*"));
             TwoDimensional = (Bitmap)pbDrawing2D.Image.Clone();
+            TwoDimensional.MakeTransparent();
             Isometric = (Bitmap)pbDrawingIsometric.Image.Clone();
+            Isometric.MakeTransparent();
 
             Drawing = new Drawing(TwoDimensional, Isometric);
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace DnD_Dungeon_Builder
@@ -56,8 +58,8 @@ namespace DnD_Dungeon_Builder
                 Parent = parent,
                 BackColor = Color.Transparent,
             };
-            form.Controls.Add(pb);
-            pb.BringToFront();
+            /*form.Controls.Add(pb);
+            pb.BringToFront();*/
             return pb;
         }
 
@@ -237,15 +239,17 @@ namespace DnD_Dungeon_Builder
         public Bitmap CombineImages(Size bitmapSize)
         {
             //a holder for the result
-            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height);
+            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height, PixelFormat.Format64bppArgb);
 
             //use a graphics object to draw the resized image into the bitmap
             using (Graphics graphics = Graphics.FromImage(result))
             {
                 //set the resize quality modes to high quality
-                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.CompositingMode = CompositingMode.SourceOver;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+
                 //draw the images into the target bitmap
                 for (int x = 0; x < cols; x++)
                 {
@@ -262,9 +266,6 @@ namespace DnD_Dungeon_Builder
                     }
                 }
             }
-
-            //return the resulting bitmap
-            result.MakeTransparent();
             return result;
         }
     }

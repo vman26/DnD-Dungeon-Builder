@@ -166,9 +166,10 @@ namespace DnD_Dungeon_Builder
                         pbManager2D.AddObject(x, y, drawing?.TwoDView);
                         pbManagerIsometric.AddObject(x, y, drawing?.ThreeDView);
                         Invalidate();
-                        //gridPb.Image = Draw.CombineImages(gridPb.Size, GridDrawArea, pbManager2D.CombineImages(gridPb.Size));
                     }
                 }
+                gridPb.Image = Draw.CombineImages(gridPb.Size, pbManager2D.CombineImages(gridPb.Size), GridDrawArea);
+                isometricPb.Image = Draw.CombineImages(isometricPb.Size, pbManagerIsometric.CombineImages(isometricPb.Size), IsometricDrawArea);
             }
 
             changeInfo();
