@@ -22,8 +22,6 @@ namespace DnD_Dungeon_Builder
             }
 
             LoadComponentsFromFile();
-            Components.Insert(0, new Component("None"));
-            Components.First().AddComponent("None");
         }
 
         public bool AddNewComponent(string name)
@@ -112,6 +110,9 @@ namespace DnD_Dungeon_Builder
                     }
                 }
             }
+
+            Components.Insert(0, new Component("None"));
+            Components.First().AddComponent("None");
         }
     }
 }
