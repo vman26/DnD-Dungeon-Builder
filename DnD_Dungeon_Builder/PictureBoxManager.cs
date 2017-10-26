@@ -17,7 +17,6 @@ namespace DnD_Dungeon_Builder
         private Control parent;
 
         private GridType type;
-        private Form form;
         private int rows, cols;
         private Point offset
         {
@@ -37,12 +36,11 @@ namespace DnD_Dungeon_Builder
             }
         }
 
-        public PictureBoxManager(int cols, int rows, GridType type, Form form, Control parent = null)
+        public PictureBoxManager(int cols, int rows, GridType type, Control parent = null)
         {
             this.cols = cols;
             this.rows = rows;
             this.type = type;
-            this.form = form;
             this.parent = parent;
 
             
@@ -58,16 +56,9 @@ namespace DnD_Dungeon_Builder
                 Parent = parent,
                 BackColor = Color.Transparent,
             };
-            /*form.Controls.Add(pb);
-            pb.BringToFront();*/
             return pb;
         }
-
-        private void removePictureBox(ClickThroughPictureBox pb)
-        {
-            form.Controls.Remove(pb);
-        }
-
+        
         private void initMap()
         {
             grid = new List<List<ClickThroughPictureBox>>();
@@ -79,7 +70,6 @@ namespace DnD_Dungeon_Builder
                     grid[col].Add(newPictureBox());
                 }
             }
-            form.Invalidate();
         }
 
         public void AddColumn()
@@ -90,7 +80,6 @@ namespace DnD_Dungeon_Builder
                 grid[grid.Count - 1].Add(newPictureBox());
             }
             cols++;
-            form.Invalidate();
         }
 
         public void AddRow()
@@ -100,7 +89,6 @@ namespace DnD_Dungeon_Builder
                 column.Add(newPictureBox());
             }
             rows++;
-            form.Invalidate();
         }
 
         public void DeleteColumn(int columnIndex)
@@ -111,7 +99,6 @@ namespace DnD_Dungeon_Builder
             }
             grid.RemoveAt(columnIndex);
             cols--;
-            form.Invalidate();
         }
 
         public void DeleteRow(int rowIndex)
@@ -125,7 +112,6 @@ namespace DnD_Dungeon_Builder
                 grid.RemoveAt(rowIndex);
             }
             rows--;
-            form.Invalidate();
         }
 
         public void ClearMap()
@@ -233,7 +219,7 @@ namespace DnD_Dungeon_Builder
                     }
                 }
             }
-            form.Invalidate();
+            //form.Invalidate();
         }
 
         public Bitmap CombineImages(Size bitmapSize)
