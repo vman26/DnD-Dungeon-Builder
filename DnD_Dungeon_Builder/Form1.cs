@@ -168,8 +168,12 @@ namespace DnD_Dungeon_Builder
                         Invalidate();
                     }
                 }
-                gridPb.Image = Draw.CombineImages(gridPb.Size, pbManager2D.CombineImages(gridPb.Size), GridDrawArea);
-                isometricPb.Image = Draw.CombineImages(isometricPb.Size, pbManagerIsometric.CombineImages(isometricPb.Size), IsometricDrawArea);
+                gridPb.BackColor = Color.Transparent;
+                gridPb.BackgroundImage = GridDrawArea;
+                gridPb.Image = pbManager2D.CombineImages(gridPb.Size);
+                isometricPb.BackColor = Color.Transparent;
+                isometricPb.BackgroundImage = IsometricDrawArea;
+                isometricPb.Image = pbManagerIsometric.CombineImages(isometricPb.Size);
             }
 
             changeInfo();
