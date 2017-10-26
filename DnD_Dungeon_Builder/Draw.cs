@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace DnD_Dungeon_Builder
 {
@@ -178,13 +179,14 @@ namespace DnD_Dungeon_Builder
         public static Bitmap CombineImages(Size bitmapSize, params Bitmap[] layers)
         {
             //a holder for the result
-            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height);
+            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height, PixelFormat.Format64bppArgb);
 
             //use a graphics object to draw the resized image into the bitmap
             using (Graphics graphics = Graphics.FromImage(result))
             {
                 //set the resize quality modes to high quality
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.CompositingMode = CompositingMode.SourceOver;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
                 //draw the images into the target bitmap
