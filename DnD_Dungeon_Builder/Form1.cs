@@ -26,6 +26,7 @@ namespace DnD_Dungeon_Builder
         public Form1()
         {
             InitializeComponent();
+            DoubleBuffered = true;
 
             selectedTile = nullPoint;
 
@@ -128,8 +129,8 @@ namespace DnD_Dungeon_Builder
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     map = new Map<ComponentVariant>(form.Xtiles, form.Ytiles, form.MapName);
-                    pbManager2D = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.TwoDimensional, this, gridPb);
-                    pbManagerIsometric = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.Isometric, this, isometricPb);
+                    pbManager2D = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.TwoDimensional, gridPb);
+                    pbManagerIsometric = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.Isometric, isometricPb);
                     refreshScreen();
                 }
             }
@@ -165,7 +166,6 @@ namespace DnD_Dungeon_Builder
                         Drawing drawing = map.GetObject(x, y)?.GetDrawing(Position.North);
                         pbManager2D.AddObject(x, y, drawing?.TwoDView);
                         pbManagerIsometric.AddObject(x, y, drawing?.ThreeDView);
-                        Invalidate();
                     }
                 }
                 gridPb.BackColor = Color.Transparent;
