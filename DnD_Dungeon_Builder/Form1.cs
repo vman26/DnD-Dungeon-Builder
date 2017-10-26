@@ -37,6 +37,8 @@ namespace DnD_Dungeon_Builder
             cbComponents.DataSource = componentManager.Components;
             cbComponents.DisplayMember = "Name";
 
+            cbOrientation.DataSource = Enum.GetValues(typeof(Position)).Cast<Position>().Where(p => p != Position.NotSet).ToArray();
+
             GridDrawArea = new Bitmap(gridPb.Size.Width, gridPb.Size.Height);
             gridPb.Image = GridDrawArea;
 
@@ -183,21 +185,27 @@ namespace DnD_Dungeon_Builder
         {
             cbComponents.Enabled = (selectedTile != nullPoint);
             cbVariants.Enabled = (selectedTile != nullPoint);
+            cbOrientation.Enabled = (selectedTile != nullPoint);
             btnNoneComponent.Enabled = (selectedTile != nullPoint);
             if (selectedTile != nullPoint)
             {
-                ComponentVariant selectedTileVariant = map.GetObject(selectedTile.X, selectedTile.Y)?.Component;
+                MapComponent mapComponent = map.GetObject(selectedTile.X, selectedTile.Y);
+                ComponentVariant selectedTileVariant = mapComponent?.Component;
                 if (selectedTileVariant == null)
                 {
                     int componentCount = cbComponents.Items.Count;
                     componentCount = (componentCount > 0) ? 1 : 0;
                     cbComponents.SelectedIndex = componentCount - 1;
                     cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
+
+                    cbOrientation.SelectedItem = Position.North;
                 }
                 else
                 {
                     cbComponents.SelectedItem = selectedTileVariant.Parent;
                     cbVariants.SelectedItem = selectedTileVariant;
+
+                    cbOrientation.SelectedItem = mapComponent.Position;
                 }
             }
         }
@@ -306,6 +314,19 @@ namespace DnD_Dungeon_Builder
             {
                 map.RemoveObject(selectedTile.X, selectedTile.Y);
                 refreshScreen(false);
+            }
+        }
+
+        private void cbOrientation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                Position position;
+                if (Enum.TryParse(cbOrientation.SelectedItem.ToString(), out position))
+                {
+                    map.GetObject(selectedTile.X, selectedTile.Y)?.SetPosition(position);
+                    refreshScreen(false);
+                }
             }
         }
 

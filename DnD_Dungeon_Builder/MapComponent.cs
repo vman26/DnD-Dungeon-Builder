@@ -9,18 +9,18 @@ namespace DnD_Dungeon_Builder
     public class MapComponent
     {
         public ComponentVariant Component { get; private set; }
-        Position position;
+        public Position Position { get; private set; }
 
         public MapComponent(ComponentVariant component, Position position = Position.North)
         {
             Component = component;
-            this.position = position;
+            Position = position;
         }
 
         public void SetPosition(Position position)
         {
             if (position != Position.NotSet)
-                this.position = position;
+                Position = position;
         }
 
         public void SetComponent(ComponentVariant component)
@@ -33,7 +33,7 @@ namespace DnD_Dungeon_Builder
 
         public Drawing GetDrawing()
         {
-            return Component?.GetDrawing(position);
+            return Component?.GetDrawing(Position);
         }
     }
 }
