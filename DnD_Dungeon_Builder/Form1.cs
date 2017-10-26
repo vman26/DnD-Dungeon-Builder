@@ -9,7 +9,7 @@ namespace DnD_Dungeon_Builder
     {
         int tileSize = 40;
 
-        Map<ComponentVariant> map;
+        Map<MapComponent> map;
 
         Bitmap GridDrawArea;
         Bitmap IsometricDrawArea;
@@ -128,7 +128,7 @@ namespace DnD_Dungeon_Builder
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    map = new Map<ComponentVariant>(form.Xtiles, form.Ytiles, form.MapName);
+                    map = new Map<MapComponent>(form.Xtiles, form.Ytiles, form.MapName);
                     pbManager2D = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.TwoDimensional, gridPb);
                     pbManagerIsometric = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.Isometric, isometricPb);
                     refreshScreen();
@@ -163,7 +163,7 @@ namespace DnD_Dungeon_Builder
                 {
                     for (int y = 0; y < map.Rows; y++)
                     {
-                        Drawing drawing = map.GetObject(x, y)?.GetDrawing(Position.North);
+                        Drawing drawing = map.GetObject(x, y)?.GetDrawing();
                         pbManager2D.AddObject(x, y, drawing?.TwoDView);
                         pbManagerIsometric.AddObject(x, y, drawing?.ThreeDView);
                     }
@@ -186,7 +186,7 @@ namespace DnD_Dungeon_Builder
             btnNoneComponent.Enabled = (selectedTile != nullPoint);
             if (selectedTile != nullPoint)
             {
-                ComponentVariant selectedTileVariant = map.GetObject(selectedTile.X, selectedTile.Y);
+                ComponentVariant selectedTileVariant = map.GetObject(selectedTile.X, selectedTile.Y)?.Component;
                 if (selectedTileVariant == null)
                 {
                     int componentCount = cbComponents.Items.Count;
@@ -285,7 +285,16 @@ namespace DnD_Dungeon_Builder
                 if (cbVariants.SelectedItem is ComponentVariant)
                 {
                     ComponentVariant component = cbVariants.SelectedItem as ComponentVariant;
-                    map.AddObject(selectedTile.X, selectedTile.Y, component);
+                    MapComponent mapComponent = map.GetObject(selectedTile.X, selectedTile.Y);
+                    if(mapComponent==null)
+                    {
+                        mapComponent = new MapComponent(component);
+                    }
+                    else
+                    {
+                        mapComponent.SetComponent(component);
+                    }
+                    map.AddObject(selectedTile.X, selectedTile.Y, mapComponent);
                     refreshScreen(false);
                 }
             }

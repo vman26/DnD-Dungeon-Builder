@@ -75,6 +75,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Map.cs" />
+    <Compile Include="MapComponent.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="ObjectDrawFrom.cs">
       <SubType>Form</SubType>
