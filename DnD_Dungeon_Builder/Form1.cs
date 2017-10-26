@@ -189,8 +189,6 @@ namespace DnD_Dungeon_Builder
                 ComponentVariant selectedTileVariant = map.GetObject(selectedTile.X, selectedTile.Y);
                 if (selectedTileVariant == null)
                 {
-                    lblComponentSelected.Text = "None";
-                    lblComponentSelected.Text = "None";
                     int componentCount = cbComponents.Items.Count;
                     componentCount = (componentCount > 0) ? 1 : 0;
                     cbComponents.SelectedIndex = componentCount - 1;
@@ -198,8 +196,6 @@ namespace DnD_Dungeon_Builder
                 }
                 else
                 {
-                    lblComponentSelected.Text = selectedTileVariant.Parent?.Name;
-                    lblVariantSelected.Text = selectedTileVariant.Name;
                     cbComponents.SelectedItem = selectedTileVariant.Parent;
                     cbVariants.SelectedItem = selectedTileVariant;
                 }
@@ -317,12 +313,6 @@ namespace DnD_Dungeon_Builder
             {
                 selectedTile = nullPoint;
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form2 form = new Form2(pbManagerIsometric.CombineImages(isometricPb.Size));
-            form.Show();
         }
     }
 }
