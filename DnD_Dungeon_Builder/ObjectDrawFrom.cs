@@ -499,11 +499,21 @@ namespace DnD_Dungeon_Builder
             }
             else
             {
-                if (MessageBox.Show("Do you want to save all changes before exiting?","Save?",MessageBoxButtons.YesNo) == DialogResult.Yes)
+                DialogResult dialog = MessageBox.Show("Do you want to save all changes before exiting?", "Save?", MessageBoxButtons.YesNoCancel);
+                if (dialog == DialogResult.Yes)
                 {
                     save();
                     DialogResult = DialogResult.OK;
                     return;
+                }
+                if(dialog == DialogResult.No)
+                {
+                    DialogResult = DialogResult.Cancel;
+                    return;
+                }
+                if(dialog == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
                 }
             }
         }
