@@ -17,12 +17,20 @@ namespace DnD_Dungeon_Builder
             Components = new BindingList<ComponentVariant>();
         }
 
+        public void UpdateVariantFiles()
+        {
+            foreach (ComponentVariant variant in Components)
+            {
+                variant.Update(this);
+            }
+        }
+
         public bool AddComponent(string name, Drawing[] drawing = null)
         {
             if (Components.Any(c => c.Name == name))
                 return false;
 
-            Components.Add(new ComponentVariant(name, drawing));
+            Components.Add(new ComponentVariant(name, this, drawing));
             return true;
         }
 

@@ -46,7 +46,7 @@ namespace DnD_Dungeon_Builder
         {
             if (Components.Any(c => c.Name == component.Name))
                 return;
-            
+
             Components.Add(component);
         }
 
@@ -71,6 +71,11 @@ namespace DnD_Dungeon_Builder
             }
         }
 
+        public void SaveComponentToFile(Component component)
+        {
+            SaveComponentToFile(component, component.Name);
+        }
+
         public void LoadComponentsFromFile()
         {
             Components.Clear();
@@ -81,11 +86,12 @@ namespace DnD_Dungeon_Builder
                 if (Path.GetExtension(file) == ".bin")
                 {
                     Console.WriteLine(file);
+                    Component obj = null;
                     using (Stream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
                         try
                         {
-                            Component obj = (Component)formatter.Deserialize(stream);
+                            obj = (Component)formatter.Deserialize(stream);
                             LoadComponent(obj);
                         }
                         catch (InvalidCastException e)
@@ -97,8 +103,16 @@ namespace DnD_Dungeon_Builder
                             Console.WriteLine(e.Message);
                         }
                     }
+                    if (obj != null)
+                    {
+                        obj.UpdateVariantFiles();
+                        SaveComponentToFile(obj);
+                    }
                 }
             }
+
+            Components.Insert(0, new Component("None"));
+            Components.First().AddComponent("None");
         }
     }
 }

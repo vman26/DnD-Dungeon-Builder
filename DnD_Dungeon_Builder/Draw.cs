@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace DnD_Dungeon_Builder
 {
@@ -148,6 +150,55 @@ namespace DnD_Dungeon_Builder
             Graphics g = Graphics.FromImage(bitmap);
             g.Clear(Color.Transparent);
             g.Dispose();
+        }
+
+        public static GraphicsPath Transparent(Image im)
+        {
+            int x;
+            int y;
+            Bitmap bmp = new Bitmap(im);
+            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
+            Color mask = bmp.GetPixel(0, 0);
+
+            for (x = 0; x <= bmp.Width - 1; x++)
+            {
+                for (y = 0; y <= bmp.Height - 1; y++)
+                {
+                    if (!bmp.GetPixel(x, y).Equals(mask))
+                    {
+                        gp.AddRectangle(new Rectangle(x, y, 1, 1));
+                    }
+                }
+            }
+            bmp.Dispose();
+            return gp;
+
+        }
+
+
+        public static Bitmap CombineImages(Size bitmapSize, params Bitmap[] layers)
+        {
+            //a holder for the result
+            Bitmap result = new Bitmap(bitmapSize.Width, bitmapSize.Height, PixelFormat.Format32bppArgb);
+
+            //use a graphics object to draw the resized image into the bitmap
+            using (Graphics graphics = Graphics.FromImage(result))
+            {
+                //set the resize quality modes to high quality
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.CompositingMode = CompositingMode.SourceOver;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+
+                //draw the images into the target bitmap
+                Point location = Point.Empty;
+                Rectangle r = new Rectangle(location, result.Size);
+                foreach (Bitmap bitmap in layers)
+                {
+                    graphics.DrawImage(bitmap, r);
+                }
+            }
+            return result;
         }
     }
 }

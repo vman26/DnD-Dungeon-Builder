@@ -9,7 +9,7 @@ namespace DnD_Dungeon_Builder
     {
         int tileSize = 40;
 
-        Map<ComponentVariant> map;
+        Map<MapComponent> map;
 
         Bitmap GridDrawArea;
         Bitmap IsometricDrawArea;
@@ -17,12 +17,16 @@ namespace DnD_Dungeon_Builder
         Color isoBackgroundColor;
 
         ComponentManager componentManager;
+        PictureBoxManager pbManager2D;
+        PictureBoxManager pbManagerIsometric;
+
         Point nullPoint = new Point(-9999, -9999);
         Point selectedTile;
 
         public Form1()
         {
             InitializeComponent();
+            DoubleBuffered = true;
 
             selectedTile = nullPoint;
 
@@ -32,6 +36,8 @@ namespace DnD_Dungeon_Builder
 
             cbComponents.DataSource = componentManager.Components;
             cbComponents.DisplayMember = "Name";
+
+            cbOrientation.DataSource = Enum.GetValues(typeof(Position)).Cast<Position>().Where(p => p != Position.NotSet).ToArray();
 
             GridDrawArea = new Bitmap(gridPb.Size.Width, gridPb.Size.Height);
             gridPb.Image = GridDrawArea;
@@ -102,9 +108,17 @@ namespace DnD_Dungeon_Builder
             {
                 Draw.DrawGridTiles(map.Columns, map.Rows, tileSize, ref GridDrawArea, selectedTileX, selectedTileY);
                 CenterPictureBox(gridPb, GridDrawArea);
+                if (pbManager2D != null)
+                {
+                    pbManager2D.Draw(map.Columns, map.Rows, tileSize);
+                }
 
                 Draw.DrawIsometricTiles(map.Columns, map.Rows, tileSize, ref IsometricDrawArea, isoBackgroundColor, selectedTileX, selectedTileY);
                 CenterPictureBox(isometricPb, IsometricDrawArea);
+                if (pbManagerIsometric != null)
+                {
+                    pbManagerIsometric.Draw(map.Columns, map.Rows, tileSize);
+                }
             }
         }
 
@@ -112,11 +126,13 @@ namespace DnD_Dungeon_Builder
         {
             using (CreateMapForm form = new CreateMapForm())
             {
-                form.Parent = this.Parent;
+                form.Parent = Parent;
                 form.StartPosition = FormStartPosition.CenterParent;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    map = new Map<ComponentVariant>(form.Xtiles, form.Ytiles, form.MapName);
+                    map = new Map<MapComponent>(form.Xtiles, form.Ytiles, form.MapName);
+                    pbManager2D = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.TwoDimensional, gridPb);
+                    pbManagerIsometric = new PictureBoxManager(form.Xtiles, form.Ytiles, GridType.Isometric, isometricPb);
                     refreshScreen();
                 }
             }
@@ -142,9 +158,56 @@ namespace DnD_Dungeon_Builder
                 redrawTiles();
                 selectedTile = nullPoint;
             }
+            
+            if (map != null)
+            {
+                for (int x = 0; x < map.Columns; x++)
+                {
+                    for (int y = 0; y < map.Rows; y++)
+                    {
+                        Drawing drawing = map.GetObject(x, y)?.GetDrawing();
+                        pbManager2D.AddObject(x, y, drawing?.TwoDView);
+                        pbManagerIsometric.AddObject(x, y, drawing?.ThreeDView);
+                    }
+                }
+                gridPb.BackColor = Color.Transparent;
+                gridPb.BackgroundImage = GridDrawArea;
+                gridPb.Image = pbManager2D.CombineImages(gridPb.Size);
+                isometricPb.BackColor = Color.Transparent;
+                isometricPb.BackgroundImage = IsometricDrawArea;
+                isometricPb.Image = pbManagerIsometric.CombineImages(isometricPb.Size);
+            }
+
+            changeInfo();
+        }
+
+        private void changeInfo()
+        {
             cbComponents.Enabled = (selectedTile != nullPoint);
             cbVariants.Enabled = (selectedTile != nullPoint);
+            cbOrientation.Enabled = (selectedTile != nullPoint);
             btnNoneComponent.Enabled = (selectedTile != nullPoint);
+            if (selectedTile != nullPoint)
+            {
+                MapComponent mapComponent = map.GetObject(selectedTile.X, selectedTile.Y);
+                ComponentVariant selectedTileVariant = mapComponent?.Component;
+                if (selectedTileVariant == null)
+                {
+                    int componentCount = cbComponents.Items.Count;
+                    componentCount = (componentCount > 0) ? 1 : 0;
+                    cbComponents.SelectedIndex = componentCount - 1;
+                    cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
+
+                    cbOrientation.SelectedItem = Position.North;
+                }
+                else
+                {
+                    cbComponents.SelectedItem = selectedTileVariant.Parent;
+                    cbVariants.SelectedItem = selectedTileVariant;
+
+                    cbOrientation.SelectedItem = mapComponent.Position;
+                }
+            }
         }
 
         private void btnAddColumn_Click(object sender, EventArgs e)
@@ -152,6 +215,8 @@ namespace DnD_Dungeon_Builder
             if (map != null)
             {
                 map.AddColumn();
+                pbManager2D?.AddColumn();
+                pbManagerIsometric?.AddColumn();
                 refreshScreen();
             }
         }
@@ -161,6 +226,8 @@ namespace DnD_Dungeon_Builder
             if (map != null)
             {
                 map.AddRow();
+                pbManager2D?.AddRow();
+                pbManagerIsometric?.AddRow();
                 refreshScreen();
             }
         }
@@ -171,6 +238,10 @@ namespace DnD_Dungeon_Builder
             {
                 map.AddColumn();
                 map.AddRow();
+                pbManager2D?.AddColumn();
+                pbManager2D?.AddRow();
+                pbManagerIsometric?.AddColumn();
+                pbManagerIsometric?.AddRow();
                 refreshScreen();
             }
         }
@@ -219,9 +290,20 @@ namespace DnD_Dungeon_Builder
         {
             if (selectedTile != nullPoint)
             {
-                if (cbVariants.SelectedItem is Component)
+                if (cbVariants.SelectedItem is ComponentVariant)
                 {
                     ComponentVariant component = cbVariants.SelectedItem as ComponentVariant;
+                    MapComponent mapComponent = map.GetObject(selectedTile.X, selectedTile.Y);
+                    if(mapComponent==null)
+                    {
+                        mapComponent = new MapComponent(component);
+                    }
+                    else
+                    {
+                        mapComponent.SetComponent(component);
+                    }
+                    map.AddObject(selectedTile.X, selectedTile.Y, mapComponent);
+                    refreshScreen(false);
                 }
             }
         }
@@ -231,6 +313,20 @@ namespace DnD_Dungeon_Builder
             if (selectedTile != nullPoint)
             {
                 map.RemoveObject(selectedTile.X, selectedTile.Y);
+                refreshScreen(false);
+            }
+        }
+
+        private void cbOrientation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectedTile != nullPoint)
+            {
+                Position position;
+                if (Enum.TryParse(cbOrientation.SelectedItem.ToString(), out position))
+                {
+                    map.GetObject(selectedTile.X, selectedTile.Y)?.SetPosition(position);
+                    refreshScreen(false);
+                }
             }
         }
 
@@ -242,10 +338,6 @@ namespace DnD_Dungeon_Builder
             {
                 redrawTiles(selectedTile.X, selectedTile.Y);
                 refreshScreen(false);
-                int componentCount = cbComponents.Items.Count;
-                componentCount = (componentCount > 0) ? 1 : 0;
-                cbComponents.SelectedIndex = componentCount - 1;
-                cbComponents_SelectedIndexChanged(cbComponents, new EventArgs());
             }
             else
             {
