@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -7,6 +8,9 @@ namespace DnD_Dungeon_Builder
 {
     static class Draw
     {
+        const double Rad2Deg = 180.0 / Math.PI;
+        const double Deg2Rad = Math.PI / 180.0;
+
         static public void DrawGridTiles(int xTiles, int yTiles, int tileSize, ref Bitmap bitmap, int selectedTileX = -1, int selectedTileY = -1)
         {
             bitmap = new Bitmap(tileSize * xTiles + 1, tileSize * yTiles + 1);
@@ -35,10 +39,10 @@ namespace DnD_Dungeon_Builder
         {
             int bitmapOffset = 100;
             Size bitmapSize = new Size(tileSize * xTiles * 2 + bitmapOffset, tileSize * yTiles + bitmapOffset);
-            
+
             if (yTiles - xTiles > 0) bitmapSize.Width += ((yTiles - xTiles) * tileSize * 2);
             if (xTiles - yTiles > 0) bitmapSize.Height += (int)Math.Floor((xTiles - yTiles) * tileSize * 0.5);
-            
+
             bitmap = new Bitmap(bitmapSize.Width, bitmapSize.Height);
             Graphics g = Graphics.FromImage(bitmap);
 
@@ -55,9 +59,9 @@ namespace DnD_Dungeon_Builder
                 {
                     var rx = Coordinate.IsoToScreenX(x, y, IsoX, IsoW);
                     var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
-                    
+
                     if (yTiles - xTiles < 0) rx = rx + ((yTiles - xTiles) * IsoW);
-                    ry += bitmapOffset/2;
+                    ry += bitmapOffset / 2;
 
                     Pen pen = new Pen(Color.Black);
 
@@ -83,7 +87,7 @@ namespace DnD_Dungeon_Builder
                 g.DrawLine(pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
                 g.DrawLine(pen, rx + IsoW, ry + IsoH, rx, ry);
             }
-            
+
             g.Dispose();
         }
 
@@ -107,7 +111,7 @@ namespace DnD_Dungeon_Builder
             // Draw tile outline
             Pen pen = new Pen(Color.Black);
             Pen positionPen = new Pen(Color.Red);
-            size-=1;
+            size -= 1;
 
             g.DrawLine((position == Position.West) ? positionPen : pen, x, y, x, y + size);
             g.DrawLine((position == Position.South) ? positionPen : pen, x, y + size, x + size, y + size);
@@ -133,7 +137,7 @@ namespace DnD_Dungeon_Builder
             var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
 
             ry += bitmap.Height - IsoW - 2;
-            
+
             Pen pen = new Pen(Color.Black);
             Pen positionPen = new Pen(Color.Red);
 
@@ -145,25 +149,62 @@ namespace DnD_Dungeon_Builder
             g.Dispose();
         }
 
-        static public void DrawGridTilesFilled(ref Bitmap bitmap, int gridSize)
+        static public void DrawGridTilesFilled(ref Bitmap bitmap, Size gridSize)
         {
             Graphics g = Graphics.FromImage(bitmap);
             Size size = bitmap.Size;
 
             // Calculate total grid lines
-            int xLines = size.Width / gridSize;
-            int yLines = size.Height / gridSize;
+            int xLines = size.Width / gridSize.Width + 1;
+            int yLines = size.Height / gridSize.Height + 1;
 
             // Draw tile outline
             Pen pen = new Pen(Color.LightSlateGray);
 
             for (int x = 0; x <= xLines; x++)
             {
-                g.DrawLine(pen, x * gridSize, 0, x * gridSize, size.Height);
+                g.DrawLine(pen, x * gridSize.Width, 0, x * gridSize.Width, size.Height);
             }
             for (int y = 0; y < yLines; y++)
             {
-                g.DrawLine(pen, 0, y * gridSize, size.Width, y * gridSize);
+                g.DrawLine(pen, 0, y * gridSize.Height, size.Width, y * gridSize.Height);
+            }
+
+            g.Dispose();
+        }
+
+        static public void DrawIsometricTilesFilled(ref Bitmap bitmap, int gridSize)
+        {
+            List<Point> gridPoints = new List<Point>();
+
+            Graphics g = Graphics.FromImage(bitmap);
+            int size = bitmap.Width / 2;
+            
+            var IsoW = gridSize; // cell width
+            var IsoH = gridSize / 2; // cell height
+            var IsoX = bitmap.Width / 2;
+            var IsoY = 0;
+
+            // Calculate total grid lines
+            int xTiles = bitmap.Width / IsoW;
+            int yTiles = bitmap.Height / IsoH;
+
+            for (int x = 0; x < xTiles; x++)
+            {
+                for (int y = 0; y < yTiles; y++)
+                {
+                    var rx = Coordinate.IsoToScreenX(x, y, IsoX, IsoW);
+                    var ry = Coordinate.IsoToScreenY(x, y, IsoY, IsoH);
+
+                    Pen pen = new Pen(Color.LightSlateGray);
+
+                    gridPoints.Add(new Point(rx, ry));
+
+                    g.DrawLine(pen, rx, ry, rx - IsoW, ry + IsoH);
+                    g.DrawLine(pen, rx - IsoW, ry + IsoH, rx, ry + IsoH * 2);
+                    g.DrawLine(pen, rx, ry + IsoH * 2, rx + IsoW, ry + IsoH);
+                    g.DrawLine(pen, rx + IsoW, ry + IsoH, rx, ry);
+                }
             }
 
             g.Dispose();
@@ -223,6 +264,21 @@ namespace DnD_Dungeon_Builder
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// Calculates angle in radians between two points and x-axis.
+        /// </summary>
+        public static double Angle(Point start, Point end)
+        {
+            return Math.Atan2(start.Y - end.Y, end.X - start.X) * Rad2Deg;
+        }
+
+        public static Point CalculatePoint(Point start, double angle, int distance)
+        {
+            Point endPoint = new Point(start.X, start.Y);
+            endPoint.Offset(distance, Convert.ToInt32(distance / Math.Sin(angle)));
+            return endPoint;
         }
     }
 }

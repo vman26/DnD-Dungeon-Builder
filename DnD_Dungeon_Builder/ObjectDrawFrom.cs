@@ -156,13 +156,16 @@ namespace DnD_Dungeon_Builder
 
             if (cbSnapToGrid.Checked && redrawGrid)
             {
-                Draw.DrawGridTilesFilled(ref grid2D, (int)nupGridSize.Value);
+                int size = (int)nupGridSize.Value;
+                Draw.DrawGridTilesFilled(ref grid2D, new Size(size,size));
+                Draw.DrawGridTilesFilled(ref gridIsometric, new Size(size, size));
             }
 
             Draw.DrawGridTiles(ref grid2D, Position);
             Draw.DrawIsometricTiles(ref gridIsometric, Position);
 
             pbGrid2D.Image = grid2D;
+            pbGridIsometric.Image = gridIsometric;
         }
 
         private void contentChanged()
@@ -187,7 +190,7 @@ namespace DnD_Dungeon_Builder
 
                     Point mouseLocation = new Point(e.Location.X, e.Location.Y);
 
-                    if (cbSnapToGrid.Checked && (sender as PictureBox).Name == pbDrawing2D.Name)
+                    if (cbSnapToGrid.Checked)
                     {
                         int gridSize = (int)nupGridSize.Value;
                         mouseLocation.X = (mouseLocation.X / gridSize) * gridSize;
@@ -236,7 +239,7 @@ namespace DnD_Dungeon_Builder
             {
                 Point mouseLocation = new Point(e.Location.X, e.Location.Y);
 
-                if (cbSnapToGrid.Checked && (sender as PictureBox).Name == pbDrawing2D.Name)
+                if (cbSnapToGrid.Checked)
                 {
                     int gridSize = (int)nupGridSize.Value;
                     mouseLocation.X = (mouseLocation.X / gridSize) * gridSize;
