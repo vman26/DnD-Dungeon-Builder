@@ -182,14 +182,24 @@ namespace DnD_Dungeon_Builder
 
                 if (rbDraw.Checked || rbLine.Checked || rbRectangle.Checked || rbCircle.Checked || rbEraser.Checked)
                 {
+
+                    Point mouseLocation = new Point(e.Location.X, e.Location.Y);
+
+                    if (cbSnapToGrid.Checked && (sender as PictureBox).Name == pbDrawing2D.Name)
+                    {
+                        int gridSize = (int)nupGridSize.Value;
+                        mouseLocation.X = (mouseLocation.X / gridSize) * gridSize;
+                        mouseLocation.Y = (mouseLocation.Y / gridSize) * gridSize;
+                    }
+
                     if (isOffset)
                     {
                         lastPoint = keptPoint;
                     }
                     else
                     {
-                        keptPoint = e.Location;
-                        lastPoint = e.Location; // We assign the lastPoint to the current mouse position: e.Location
+                        keptPoint = mouseLocation;
+                        lastPoint = mouseLocation; // We assign the lastPoint to the current mouse position: e.Location
                     }
                     isMouseDown = true; // We set to true because our mouse button is down (clicked)
                 }
@@ -222,6 +232,15 @@ namespace DnD_Dungeon_Builder
 
             if (drawingBox != null)
             {
+                Point mouseLocation = new Point(e.Location.X, e.Location.Y);
+
+                if (cbSnapToGrid.Checked && (sender as PictureBox).Name == pbDrawing2D.Name)
+                {
+                    int gridSize = (int)nupGridSize.Value;
+                    mouseLocation.X = (mouseLocation.X / gridSize) * gridSize;
+                    mouseLocation.Y = (mouseLocation.Y / gridSize) * gridSize;
+                }
+
                 if (isMouseDown == true)
                 {
                     if (lastPoint != null)
@@ -239,10 +258,10 @@ namespace DnD_Dungeon_Builder
                             {
                                 Color erase = Color.FromArgb(1, 1, 1);
                                 drawingPen = (rbEraser.Checked) ? new Pen(erase, (int)nupEraserWidth.Value) : drawingPen;
-                                g.DrawLine(drawingPen, lastPoint, e.Location);
+                                g.DrawLine(drawingPen, lastPoint, mouseLocation);
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
                                 // This is to give the drawing a more smoother, less sharper look
-                                lastPoint = e.Location; // Keep assigning the lastPoint to the current mouse position
+                                lastPoint = mouseLocation; // Keep assigning the lastPoint to the current mouse position
                                 if (rbEraser.Checked)
                                     (drawingBox.Image as Bitmap).MakeTransparent(erase);
                             }
@@ -254,11 +273,11 @@ namespace DnD_Dungeon_Builder
                             using (Graphics g = Graphics.FromImage(drawing))
                             {
                                 if (rbLine.Checked)
-                                    g.DrawLine(drawingPen, lastPoint, e.Location);
+                                    g.DrawLine(drawingPen, lastPoint, mouseLocation);
                                 if (rbRectangle.Checked)
-                                    g.DrawRectangle(drawingPen, Math.Min(lastPoint.X, e.Location.X), Math.Min(lastPoint.Y, e.Location.Y), Math.Abs(e.Location.X - lastPoint.X), Math.Abs(e.Location.Y - lastPoint.Y));
+                                    g.DrawRectangle(drawingPen, Math.Min(lastPoint.X, mouseLocation.X), Math.Min(lastPoint.Y, mouseLocation.Y), Math.Abs(mouseLocation.X - lastPoint.X), Math.Abs(mouseLocation.Y - lastPoint.Y));
                                 if (rbCircle.Checked)
-                                    g.DrawEllipse(drawingPen, lastPoint.X, lastPoint.Y, (e.Location.X - lastPoint.X), (e.Location.Y - lastPoint.Y));
+                                    g.DrawEllipse(drawingPen, lastPoint.X, lastPoint.Y, (mouseLocation.X - lastPoint.X), (mouseLocation.Y - lastPoint.Y));
                                 g.SmoothingMode = SmoothingMode.AntiAlias;
                             }
                         }

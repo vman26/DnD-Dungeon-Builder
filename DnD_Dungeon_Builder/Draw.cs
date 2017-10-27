@@ -155,7 +155,7 @@ namespace DnD_Dungeon_Builder
             int yLines = size.Height / gridSize;
 
             // Draw tile outline
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(Color.LightSlateGray);
 
             for (int x = 0; x <= xLines; x++)
             {
