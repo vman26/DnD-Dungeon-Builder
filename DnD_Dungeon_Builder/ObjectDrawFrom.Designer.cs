@@ -51,6 +51,9 @@
             this.rbEraser = new System.Windows.Forms.RadioButton();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRedo = new System.Windows.Forms.Button();
+            this.cbSnapToGrid = new System.Windows.Forms.CheckBox();
+            this.nupGridSize = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawing2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDrawingIsometric)).BeginInit();
@@ -59,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbFillColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupBrushWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupEraserWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupGridSize)).BeginInit();
             this.SuspendLayout();
             // 
             // pbDrawing2D
@@ -307,11 +311,52 @@
             this.btnRedo.UseVisualStyleBackColor = true;
             this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
             // 
+            // cbSnapToGrid
+            // 
+            this.cbSnapToGrid.AutoSize = true;
+            this.cbSnapToGrid.Location = new System.Drawing.Point(543, 26);
+            this.cbSnapToGrid.Name = "cbSnapToGrid";
+            this.cbSnapToGrid.Size = new System.Drawing.Size(83, 17);
+            this.cbSnapToGrid.TabIndex = 27;
+            this.cbSnapToGrid.Text = "Snap to grid";
+            this.cbSnapToGrid.UseVisualStyleBackColor = true;
+            this.cbSnapToGrid.CheckedChanged += new System.EventHandler(this.cbSnapToGrid_CheckedChanged);
+            // 
+            // nupGridSize
+            // 
+            this.nupGridSize.Location = new System.Drawing.Point(543, 62);
+            this.nupGridSize.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nupGridSize.Name = "nupGridSize";
+            this.nupGridSize.Size = new System.Drawing.Size(120, 20);
+            this.nupGridSize.TabIndex = 28;
+            this.nupGridSize.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.nupGridSize.ValueChanged += new System.EventHandler(this.nupGridSize_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(540, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Grid size:";
+            // 
             // ObjectDrawFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1078, 616);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.nupGridSize);
+            this.Controls.Add(this.cbSnapToGrid);
             this.Controls.Add(this.btnRedo);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rbEraser);
@@ -349,6 +394,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbFillColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupBrushWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupEraserWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupGridSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -379,5 +425,8 @@
         private System.Windows.Forms.RadioButton rbEraser;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnRedo;
+        private System.Windows.Forms.CheckBox cbSnapToGrid;
+        private System.Windows.Forms.NumericUpDown nupGridSize;
+        private System.Windows.Forms.Label label3;
     }
 }
