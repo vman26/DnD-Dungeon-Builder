@@ -20,6 +20,8 @@ namespace DnD_Dungeon_Builder
         {
             InitializeComponent();
 
+            DoubleBuffered = true;
+
             this.componentManager = componentManager;
             KeyPreview = true;
             

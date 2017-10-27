@@ -42,6 +42,8 @@ namespace DnD_Dungeon_Builder
         {
             InitializeComponent();
 
+            DoubleBuffered = true;
+
             btnUndo.Enabled = false;
             btnRedo.Enabled = false;
 
