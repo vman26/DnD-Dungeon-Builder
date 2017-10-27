@@ -39,16 +39,6 @@ namespace DnD_Dungeon_Builder
 
             updateInfo();
 
-            pbNorth2D.ContextMenu = createContextMenu(Position.North);
-            pbEast2D.ContextMenu = createContextMenu(Position.East);
-            pbSouth2D.ContextMenu = createContextMenu(Position.South);
-            pbWest2D.ContextMenu = createContextMenu(Position.West);
-
-            pbNorthIsometric.ContextMenu = createContextMenuIsometric(Position.North);
-            pbEastIsometric.ContextMenu = createContextMenuIsometric(Position.East);
-            pbSouthIsometric.ContextMenu = createContextMenuIsometric(Position.South);
-            pbWestIsometric.ContextMenu = createContextMenuIsometric(Position.West);
-
             lbComponents.SelectedIndex = lbComponents.Items.Count - 1;
             lbComponents_SelectedIndexChanged(lbComponents, new EventArgs());
 
@@ -235,14 +225,6 @@ namespace DnD_Dungeon_Builder
                     }
                 }
             }
-            if (lbComponents.Items.Count > 0)
-            {
-                btnRemoveComponent.Enabled = true;
-            }
-            else
-            {
-                btnRemoveComponent.Enabled = false;
-            }
         }
 
         private void btnRemoveComponent_Click(object sender, EventArgs e)
@@ -323,14 +305,19 @@ namespace DnD_Dungeon_Builder
         {
             if(lbComponents.SelectedItem is Component)
             {
-                Component component = lbComponents.SelectedItem as Component;
-                selectedComponent = component;
+                selectedComponent = lbComponents.SelectedItem as Component;
                 lbComponentVariants.DataSource = selectedComponent.Components;
                 lbComponentVariants.DisplayMember = "Name";
                 int variantCount = lbComponentVariants.Items.Count;
                 variantCount = (variantCount > 0) ? 1 : 0;
                 lbComponentVariants.SelectedIndex = variantCount - 1;
                 lbComponentVariants_SelectedIndexChanged(lbComponentVariants, new EventArgs());
+
+                if (selectedComponent.Name == "None")
+                {
+                    selectedComponent = null;
+                    updateInfo();
+                }
             }
             else
             {
@@ -344,6 +331,14 @@ namespace DnD_Dungeon_Builder
             if (lbComponentVariants.SelectedItem is ComponentVariant)
             {
                 selectedVariant = lbComponentVariants.SelectedItem as ComponentVariant;
+
+                if (selectedVariant.Name == "None")
+                {
+                    selectedVariant = null;
+                    updateInfo();
+                    return;
+                }
+
                 updateInfo(selectedComponent, selectedVariant);
             }
             else
@@ -355,8 +350,22 @@ namespace DnD_Dungeon_Builder
 
         private void updateInfo(Component component = null, ComponentVariant componentVariant = null)
         {
-            btnRemoveVariant.Enabled = (lbComponentVariants.Items.Count > 0);
-            btnRemoveComponent.Enabled = (lbComponents.Items.Count > 0);
+            btnAddVariant.Enabled = selectedComponent != null;
+            btnRemoveVariant.Enabled = selectedVariant != null;
+            btnRemoveComponent.Enabled = selectedComponent != null;
+            btnCloneVariant.Enabled = selectedVariant != null;
+
+
+            btnNorthEdit.Enabled = selectedVariant != null;
+            btnEastEdit.Enabled = selectedVariant != null;
+            btnSouthEdit.Enabled = selectedVariant != null;
+            btnWestEdit.Enabled = selectedVariant != null;
+
+            btnNorthToWest.Enabled = selectedVariant != null;
+            btnWestToNorth.Enabled = selectedVariant != null;
+            btnEastToSouth.Enabled = selectedVariant != null;
+            btnSouthToEast.Enabled = selectedVariant != null;
+
             if (componentVariant == null)
             {
                 lblComponentName.Text = "No component selected";
@@ -369,17 +378,22 @@ namespace DnD_Dungeon_Builder
                 pbSouthIsometric.Image = null;
                 pbWest2D.Image = null;
                 pbWestIsometric.Image = null;
-                
-                btnNorthEdit.Enabled = false;
-                btnEastEdit.Enabled = false;
-                btnSouthEdit.Enabled = false;
-                btnWestEdit.Enabled = false;
+
+                pbNorth2D.ContextMenu = null;
+                pbEast2D.ContextMenu = null;
+                pbSouth2D.ContextMenu = null;
+                pbWest2D.ContextMenu = null;
+
+                pbNorthIsometric.ContextMenu = null;
+                pbEastIsometric.ContextMenu = null;
+                pbSouthIsometric.ContextMenu = null;
+                pbWestIsometric.ContextMenu = null;
 
                 return;
             }
 
             lblComponentName.Text = component.Name + ": " + componentVariant.Name;
-
+            
             pbNorth2D.Image = componentVariant.GetDrawing(Position.North)?.TwoDView;
             pbNorthIsometric.Image = componentVariant.GetDrawing(Position.North)?.ThreeDView;
             pbEast2D.Image = componentVariant.GetDrawing(Position.East)?.TwoDView;
@@ -388,11 +402,16 @@ namespace DnD_Dungeon_Builder
             pbSouthIsometric.Image = componentVariant.GetDrawing(Position.South)?.ThreeDView;
             pbWest2D.Image = componentVariant.GetDrawing(Position.West)?.TwoDView;
             pbWestIsometric.Image = componentVariant.GetDrawing(Position.West)?.ThreeDView;
-            
-            btnNorthEdit.Enabled = true;
-            btnEastEdit.Enabled = true;
-            btnSouthEdit.Enabled = true;
-            btnWestEdit.Enabled = true;
+
+            pbNorth2D.ContextMenu = createContextMenu(Position.North);
+            pbEast2D.ContextMenu = createContextMenu(Position.East);
+            pbSouth2D.ContextMenu = createContextMenu(Position.South);
+            pbWest2D.ContextMenu = createContextMenu(Position.West);
+
+            pbNorthIsometric.ContextMenu = createContextMenuIsometric(Position.North);
+            pbEastIsometric.ContextMenu = createContextMenuIsometric(Position.East);
+            pbSouthIsometric.ContextMenu = createContextMenuIsometric(Position.South);
+            pbWestIsometric.ContextMenu = createContextMenuIsometric(Position.West);
         }
 
         private void btnNorthEdit_Click(object sender, EventArgs e)
