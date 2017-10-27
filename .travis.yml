@@ -1,2 +1,6 @@
 language: csharp
 solution: DnD_Dungeon_Builder.sln
+notifications:
+  email:
+    on_success: never # default: change
+    on_failure: always # default: always
