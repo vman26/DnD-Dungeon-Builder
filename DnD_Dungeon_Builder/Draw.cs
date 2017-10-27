@@ -145,6 +145,30 @@ namespace DnD_Dungeon_Builder
             g.Dispose();
         }
 
+        static public void DrawGridTilesFilled(ref Bitmap bitmap, int gridSize)
+        {
+            Graphics g = Graphics.FromImage(bitmap);
+            Size size = bitmap.Size;
+
+            // Calculate total grid lines
+            int xLines = size.Width / gridSize;
+            int yLines = size.Height / gridSize;
+
+            // Draw tile outline
+            Pen pen = new Pen(Color.Black);
+
+            for (int x = 0; x <= xLines; x++)
+            {
+                g.DrawLine(pen, x * gridSize, 0, x * gridSize, size.Height);
+            }
+            for (int y = 0; y < yLines; y++)
+            {
+                g.DrawLine(pen, 0, y * gridSize, size.Width, y * gridSize);
+            }
+
+            g.Dispose();
+        }
+
         static public void ClearDrawing(ref Bitmap bitmap)
         {
             Graphics g = Graphics.FromImage(bitmap);

@@ -144,8 +144,23 @@ namespace DnD_Dungeon_Builder
 
         private void ObjectDrawFrom_Load(object sender, EventArgs e)
         {
+            drawTiles(cbSnapToGrid.Enabled);
+        }
+
+        private void drawTiles(bool redrawGrid = false)
+        {
+            Draw.ClearDrawing(ref grid2D);
+            Draw.ClearDrawing(ref gridIsometric);
+
+            if (cbSnapToGrid.Checked && redrawGrid)
+            {
+                Draw.DrawGridTilesFilled(ref grid2D, (int)nupGridSize.Value);
+            }
+
             Draw.DrawGridTiles(ref grid2D, Position);
             Draw.DrawIsometricTiles(ref gridIsometric, Position);
+
+            pbGrid2D.Image = grid2D;
         }
 
         private void contentChanged()
@@ -472,6 +487,16 @@ namespace DnD_Dungeon_Builder
                     return;
                 }
             }
+        }
+
+        private void nupGridSize_ValueChanged(object sender, EventArgs e)
+        {
+            drawTiles(true);
+        }
+
+        private void cbSnapToGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            drawTiles(true);
         }
     }
 }
